@@ -1,17 +1,21 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "pnpm build",
-  "outputDirectory": "dist/web/browser",
+
+  "//": "This file lives at the repo ROOT so Vercel works with the default Root Directory — do NOT set Root Directory to apps/web. Vercel reads vercel.json from the Root Directory, so the config only applies when they match. framework:null + an explicit build and output stop Vercel from auto-detecting the API or misplacing the Angular output.",
+
+  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "pnpm --filter @ludoteca/web... build",
+  "outputDirectory": "apps/web/dist/web/browser",
   "framework": null,
 
   "rewrites": [
     {
-      "//": "THE ONE LINE YOU MUST EDIT: point this at your Railway API.",
+      "//": "THE ONE LINE YOU MUST EDIT: point this at your Railway API. Proxying /api through Vercel keeps the session same-origin so the SameSite cookies work — see DEPLOY.md.",
       "source": "/api/:path*",
       "destination": "https://REPLACE-WITH-YOUR-APP.up.railway.app/api/:path*"
     },
     {
-      "//": "SPA fallback. Vercel matches real files first, so this only catches client-side routes like /colecao, which would otherwise 404 on reload. Must come after the /api rule — rewrites are evaluated in order.",
+      "//": "SPA fallback. Vercel serves real files first, so this only catches client-side routes like /colecao, which would otherwise 404 on reload. Must come after the /api rule — rewrites are evaluated in order.",
       "source": "/(.*)",
       "destination": "/index.html"
     }
@@ -38,7 +42,7 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     },
     {
-      "//": "index.html is NOT fingerprinted: it's what points at the current bundle, so it must always be revalidated or users get pinned to a dead build.",
+      "//": "index.html is NOT fingerprinted: it points at the current bundle, so it must always be revalidated or users get pinned to a dead build.",
       "source": "/index.html",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
     }

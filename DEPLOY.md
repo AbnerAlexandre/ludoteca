@@ -53,13 +53,21 @@ antes de mexer no `vercel.json`.
 ## 2. Vercel — Web
 
 1. **Add New → Project**, importe o mesmo repositório.
-2. **Root Directory: `apps/web`.** É o passo que faltava — sem isso a Vercel
-   tenta buildar a API e falha. O `apps/web/vercel.json` cuida de build command
-   (`pnpm build`, que constrói o `@ludoteca/shared` antes via `prebuild`) e do
-   output (`dist/web/browser`).
-3. **Edite o rewrite** em `apps/web/vercel.json`: troque
+2. **Deixe o Root Directory no padrão (a raiz do repo). NÃO mude para
+   `apps/web`.** O `vercel.json` fica na **raiz** e cuida de tudo: instala o
+   workspace, builda só o web + o `@ludoteca/shared`
+   (`pnpm --filter @ludoteca/web... build`) e serve o output de
+   `apps/web/dist/web/browser`. Com `framework: null` a Vercel não tenta
+   adivinhar o projeto (era isso que fazia ela mirar na API).
+
+   > A Vercel lê o `vercel.json` a partir do Root Directory. Se você apontar o
+   > Root Directory para `apps/web`, ela deixa de enxergar o `vercel.json` da
+   > raiz e volta a não saber o que buildar — foi o que aconteceu. Mantenha na
+   > raiz.
+
+3. **Edite o rewrite** em `vercel.json` (na raiz): troque
    `https://REPLACE-WITH-YOUR-APP.up.railway.app` pela URL do Railway do passo 1.
-   Commite.
+   Commite e a Vercel refaz o deploy sozinha.
 4. Deploy. Anote a URL da Vercel.
 5. Volte ao Railway e ajuste `WEB_ORIGIN` para a URL final da Vercel, se ainda
    não estiver exata. Redeploy da API.

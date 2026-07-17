@@ -18,6 +18,7 @@
   "16": "compilerOptions",
   "17": "compilerOptions",
   "18": "game.schema.ts",
+  "19": "AppShell",
   "20": "compilerOptions",
   "21": "App",
   "22": "Web",
@@ -30,10 +31,8 @@
   "29": "ListDetailPage",
   "30": "auth.schema.ts",
   "31": "friend.service.ts",
-  "32": "newPublicId",
   "33": "auth.store.ts",
   "34": "ListsService",
-  "36": "group.service.ts",
   "37": "FriendsPage",
   "38": "GroupDetailPage",
   "40": "ApiService",
@@ -41,6 +40,5 @@
   "42": "seat.ts",
   "43": "SearchPage",
   "44": "ListsPage",
-  "45": "errors.ts",
   "46": "GroupsPage"
 }

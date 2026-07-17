@@ -20,8 +20,8 @@
     "semantic_hash": ""
   },
   "apps/api/drizzle/meta/_journal.json": {
-    "mtime": 1784271419.633007,
-    "ast_hash": "3e930c0f53a284e81058c4cc55281009",
+    "mtime": 1784292661.7510257,
+    "ast_hash": "07772f5c255c640b9e55a1d74a77c349",
     "semantic_hash": ""
   },
   "apps/api/package.json": {
@@ -50,8 +50,8 @@
     "semantic_hash": ""
   },
   "apps/api/src/db/schema.ts": {
-    "mtime": 1784271234.1305587,
-    "ast_hash": "de961c19bc502243cf50149fc7716824",
+    "mtime": 1784292631.4161417,
+    "ast_hash": "627403d8986e362fb0ce5e7d04b38ee3",
     "semantic_hash": ""
   },
   "apps/api/src/db/seed.ts": {
@@ -110,8 +110,8 @@
     "semantic_hash": ""
   },
   "apps/api/src/modules/games/game.mapper.ts": {
-    "mtime": 1784272104.9682007,
-    "ast_hash": "1ab65118287bf46d524fe38e6068371c",
+    "mtime": 1784292651.9125457,
+    "ast_hash": "77fff29ff58d3214aa8e282c106e42ee",
     "semantic_hash": ""
   },
   "apps/api/src/modules/games/game.service.ts": {
@@ -120,23 +120,23 @@
     "semantic_hash": ""
   },
   "apps/api/src/modules/games/ludopedia.client.ts": {
-    "mtime": 1784272085.9177263,
-    "ast_hash": "68605331e1b56c0f2dfac180ba9255ab",
+    "mtime": 1784292639.0340428,
+    "ast_hash": "c1049f655e94693739275297eae47d2e",
     "semantic_hash": ""
   },
   "apps/api/src/modules/lists/export.test.ts": {
-    "mtime": 1784272400.9760795,
-    "ast_hash": "22a9a0082f6033bb12f62da8a4fe0806",
+    "mtime": 1784293131.556859,
+    "ast_hash": "5f026d06f86450903c46224d77ab6c38",
     "semantic_hash": ""
   },
   "apps/api/src/modules/lists/export.ts": {
-    "mtime": 1784272419.2506745,
-    "ast_hash": "6660f67723a3fe5258fb816b3e8ea642",
+    "mtime": 1784292868.848112,
+    "ast_hash": "570f5b8c983a74afc3e447975d9b4fa4",
     "semantic_hash": ""
   },
   "apps/api/src/modules/lists/list.service.ts": {
-    "mtime": 1784272528.1812482,
-    "ast_hash": "a0fcc0a851c79cbe6531574f23c770ca",
+    "mtime": 1784293048.967891,
+    "ast_hash": "3c6621f5499df0300072709d4b7095ba",
     "semantic_hash": ""
   },
   "apps/api/src/modules/social/friend.service.ts": {
@@ -205,8 +205,8 @@
     "semantic_hash": ""
   },
   "apps/api/src/routes/lists.ts": {
-    "mtime": 1784272446.970498,
-    "ast_hash": "2f4b746c3b104169a31519b8d2ac68f6",
+    "mtime": 1784293072.6850605,
+    "ast_hash": "8df3f960cb391ce59e9f741f6a82615d",
     "semantic_hash": ""
   },
   "apps/api/src/routes/me.ts": {
@@ -265,8 +265,8 @@
     "semantic_hash": ""
   },
   "apps/web/src/app/app.routes.ts": {
-    "mtime": 1784273137.6566758,
-    "ast_hash": "c3e6330a8a651456941c796317098f52",
+    "mtime": 1784292710.8768227,
+    "ast_hash": "3f4db47fbd43f5cae1e7ab82ca1ce628",
     "semantic_hash": ""
   },
   "apps/web/src/app/app.ts": {
@@ -315,8 +315,8 @@
     "semantic_hash": ""
   },
   "packages/shared/src/game.schema.ts": {
-    "mtime": 1784271026.801687,
-    "ast_hash": "3cec1259d0d35c659e369372211cfba0",
+    "mtime": 1784292649.764057,
+    "ast_hash": "1cb5843f28d1dbf108e8022dc47e877a",
     "semantic_hash": ""
   },
   "packages/shared/src/index.ts": {
@@ -325,8 +325,8 @@
     "semantic_hash": ""
   },
   "packages/shared/src/list.schema.ts": {
-    "mtime": 1784271066.5244193,
-    "ast_hash": "73b96732cdd4bdf37de16a45f5c10c8f",
+    "mtime": 1784293007.8980105,
+    "ast_hash": "e82c3a90cf4700e40533ae0f0c2e6144",
     "semantic_hash": ""
   },
   "packages/shared/src/social.schema.ts": {
@@ -405,8 +405,8 @@
     "semantic_hash": ""
   },
   "apps/web/src/app/core/lists.service.ts": {
-    "mtime": 1784273271.7262347,
-    "ast_hash": "fa50bc51c89118246c7a921376ad7dc5",
+    "mtime": 1784292900.6637266,
+    "ast_hash": "e3f9c162eb7cf2d25ffb0491a4770312",
     "semantic_hash": ""
   },
   "apps/web/src/app/core/seat.spec.ts": {
@@ -450,48 +450,48 @@
     "semantic_hash": ""
   },
   "apps/web/src/app/features/games/search.page.ts": {
-    "mtime": 1784273387.467338,
-    "ast_hash": "bf91801a95638a3963dcf82338e88ba9",
+    "mtime": 1784292723.723957,
+    "ast_hash": "e01b641a7b594a414dbe0abbf01e4c75",
     "semantic_hash": ""
   },
   "apps/web/src/app/features/lists/list-detail.page.ts": {
-    "mtime": 1784288886.333207,
-    "ast_hash": "092325c446da8c8a75f27198c22b7d7f",
+    "mtime": 1784293112.906457,
+    "ast_hash": "be1d808d7c1431a25438c5d61b759fc6",
     "semantic_hash": ""
   },
   "apps/web/src/app/features/lists/lists.page.ts": {
-    "mtime": 1784273302.9166522,
-    "ast_hash": "9b715d03d471385219de664541759982",
+    "mtime": 1784293383.1812625,
+    "ast_hash": "63e71877941e994971091f5dc689a8e4",
     "semantic_hash": ""
   },
   "apps/web/src/app/features/social/friends.page.ts": {
-    "mtime": 1784287826.3051932,
-    "ast_hash": "823c9a4baa8d7dd52df970d6eff7df27",
+    "mtime": 1784292322.9304345,
+    "ast_hash": "c22515f247052ccda7128cdd3c47ce4c",
     "semantic_hash": ""
   },
   "apps/web/src/app/features/social/group-detail.page.ts": {
-    "mtime": 1784288713.8315363,
-    "ast_hash": "acf99c5b7e39d10e682b251abe5a5955",
+    "mtime": 1784292352.5714731,
+    "ast_hash": "b7a91e8601275e96778db1cea4644bac",
     "semantic_hash": ""
   },
   "apps/web/src/app/features/social/groups.page.ts": {
-    "mtime": 1784287846.7446263,
-    "ast_hash": "7598574f651a4ba790f2057c0e1fdcf1",
+    "mtime": 1784292322.9314442,
+    "ast_hash": "5785c46a15b4925baa2b85dd9c4ff496",
     "semantic_hash": ""
   },
   "apps/web/src/app/features/social/loans.page.ts": {
-    "mtime": 1784287902.3987634,
-    "ast_hash": "5ad838c4468938ced344dc1d89017d9e",
+    "mtime": 1784292352.5462809,
+    "ast_hash": "169d314fef46dd24ff8faacd2b47894e",
     "semantic_hash": ""
   },
   "apps/web/src/app/shared/ui.ts": {
-    "mtime": 1784288698.0060785,
-    "ast_hash": "65e85216f177d638315343e5a5a56d95",
+    "mtime": 1784292268.4573047,
+    "ast_hash": "75fe3e6f9dbb2b48737c0782c122aa99",
     "semantic_hash": ""
   },
   "apps/web/src/app/shell/app-shell.ts": {
-    "mtime": 1784273175.491804,
-    "ast_hash": "4012c367890d1552fb6f09f8225a6965",
+    "mtime": 1784292502.5450778,
+    "ast_hash": "2850bac3606052ecc485c6ab30bd7fee",
     "semantic_hash": ""
   },
   "packages/shared/src/constants.ts": {
@@ -512,6 +512,26 @@
   "CLAUDE.md": {
     "mtime": 1784289021.7662086,
     "ast_hash": "27b7528b6c1962f5f406f0404d7bfe65",
+    "semantic_hash": ""
+  },
+  "apps/api/drizzle/0001_dashing_kulan_gath.sql": {
+    "mtime": 1784292807.6060865,
+    "ast_hash": "6f9e278fa9c51b097adbce5d798d8e1d",
+    "semantic_hash": ""
+  },
+  "apps/api/drizzle/meta/0001_snapshot.json": {
+    "mtime": 1784292661.7505174,
+    "ast_hash": "9771c6a891171062f6f82e1722f07bff",
+    "semantic_hash": ""
+  },
+  "apps/web/src/app/features/games/game-detail.page.ts": {
+    "mtime": 1784292705.1123242,
+    "ast_hash": "e9e25cea510956c2bc82f663a9139f58",
+    "semantic_hash": ""
+  },
+  "apps/web/src/app/shared/icon.ts": {
+    "mtime": 1784292218.5902076,
+    "ast_hash": "e7f73a48ac7083fc8c9a91bb24494476",
     "semantic_hash": ""
   }
 }

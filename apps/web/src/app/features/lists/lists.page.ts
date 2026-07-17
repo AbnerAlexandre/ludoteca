@@ -96,6 +96,21 @@ const KIND_META: Record<List['kind'], { icon: IconName; blurb: string; color: st
               </p>
             </a>
 
+            <!-- Only custom lists can go. The seeded three are structural:
+                 other features route to them by kind, and the API refuses to
+                 delete them regardless of what the UI offers. Sits outside the
+                 link so it isn't a button nested inside an anchor. -->
+            @if (!list.isSystem) {
+              <button
+                type="button"
+                class="btn btn-quiet btn-sm btn-icon absolute right-3 bottom-3"
+                (click)="remove(list)"
+                [disabled]="busy()"
+                [attr.aria-label]="'Excluir a lista ' + list.name"
+              >
+                <lt-icon name="trash" [size]="17" />
+              </button>
+            }
           </li>
         }
       </ul>
@@ -133,6 +148,27 @@ export class ListsPage {
       this.error.set(err instanceof ApiFailure ? err.message : 'Não foi possível carregar suas listas.');
     } finally {
       this.loading.set(false);
+    }
+  }
+
+  /**
+   * Deleting a list drops its items, so it asks first and says how many. The
+   * games themselves survive — a list_item is a placement, not the game.
+   */
+  protected async remove(list: List): Promise<void> {
+    const count = list.itemCount;
+    const warning = count > 0 ? ` ${count} ${count === 1 ? 'jogo sai dela' : 'jogos saem dela'}.` : '';
+    if (!confirm(`Excluir a lista "${list.name}"?${warning} Os jogos continuam nas suas outras listas.`)) return;
+
+    this.busy.set(true);
+    this.error.set(null);
+    try {
+      await this.service.remove(list.publicId);
+      this.lists.update((current) => current.filter((l) => l.publicId !== list.publicId));
+    } catch (err) {
+      this.error.set(err instanceof ApiFailure ? err.message : 'Não foi possível excluir a lista.');
+    } finally {
+      this.busy.set(false);
     }
   }
 

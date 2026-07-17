@@ -8,5 +8,8 @@
     "types": ["node"]
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["dist", "node_modules"]
+  // Tests run from source via tsx, so they have no business in the production
+  // build — shipping them would put node:test on the deployed image's import
+  // graph for nothing.
+  "exclude": ["dist", "node_modules", "src/**/*.test.ts"]
 }

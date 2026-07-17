@@ -5,12 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch --env-file=../../.env src/server.ts",
+    "prebuild": "pnpm --filter @ludoteca/shared build",
     "build": "tsc -p tsconfig.json",
-    "start": "node --env-file=../../.env dist/server.js",
+    "pretypecheck": "pnpm --filter @ludoteca/shared build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "node --env-file-if-exists=../../.env dist/server.js",
+    "start:migrate": "node dist/db/migrate.js && pnpm start",
     "test": "node --env-file=../../.env --import tsx --test \"src/**/*.test.ts\"",
     "db:generate": "node --env-file=../../.env ./node_modules/drizzle-kit/bin.cjs generate",
     "db:migrate": "tsx --env-file=../../.env src/db/migrate.ts",
+    "db:migrate:prod": "node --env-file-if-exists=../../.env dist/db/migrate.js",
     "db:seed": "tsx --env-file=../../.env src/db/seed.ts",
     "db:studio": "node --env-file=../../.env ./node_modules/drizzle-kit/bin.cjs studio"
   },

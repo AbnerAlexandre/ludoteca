@@ -177,6 +177,13 @@ Antes de ir para produção:
 
 ---
 
+## Deploy
+
+Passo a passo para **Web na Vercel + API no Railway** em [DEPLOY.md](DEPLOY.md),
+incluindo por que o front faz proxy de `/api` para a API (cookies `SameSite`).
+
+---
+
 ## Grafo do código
 
 O repositório é indexado com [graphify](https://pypi.org/project/graphifyy/):

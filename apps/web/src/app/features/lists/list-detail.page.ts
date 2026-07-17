@@ -7,7 +7,12 @@ import { ListsService } from '../../core/lists.service';
 import { Icon } from '../../shared/icon';
 import { EmptyState, Skeleton } from '../../shared/ui';
 
-type ViewMode = 'card' | 'grid';
+/**
+ * Named for what the user sees, not for the CSS underneath: 'list' is rows with
+ * a thumbnail, 'cards' is a grid of cover tiles. The old names were 'card' and
+ * 'grid', which had it backwards — "Cartões" rendered the rows.
+ */
+type ViewMode = 'list' | 'cards';
 
 const PRIVACY_LABEL: Record<Privacy, string> = {
   public: 'Público',
@@ -77,26 +82,32 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
         }
       </select>
 
+      <!-- Each button is named after what it actually renders, and its icon
+           mirrors that layout: rows with a leading thumbnail, or a tile grid. -->
       <div class="flex gap-1 rounded-xl p-1" style="background: var(--surface-sunken)" role="group" aria-label="Modo de exibição">
         <button
           type="button"
           class="btn btn-sm"
-          [class.btn-primary]="view() === 'card'"
-          [class.btn-quiet]="view() !== 'card'"
-          (click)="view.set('card')"
-          [attr.aria-pressed]="view() === 'card'"
+          [class.btn-primary]="view() === 'list'"
+          [class.btn-quiet]="view() !== 'list'"
+          (click)="view.set('list')"
+          [attr.aria-pressed]="view() === 'list'"
+          aria-label="Ver como lista"
         >
-          Cartões
+          <lt-icon name="view-list" [size]="17" />
+          <span class="hidden sm:inline">Lista</span>
         </button>
         <button
           type="button"
           class="btn btn-sm"
-          [class.btn-primary]="view() === 'grid'"
-          [class.btn-quiet]="view() !== 'grid'"
-          (click)="view.set('grid')"
-          [attr.aria-pressed]="view() === 'grid'"
+          [class.btn-primary]="view() === 'cards'"
+          [class.btn-quiet]="view() !== 'cards'"
+          (click)="view.set('cards')"
+          [attr.aria-pressed]="view() === 'cards'"
+          aria-label="Ver como cartões"
         >
-          Grade
+          <lt-icon name="view-cards" [size]="17" />
+          <span class="hidden sm:inline">Cartões</span>
         </button>
       </div>
     </div>
@@ -166,7 +177,7 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
       >
         <a routerLink="/buscar" class="btn btn-primary">Buscar jogos</a>
       </lt-empty>
-    } @else if (view() === 'card') {
+    } @else if (view() === 'list') {
       <ul class="grid gap-3">
         @for (item of paged(); track item.publicId; let i = $index) {
           <li class="card animate-rise flex items-center gap-3 p-3" [style.animation-delay.ms]="i * 25">
@@ -299,7 +310,7 @@ export class ListDetailPage {
   protected readonly error = signal<string | null>(null);
   protected readonly notice = signal<string | null>(null);
 
-  protected readonly view = signal<ViewMode>('card');
+  protected readonly view = signal<ViewMode>('list');
   protected readonly sort = signal<ListItemSort>('added_at');
   protected readonly dir = signal<SortDirection>('desc');
   protected readonly page = signal(1);

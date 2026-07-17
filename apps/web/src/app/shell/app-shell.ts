@@ -66,31 +66,36 @@ interface NavItem {
       </header>
 
       <div class="container-app flex flex-1 gap-8 py-6">
-        <!-- Desktop rail. Hidden on mobile, where the tab bar takes over. -->
+        <!-- Desktop rail. Hidden on mobile, where the tab bar takes over.
+             The sticky element wraps the WHOLE rail — links and account card
+             together. Sticking only the list left the account card outside the
+             stuck element, so it scrolled up under the page content. -->
         <nav class="hidden w-52 shrink-0 lg:block" aria-label="Navegação principal">
-          <ul class="sticky top-24 space-y-1">
-            @for (item of nav; track item.path) {
-              <li>
-                <a
-                  [routerLink]="item.path"
-                  routerLinkActive="nav-active"
-                  class="nav-link"
-                  #rla="routerLinkActive"
-                  [attr.aria-current]="rla.isActive ? 'page' : null"
-                >
-                  <lt-icon [name]="item.icon" />
-                  {{ item.label }}
-                </a>
-              </li>
-            }
-          </ul>
+          <div class="sticky top-24 max-h-[calc(100dvh-7rem)] overflow-y-auto">
+            <ul class="space-y-1">
+              @for (item of nav; track item.path) {
+                <li>
+                  <a
+                    [routerLink]="item.path"
+                    routerLinkActive="nav-active"
+                    class="nav-link"
+                    #rla="routerLinkActive"
+                    [attr.aria-current]="rla.isActive ? 'page' : null"
+                  >
+                    <lt-icon [name]="item.icon" />
+                    {{ item.label }}
+                  </a>
+                </li>
+              }
+            </ul>
 
-          @if (user(); as u) {
-            <a routerLink="/conta" routerLinkActive="nav-active" class="nav-link mt-6 gap-2.5">
-              <lt-seat [user]="u" />
-              <span class="min-w-0 flex-1 truncate">{{ u.displayName || u.login }}</span>
-            </a>
-          }
+            @if (user(); as u) {
+              <a routerLink="/conta" routerLinkActive="nav-active" class="nav-link mt-6 gap-2.5">
+                <lt-seat [user]="u" />
+                <span class="min-w-0 flex-1 truncate">{{ u.displayName || u.login }}</span>
+              </a>
+            }
+          </div>
         </nav>
 
         <main id="conteudo" class="min-w-0 flex-1 pb-24 lg:pb-0">

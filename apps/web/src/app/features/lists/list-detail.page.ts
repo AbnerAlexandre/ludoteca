@@ -188,32 +188,36 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
               (change)="toggle(item.publicId)"
               [attr.aria-label]="'Selecionar ' + item.game.name"
             />
-            @if (item.game.thumbnail) {
-              <img
-                [src]="item.game.thumbnail"
-                [alt]="''"
-                class="h-16 w-16 shrink-0 rounded-lg object-cover"
-                loading="lazy"
-                style="background: var(--surface-sunken)"
-              />
-            } @else {
-              <span class="grid h-16 w-16 shrink-0 place-items-center rounded-lg text-muted" style="background: var(--surface-sunken)"><lt-icon name="dice" [size]="22" /></span>
-            }
-            <div class="min-w-0 flex-1">
-              <p class="truncate font-semibold text-strong">{{ item.game.name }}</p>
-              <p class="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
-                @if (item.game.year) {
-                  <span class="stat">{{ item.game.year }}</span>
-                }
-                @if (item.game.minPlayers) {
-                  <span class="stat">{{ item.game.minPlayers }}–{{ item.game.maxPlayers }}p</span>
-                }
-                @if (item.game.playTimeMinutes) {
-                  <span class="stat">{{ item.game.playTimeMinutes }}min</span>
-                }
-                <span class="chip">{{ typeLabel(item.game.type) }}</span>
-              </p>
-            </div>
+            <!-- Cover and title open the game's full sheet. The checkbox and
+                 the controls at the end stay outside the link. -->
+            <a [routerLink]="['/jogos', item.game.publicId]" class="flex min-w-0 flex-1 items-center gap-3">
+              @if (item.game.thumbnail) {
+                <img
+                  [src]="item.game.thumbnail"
+                  alt=""
+                  class="h-16 w-16 shrink-0 rounded-lg object-cover"
+                  loading="lazy"
+                  style="background: var(--surface-sunken)"
+                />
+              } @else {
+                <span class="grid h-16 w-16 shrink-0 place-items-center rounded-lg text-muted" style="background: var(--surface-sunken)"><lt-icon name="dice" [size]="22" /></span>
+              }
+              <span class="min-w-0 flex-1">
+                <span class="block truncate font-semibold text-strong">{{ item.game.name }}</span>
+                <span class="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
+                  @if (item.game.year) {
+                    <span class="stat">{{ item.game.year }}</span>
+                  }
+                  @if (item.game.minPlayers) {
+                    <span class="stat">{{ item.game.minPlayers }}–{{ item.game.maxPlayers }}p</span>
+                  }
+                  @if (item.game.playTimeMinutes) {
+                    <span class="stat">{{ item.game.playTimeMinutes }}min</span>
+                  }
+                  <span class="chip">{{ typeLabel(item.game.type) }}</span>
+                </span>
+              </span>
+            </a>
             <label class="sr-only" [attr.for]="'privacy-' + item.publicId">Privacidade de {{ item.game.name }}</label>
             <select
               [attr.id]="'privacy-' + item.publicId"
@@ -247,15 +251,17 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
               (change)="toggle(item.publicId)"
               [attr.aria-label]="'Selecionar ' + item.game.name"
             />
-            @if (item.game.coverUrl) {
-              <img [src]="item.game.coverUrl" alt="" class="aspect-square w-full object-cover" loading="lazy" style="background: var(--surface-sunken)" />
-            } @else {
-              <span class="grid aspect-square w-full place-items-center text-muted" style="background: var(--surface-sunken)"><lt-icon name="dice" [size]="34" /></span>
-            }
-            <div class="p-2.5">
-              <p class="truncate text-sm font-semibold text-strong">{{ item.game.name }}</p>
-              <p class="stat mt-0.5 text-xs text-muted">{{ item.game.year ?? '—' }}</p>
-            </div>
+            <a [routerLink]="['/jogos', item.game.publicId]" class="block">
+              @if (item.game.coverUrl) {
+                <img [src]="item.game.coverUrl" alt="" class="aspect-square w-full object-cover" loading="lazy" style="background: var(--surface-sunken)" />
+              } @else {
+                <span class="grid aspect-square w-full place-items-center text-muted" style="background: var(--surface-sunken)"><lt-icon name="dice" [size]="34" /></span>
+              }
+              <span class="block p-2.5">
+                <span class="block truncate text-sm font-semibold text-strong">{{ item.game.name }}</span>
+                <span class="stat mt-0.5 block text-xs text-muted">{{ item.game.year ?? '—' }}</span>
+              </span>
+            </a>
           </li>
         }
       </ul>

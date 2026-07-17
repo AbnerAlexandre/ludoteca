@@ -221,6 +221,16 @@ export const games = pgTable(
     themes: jsonb('themes').$type<string[]>().notNull().default(sql`'[]'::jsonb`),
     designers: jsonb('designers').$type<string[]>().notNull().default(sql`'[]'::jsonb`),
     artists: jsonb('artists').$type<string[]>().notNull().default(sql`'[]'::jsonb`),
+    /**
+     * Ludopedia's community counters. They are the closest thing the API offers
+     * to a rating — it exposes no score: /jogos/{id}/notas is a documented stub
+     * that returns the literal string "notas e comentários;". So we surface
+     * popularity, and never label it as a rating.
+     */
+    ownedCount: integer('owned_count'),
+    wantedCount: integer('wanted_count'),
+    favoriteCount: integer('favorite_count'),
+    playedCount: integer('played_count'),
     detailed: boolean('detailed').notNull().default(false),
     fetchedAt: timestamp('fetched_at', { withTimezone: true }).notNull().defaultNow(),
     ...timestamps,

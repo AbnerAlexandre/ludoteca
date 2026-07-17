@@ -30,6 +30,12 @@ const jogoSchema = jogoResumoSchema.extend({
   qt_jogadores_max: z.coerce.number().int().optional(),
   vl_tempo_jogo: z.coerce.number().int().optional(),
   idade_minima: z.coerce.number().int().optional(),
+  // Community counters: how many own / want / favourite / have played it.
+  // There is no rating field — /jogos/{id}/notas is an unimplemented stub.
+  qt_tem: z.coerce.number().int().optional(),
+  qt_quer: z.coerce.number().int().optional(),
+  qt_favorito: z.coerce.number().int().optional(),
+  qt_jogou: z.coerce.number().int().optional(),
   mecanicas: z.array(z.object({ nm_mecanica: z.string() }).partial()).optional(),
   categorias: z.array(z.object({ nm_categoria: z.string() }).partial()).optional(),
   temas: z.array(z.object({ nm_tema: z.string() }).partial()).optional(),

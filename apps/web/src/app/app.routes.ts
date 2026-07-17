@@ -40,6 +40,11 @@ export const routes: Routes = [
         title: 'Buscar jogos · Ludoteca',
       },
       {
+        path: 'jogos/:gameId',
+        loadComponent: () => import('./features/games/game-detail.page').then((m) => m.GameDetailPage),
+        title: 'Jogo · Ludoteca',
+      },
+      {
         path: 'amigos',
         loadComponent: () => import('./features/social/friends.page').then((m) => m.FriendsPage),
         title: 'Amigos · Ludoteca',

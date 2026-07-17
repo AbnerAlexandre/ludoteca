@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import type { Game, List } from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
 import { ListsService } from '../../core/lists.service';
@@ -11,7 +12,7 @@ import { EmptyState, Skeleton } from '../../shared/ui';
   selector: 'lt-search',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, Skeleton, EmptyState, Icon],
+  imports: [FormsModule, RouterLink, Skeleton, EmptyState, Icon],
   template: `
     <header class="mb-5">
       <h1 class="text-3xl">Buscar jogos</h1>
@@ -81,18 +82,21 @@ import { EmptyState, Skeleton } from '../../shared/ui';
       <ul class="grid gap-3">
         @for (game of results(); track game.publicId; let i = $index) {
           <li class="card animate-rise flex flex-wrap items-center gap-3 p-3" [style.animation-delay.ms]="i * 25">
-            @if (game.thumbnail) {
-              <img [src]="game.thumbnail" alt="" class="h-16 w-16 shrink-0 rounded-lg object-cover" loading="lazy" style="background: var(--surface-sunken)" />
-            } @else {
-              <span class="grid h-16 w-16 shrink-0 place-items-center rounded-lg text-muted" style="background: var(--surface-sunken)"><lt-icon name="dice" [size]="22" /></span>
-            }
-            <div class="min-w-0 flex-1">
-              <p class="truncate font-semibold text-strong">{{ game.name }}</p>
-              @if (game.originalName && game.originalName !== game.name) {
-                <p class="truncate text-xs text-muted">{{ game.originalName }}</p>
+            <!-- The cover and title open the full sheet. -->
+            <a [routerLink]="['/jogos', game.publicId]" class="flex min-w-0 flex-1 items-center gap-3">
+              @if (game.thumbnail) {
+                <img [src]="game.thumbnail" alt="" class="h-16 w-16 shrink-0 rounded-lg object-cover" loading="lazy" style="background: var(--surface-sunken)" />
+              } @else {
+                <span class="grid h-16 w-16 shrink-0 place-items-center rounded-lg text-muted" style="background: var(--surface-sunken)"><lt-icon name="dice" [size]="22" /></span>
               }
-              <p class="stat mt-0.5 text-xs text-muted">{{ game.year ?? '—' }}</p>
-            </div>
+              <span class="min-w-0 flex-1">
+                <span class="block truncate font-semibold text-strong">{{ game.name }}</span>
+                @if (game.originalName && game.originalName !== game.name) {
+                  <span class="block truncate text-xs text-muted">{{ game.originalName }}</span>
+                }
+                <span class="stat mt-0.5 block text-xs text-muted">{{ game.year ?? '—' }}</span>
+              </span>
+            </a>
 
             <label class="sr-only" [attr.for]="'list-' + game.publicId">Lista de destino</label>
             <select [attr.id]="'list-' + game.publicId" class="field w-auto shrink-0 text-sm" [(ngModel)]="targetList" [name]="'list-' + game.publicId">

@@ -84,6 +84,10 @@ export function fromDetail(jogo: LudopediaJogo) {
     maxPlayers: jogo.qt_jogadores_max ?? null,
     playTimeMinutes: jogo.vl_tempo_jogo ?? null,
     minAge: jogo.idade_minima ?? null,
+    ownedCount: jogo.qt_tem ?? null,
+    wantedCount: jogo.qt_quer ?? null,
+    favoriteCount: jogo.qt_favorito ?? null,
+    playedCount: jogo.qt_jogou ?? null,
     mechanics: (jogo.mecanicas ?? []).map((m) => m.nm_mecanica).filter((n): n is string => Boolean(n)),
     categories,
     themes: (jogo.temas ?? []).map((t) => t.nm_tema).filter((n): n is string => Boolean(n)),
@@ -121,5 +125,9 @@ export function toGameDetail(row: GameRow): GameDetail {
     themes: row.themes,
     designers: row.designers,
     artists: row.artists,
+    ownedCount: row.ownedCount,
+    wantedCount: row.wantedCount,
+    favoriteCount: row.favoriteCount,
+    playedCount: row.playedCount,
   };
 }

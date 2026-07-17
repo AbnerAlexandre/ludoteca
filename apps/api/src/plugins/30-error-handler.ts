@@ -74,8 +74,15 @@ async function errorHandlerPlugin(app: FastifyInstance) {
       });
     }
     if (status === 429) {
+      // @fastify/rate-limit sets Retry-After (seconds); surface it so a client
+      // knows how long to wait rather than guessing.
+      const retryAfter = reply.getHeader('retry-after');
       return reply.code(429).send({
-        error: { code: 'rate_limited', message: 'Too many requests.', requestId: request.id },
+        error: {
+          code: 'rate_limited',
+          message: retryAfter ? `Too many requests. Retry in ${retryAfter}s.` : 'Too many requests.',
+          requestId: request.id,
+        },
       });
     }
     if (status >= 400 && status < 500) {

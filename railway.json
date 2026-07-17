@@ -6,7 +6,8 @@
   "deploy": {
     "startCommand": "pnpm start:migrate",
     "healthcheckPath": "/api/health/ready",
-    "healthcheckTimeout": 30,
+    "//": "Generous window: the start command waits for the database, runs migrations, then binds. 30s couldn't cover a cold start with any DB warmup, which failed the check before the server was even listening.",
+    "healthcheckTimeout": 300,
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 3,
     "numReplicas": 1

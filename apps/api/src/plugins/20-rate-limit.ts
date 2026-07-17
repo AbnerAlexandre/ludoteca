@@ -39,14 +39,16 @@ async function rateLimitPlugin(app: FastifyInstance) {
     // Never rate-limit the test suite into flakiness.
     enableDraftSpec: true,
     skipOnError: false,
-    allowList: () => isTest,
-    errorResponseBuilder: (request, context) => ({
-      error: {
-        code: 'rate_limited',
-        message: `Too many requests. Retry in ${Math.ceil(context.ttl / 1000)}s.`,
-        requestId: request.id,
-      },
-    }),
+    // Health endpoints are never rate-limited. A platform healthcheck polls
+    // them, and during a slow start it can poll faster than any budget allows —
+    // a 429 there would fail the deploy for a service that is actually fine.
+    allowList: (request) => isTest || request.url.startsWith('/api/health'),
+    // No custom errorResponseBuilder: it returned a bare envelope object with
+    // no statusCode, so when the plugin threw it, the error handler saw an
+    // object it didn't recognize and fell through to a generic 500 — a
+    // rate-limited request came back as "Something went wrong" instead of 429.
+    // The default error carries statusCode 429; the error handler formats the
+    // envelope (and reads the Retry-After header the plugin still sets).
   });
 }
 

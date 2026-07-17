@@ -1,0 +1,330 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "manifest.json",
+      "file_type": "code",
+      "source_file": "manifest.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "manifest",
+      "community": 1,
+      "norm_label": "manifest.json"
+    },
+    {
+      "label": "MyLudo.md",
+      "file_type": "code",
+      "source_file": "manifest.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "manifest_myludo_md",
+      "community": 1,
+      "norm_label": "myludo.md"
+    },
+    {
+      "label": "mtime",
+      "file_type": "code",
+      "source_file": "manifest.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "manifest_myludo_md_mtime",
+      "community": 1,
+      "norm_label": "mtime"
+    },
+    {
+      "label": "ast_hash",
+      "file_type": "code",
+      "source_file": "manifest.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "manifest_myludo_md_ast_hash",
+      "community": 1,
+      "norm_label": "ast_hash"
+    },
+    {
+      "label": "semantic_hash",
+      "file_type": "code",
+      "source_file": "manifest.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "manifest_myludo_md_semantic_hash",
+      "community": 1,
+      "norm_label": "semantic_hash"
+    },
+    {
+      "label": "GRAPH_REPORT.md",
+      "file_type": "document",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "graph_report",
+      "community": 0,
+      "norm_label": "graph_report.md"
+    },
+    {
+      "label": "Graph Report - MyLudo  (2026-07-17)",
+      "file_type": "document",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "graph_report_graph_report_myludo_2026_07_17",
+      "community": 0,
+      "norm_label": "graph report - myludo  (2026-07-17)"
+    },
+    {
+      "label": "Corpus Check",
+      "file_type": "document",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "graph_report_corpus_check",
+      "community": 0,
+      "norm_label": "corpus check"
+    },
+    {
+      "label": "Summary",
+      "file_type": "document",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "graph_report_summary",
+      "community": 0,
+      "norm_label": "summary"
+    },
+    {
+      "label": "Community Hubs (Navigation)",
+      "file_type": "document",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "graph_report_community_hubs_navigation",
+      "community": 0,
+      "norm_label": "community hubs (navigation)"
+    },
+    {
+      "label": "God Nodes (most connected - your core abstractions)",
+      "file_type": "document",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "graph_report_god_nodes_most_connected_your_core_abstractions",
+      "community": 0,
+      "norm_label": "god nodes (most connected - your core abstractions)"
+    },
+    {
+      "label": "Surprising Connections (you probably didn't know these)",
+      "file_type": "document",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "graph_report_surprising_connections_you_probably_didn_t_know_these",
+      "community": 0,
+      "norm_label": "surprising connections (you probably didn't know these)"
+    },
+    {
+      "label": "Communities (2 total, 0 thin omitted)",
+      "file_type": "document",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L31",
+      "_origin": "ast",
+      "id": "graph_report_communities_2_total_0_thin_omitted",
+      "community": 2,
+      "norm_label": "communities (2 total, 0 thin omitted)"
+    },
+    {
+      "label": "Community 0 - \"Build Prompt \u2014 Board & Card Game Management Web App (\"Ludoteca\")\"",
+      "file_type": "document",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "graph_report_community_0_build_prompt_board_card_game_management_web_app_ludoteca",
+      "community": 2,
+      "norm_label": "community 0 - \"build prompt \u2014 board & card game management web app (\"ludoteca\")\""
+    },
+    {
+      "label": "Community 1 - \"5. Features\"",
+      "file_type": "document",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "graph_report_community_1_5_features",
+      "community": 2,
+      "norm_label": "community 1 - \"5. features\""
+    },
+    {
+      "label": "Knowledge Gaps",
+      "file_type": "document",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L41",
+      "_origin": "ast",
+      "id": "graph_report_knowledge_gaps",
+      "community": 0,
+      "norm_label": "knowledge gaps"
+    },
+    {
+      "label": "Suggested Questions",
+      "file_type": "document",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L45",
+      "_origin": "ast",
+      "id": "graph_report_suggested_questions",
+      "community": 0,
+      "norm_label": "suggested questions"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "manifest.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "manifest",
+      "target": "manifest_myludo_md",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "manifest.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "manifest_myludo_md",
+      "target": "manifest_myludo_md_ast_hash",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "manifest.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "manifest_myludo_md",
+      "target": "manifest_myludo_md_mtime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "manifest.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "manifest_myludo_md",
+      "target": "manifest_myludo_md_semantic_hash",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "graph_report",
+      "target": "graph_report_graph_report_myludo_2026_07_17",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "graph_report_graph_report_myludo_2026_07_17",
+      "target": "graph_report_communities_2_total_0_thin_omitted",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "graph_report_graph_report_myludo_2026_07_17",
+      "target": "graph_report_community_hubs_navigation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "graph_report_graph_report_myludo_2026_07_17",
+      "target": "graph_report_corpus_check",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "graph_report_graph_report_myludo_2026_07_17",
+      "target": "graph_report_god_nodes_most_connected_your_core_abstractions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "graph_report_graph_report_myludo_2026_07_17",
+      "target": "graph_report_knowledge_gaps",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "graph_report_graph_report_myludo_2026_07_17",
+      "target": "graph_report_suggested_questions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "graph_report_graph_report_myludo_2026_07_17",
+      "target": "graph_report_summary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "graph_report_graph_report_myludo_2026_07_17",
+      "target": "graph_report_surprising_connections_you_probably_didn_t_know_these",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "graph_report_communities_2_total_0_thin_omitted",
+      "target": "graph_report_community_0_build_prompt_board_card_game_management_web_app_ludoteca",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GRAPH_REPORT.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "graph_report_communities_2_total_0_thin_omitted",
+      "target": "graph_report_community_1_5_features",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": []
+}

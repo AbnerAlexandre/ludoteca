@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>Ludoteca</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Organize sua coleção de jogos de tabuleiro e cartas, empreste para amigos e veja quem tem o quê." />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <script>
+      // Resolve the theme before first paint. Angular bootstraps a moment later,
+      // and without this a dark-mode user gets a white flash on every reload.
+      (function () {
+        try {
+          var stored = localStorage.getItem('ludoteca.theme');
+          var dark =
+            stored === 'dark' ||
+            ((!stored || stored === 'system') && matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

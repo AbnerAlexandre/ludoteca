@@ -1,0 +1,37 @@
+{
+  ".graphify_labels.json": {
+    "mtime": 1784270627.3941665,
+    "ast_hash": "1fbd43a2141a39d8efd37f4bbddbb546",
+    "semantic_hash": ""
+  },
+  "cache/ast/v0.9.12/0561f9871ea01a17b7fde526ecb557607693b8997859b8ba7d25d2f5d6411f82.json": {
+    "mtime": 1784270627.344598,
+    "ast_hash": "1b7a3a6ef97bee0f1769951bda2289df",
+    "semantic_hash": ""
+  },
+  "cache/stat-index.json": {
+    "mtime": 1784270627.3976877,
+    "ast_hash": "ef959e7180de148f58743377935acb23",
+    "semantic_hash": ""
+  },
+  "graph.json": {
+    "mtime": 1784270627.384125,
+    "ast_hash": "ed48b3fb6b39db7331f43051350b9a42",
+    "semantic_hash": ""
+  },
+  "manifest.json": {
+    "mtime": 1784270627.395673,
+    "ast_hash": "f498268734365ea64b4463feead08a7f",
+    "semantic_hash": ""
+  },
+  "GRAPH_REPORT.md": {
+    "mtime": 1784270627.3936667,
+    "ast_hash": "6bd8075f94ebbe379a974205712a465e",
+    "semantic_hash": ""
+  },
+  "graph.html": {
+    "mtime": 1784270627.3961782,
+    "ast_hash": "d6e5bf9bedeb01580e3f49def7757522",
+    "semantic_hash": ""
+  }
+}

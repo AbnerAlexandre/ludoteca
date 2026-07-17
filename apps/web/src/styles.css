@@ -1,0 +1,433 @@
+/* ---------------------------------------------------------------------------
+ * Ludoteca design system.
+ *
+ * The identity comes from the subject's own vernacular: every board game ships
+ * with a fixed set of player colours, and players take a seat in one. So the
+ * palette is split in two, and the split is load-bearing:
+ *
+ *   - CHROME (plum base, violet brand) is the app talking.
+ *   - SEATS  (the six player colours) are reserved for DATA — they only ever
+ *     identify a person. A seat colour never decorates a button, so a coloured
+ *     token always means "this human", which is what makes the group shelf
+ *     readable at a glance.
+ *
+ * Fonts are self-hosted via @fontsource, never a CDN: no third-party request,
+ * and nothing for the strict CSP to allow.
+ * ------------------------------------------------------------------------- */
+
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource-variable/plus-jakarta-sans';
+@import '@fontsource-variable/jetbrains-mono';
+@import 'tailwindcss';
+
+/* Dark mode is driven by an attribute we control, not the media query alone,
+   so the user's explicit choice can override their OS. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@theme {
+  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+
+  /* Chrome: plum-tinted neutrals. Not grey — everything stays in one hue
+     family so the seat colours are the only thing that pops. */
+  --color-ink-950: #0d0a14;
+  --color-ink-900: #14101f;
+  --color-ink-800: #1d1830;
+  --color-ink-700: #2a2342;
+  --color-ink-600: #3d3459;
+  --color-ink-500: #574c78;
+  --color-ink-400: #7a6f9c;
+  --color-ink-300: #a79ec4;
+  --color-ink-200: #cec7e3;
+  --color-ink-100: #e6e1f1;
+  --color-ink-50: #f3f1f8;
+
+  /* Brand: electric violet. Chrome only. */
+  --color-brand-400: #9d85ff;
+  --color-brand-500: #7b5cff;
+  --color-brand-600: #6a45ff;
+  --color-brand-700: #5732e0;
+
+  --color-danger: #e5484d;
+  --color-success: #16c79a;
+  --color-warning: #ffb020;
+
+  /* Seats: the player-colour set. DATA ONLY — see the note above. */
+  --color-seat-1: #ff4d6d;
+  --color-seat-2: #2e6bff;
+  --color-seat-3: #ffb020;
+  --color-seat-4: #16c79a;
+  --color-seat-5: #ff7a2f;
+  --color-seat-6: #00c2d1;
+
+  --radius-card: 1rem;
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.25, 1);
+}
+
+/* Semantic surface tokens. Components reference these, never the raw ramp, so
+   a theme flip is one place to change. */
+:root {
+  --surface-page: var(--color-ink-50);
+  --surface-card: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-sunken: var(--color-ink-100);
+  --border-subtle: var(--color-ink-200);
+  --border-strong: var(--color-ink-300);
+  --text-strong: var(--color-ink-950);
+  --text-body: var(--color-ink-700);
+  --text-muted: var(--color-ink-500);
+  --shadow-card: 0 1px 2px rgb(13 10 20 / 0.06), 0 8px 24px -12px rgb(13 10 20 / 0.18);
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --surface-page: var(--color-ink-950);
+  --surface-card: var(--color-ink-900);
+  --surface-raised: var(--color-ink-800);
+  --surface-sunken: var(--color-ink-950);
+  --border-subtle: var(--color-ink-800);
+  --border-strong: var(--color-ink-700);
+  --text-strong: #ffffff;
+  --text-body: var(--color-ink-200);
+  --text-muted: var(--color-ink-400);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+  color-scheme: dark;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--surface-page);
+    color: var(--text-body);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    /* Guarantees the "no horizontal scroll on mobile" rule at the root. */
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    color: var(--text-strong);
+    /* Bricolage is a display face; tightening it is what makes it read as a
+       headline rather than large body text. */
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-brand-500);
+    color: #fff;
+  }
+
+  /* Honour the OS setting: motion is decoration, never the only signal. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Numbers are data, so they get the mono face and tabular figures — a
+     player count or a year shouldn't reflow as it changes. */
+  .stat {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+
+  /* --- Buttons ----------------------------------------------------------- */
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 font-semibold;
+    /* 44px: the minimum comfortable touch target on a phone. */
+    min-height: 2.75rem;
+    font-size: 0.875rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition:
+      transform 120ms var(--ease-snap),
+      background-color 140ms ease,
+      border-color 140ms ease,
+      opacity 140ms ease;
+    white-space: nowrap;
+  }
+
+  .btn:active:not(:disabled) {
+    /* The press is felt, not just seen. */
+    transform: translateY(1px) scale(0.985);
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-primary {
+    background: var(--color-brand-600);
+    color: #fff;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-brand-500);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-body);
+    border-color: var(--border-subtle);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background: var(--surface-sunken);
+    border-color: var(--border-strong);
+    color: var(--text-strong);
+  }
+
+  .btn-quiet {
+    background: transparent;
+    color: var(--text-muted);
+  }
+  .btn-quiet:hover:not(:disabled) {
+    background: var(--surface-sunken);
+    color: var(--text-strong);
+  }
+
+  .btn-danger {
+    background: var(--color-danger);
+    color: #fff;
+  }
+  .btn-danger:hover:not(:disabled) {
+    filter: brightness(1.1);
+  }
+
+  .btn-sm {
+    min-height: 2.25rem;
+    @apply px-3;
+    font-size: 0.8125rem;
+  }
+
+  .btn-icon {
+    @apply px-0;
+    width: 2.75rem;
+  }
+
+  /* --- Surfaces ---------------------------------------------------------- */
+
+  .card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .panel {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+  }
+
+  /* --- Forms ------------------------------------------------------------- */
+
+  .field {
+    @apply w-full rounded-xl px-3;
+    min-height: 2.75rem;
+    background: var(--surface-page);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-strong);
+    font-family: inherit;
+    font-size: 0.9375rem;
+    transition:
+      border-color 140ms ease,
+      box-shadow 140ms ease;
+  }
+
+  .field::placeholder {
+    color: var(--color-ink-400);
+  }
+
+  .field:focus {
+    outline: none;
+    border-color: var(--color-brand-500);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand-500) 22%, transparent);
+  }
+
+  .field-invalid {
+    border-color: var(--color-danger);
+  }
+  .field-invalid:focus {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 22%, transparent);
+  }
+
+  .label {
+    @apply mb-1.5 block font-semibold;
+    font-size: 0.8125rem;
+    color: var(--text-body);
+  }
+
+  .hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .error-text {
+    font-size: 0.75rem;
+    color: var(--color-danger);
+  }
+
+  /* --- Chips ------------------------------------------------------------- */
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-semibold;
+    font-size: 0.6875rem;
+    letter-spacing: 0.02em;
+    background: var(--surface-sunken);
+    color: var(--text-muted);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .chip-active {
+    background: var(--color-brand-600);
+    border-color: var(--color-brand-600);
+    color: #fff;
+  }
+
+  /* --- Skeletons --------------------------------------------------------- */
+
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--surface-sunken) 25%,
+      color-mix(in srgb, var(--surface-sunken) 60%, var(--border-subtle)) 37%,
+      var(--surface-sunken) 63%
+    );
+    background-size: 400% 100%;
+    animation: shimmer 1.4s ease infinite;
+    border-radius: 0.5rem;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0 50%;
+    }
+  }
+
+  /* --- Seat tokens: the signature ---------------------------------------- */
+  /* One person, one colour, everywhere they appear. The colour is derived in
+     seat.ts from the user's public id, so it's stable without being stored. */
+
+  .seat {
+    @apply inline-flex shrink-0 items-center justify-center rounded-full font-bold;
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.6875rem;
+    color: #fff;
+    border: 2px solid var(--surface-card);
+    font-family: var(--font-display);
+    text-transform: uppercase;
+  }
+
+  .seat-1 {
+    background: var(--color-seat-1);
+  }
+  .seat-2 {
+    background: var(--color-seat-2);
+  }
+  .seat-3 {
+    background: var(--color-seat-3);
+    color: var(--color-ink-950);
+  }
+  .seat-4 {
+    background: var(--color-seat-4);
+    color: var(--color-ink-950);
+  }
+  .seat-5 {
+    background: var(--color-seat-5);
+  }
+  .seat-6 {
+    background: var(--color-seat-6);
+    color: var(--color-ink-950);
+  }
+
+  /* Overlapping tokens read as "a group", and stay countable. */
+  .seat-stack > .seat + .seat {
+    margin-left: -0.5rem;
+  }
+
+  /* --- Layout ------------------------------------------------------------ */
+
+  .container-app {
+    @apply mx-auto w-full px-4 sm:px-6;
+    max-width: 80rem;
+  }
+}
+
+@layer utilities {
+  /* Route + list-item entrances. Kept tiny and subtle; the reduced-motion
+     block above disables them wholesale. */
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .animate-rise {
+    animation: rise-in 220ms var(--ease-snap) both;
+  }
+
+  .text-strong {
+    color: var(--text-strong);
+  }
+  .text-body {
+    color: var(--text-body);
+  }
+  .text-muted {
+    color: var(--text-muted);
+  }
+  .bg-surface {
+    background: var(--surface-card);
+  }
+  .bg-page {
+    background: var(--surface-page);
+  }
+  .bg-sunken {
+    background: var(--surface-sunken);
+  }
+  .border-subtle {
+    border-color: var(--border-subtle);
+  }
+}

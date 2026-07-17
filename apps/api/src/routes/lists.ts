@@ -81,11 +81,17 @@ const listRoutes: FastifyPluginAsyncZod = async (app) => {
       },
     },
     async (request) => {
-      const { list, visiblePrivacies } = await listService.getViewableList(
+      const { list, visiblePrivacies, isOwner } = await listService.getViewableList(
         request.currentUser,
         request.params.listId,
       );
-      return listService.listItemsPage(list.id, visiblePrivacies, request.query);
+      // Loan state travels only to the owner — see withLoans().
+      return listService.listItemsPage(
+        list.id,
+        visiblePrivacies,
+        request.query,
+        isOwner ? list.ownerId : null,
+      );
     },
   );
 
@@ -102,11 +108,16 @@ const listRoutes: FastifyPluginAsyncZod = async (app) => {
       schema: { params: listIdParam, querystring: listItemsQuerySchema },
     },
     async (request, reply) => {
-      const { list, visiblePrivacies } = await listService.getViewableList(
+      const { list, visiblePrivacies, isOwner } = await listService.getViewableList(
         request.currentUser,
         request.params.listId,
       );
-      const items = await listService.allListItems(list.id, visiblePrivacies, request.query);
+      const items = await listService.allListItems(
+        list.id,
+        visiblePrivacies,
+        request.query,
+        isOwner ? list.ownerId : null,
+      );
 
       reply.raw.writeHead(200, {
         'Content-Type': 'text/event-stream',
@@ -213,13 +224,14 @@ const listRoutes: FastifyPluginAsyncZod = async (app) => {
     },
     async (request, reply) => {
       const list = await listService.getOwnedList(request.currentUser!, request.params.listId);
-      const all = await listService.allListItems(list.id, ['public', 'friends', 'nobody'], {
-        page: 1,
-        pageSize: 100,
-        sort: 'added_at',
-        dir: 'desc',
-        type: 'all',
-      });
+      // Export is owner-only, so every privacy level is in scope and loan state
+      // is theirs to see. `loan: 'all'` — an export is the whole shelf.
+      const all = await listService.allListItems(
+        list.id,
+        ['public', 'friends', 'nobody'],
+        { page: 1, pageSize: 100, sort: 'added_at', dir: 'desc', type: 'all', loan: 'all' },
+        list.ownerId,
+      );
       const items = listService.filterToSelection(all, request.query.itemIds);
       const format = request.query.format;
 

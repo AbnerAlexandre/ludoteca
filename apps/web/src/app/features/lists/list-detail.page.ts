@@ -106,6 +106,17 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
         <lt-icon [name]="dir() === 'asc' ? 'arrow-up' : 'arrow-down'" [size]="17" />
       </button>
 
+      <!-- Loan filter. Only the owner sees loan state at all, and it only means
+           something where games actually live — the collection. -->
+      @if (showLoanFilter()) {
+        <label class="sr-only" for="loan">Situação de empréstimo</label>
+        <select id="loan" class="field w-auto" [ngModel]="loanFilter()" (ngModelChange)="changeLoanFilter($event)">
+          <option value="all">Todos</option>
+          <option value="lent">Emprestados</option>
+          <option value="available">Na estante</option>
+        </select>
+      }
+
       <label class="sr-only" for="pagesize">Itens por página</label>
       <select id="pagesize" class="field w-auto" [ngModel]="pageSize()" (ngModelChange)="changePageSize(+$event)">
         @for (size of pageSizes; track size) {
@@ -250,6 +261,19 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
                     <span class="stat">{{ item.game.playTimeMinutes }}min</span>
                   }
                   <span class="chip">{{ typeLabel(item.game.type) }}</span>
+
+                  <!-- Says who has it, not just that it's gone. -->
+                  @if (item.loan; as loan) {
+                    <span
+                      class="chip"
+                      [style.background]="'color-mix(in srgb, ' + loanColor(loan.status) + ' 14%, transparent)'"
+                      [style.border-color]="'color-mix(in srgb, ' + loanColor(loan.status) + ' 35%, transparent)'"
+                      [style.color]="loanColor(loan.status)"
+                    >
+                      <lt-icon name="loan" [size]="12" />
+                      {{ loan.status === 'active' ? 'Com ' + loan.counterpartLogin : 'Pedido de ' + loan.counterpartLogin }}
+                    </span>
+                  }
                 </span>
               </span>
             </a>
@@ -355,6 +379,7 @@ export class ListDetailPage {
   protected readonly view = signal<ViewMode>('list');
   protected readonly sort = signal<ListItemSort>('added_at');
   protected readonly dir = signal<SortDirection>('desc');
+  protected readonly loanFilter = signal<'all' | 'lent' | 'available'>('all');
   protected readonly page = signal(1);
   protected readonly pageSize = signal(24);
   protected readonly query = signal('');
@@ -380,6 +405,13 @@ export class ListDetailPage {
 
   /** Copy targets: every list except the one we're looking at. */
   protected readonly otherLists = computed(() => this.allLists().filter((l) => l.publicId !== this.listId()));
+
+  /**
+   * Lending only applies to games you actually own, so the filter appears on
+   * the collection and nowhere else — a wishlist is a list of games you
+   * explicitly do NOT have, and there is nothing to lend from it.
+   */
+  protected readonly showLoanFilter = computed(() => this.list()?.kind === 'collection');
 
   private abort: AbortController | null = null;
 
@@ -429,6 +461,16 @@ export class ListDetailPage {
     void this.load();
   }
 
+  protected changeLoanFilter(value: 'all' | 'lent' | 'available'): void {
+    this.loanFilter.set(value);
+    // Server-side: only it knows the loan table, so this is a fresh stream.
+    void this.load();
+  }
+
+  protected loanColor(status: 'requested' | 'active'): string {
+    return status === 'active' ? 'var(--color-warning)' : 'var(--color-brand-500)';
+  }
+
   protected changePageSize(size: number): void {
     this.pageSize.set(size);
     this.page.set(1);
@@ -454,7 +496,7 @@ export class ListDetailPage {
 
       await this.service.streamItems(
         this.listId(),
-        { sort: this.sort(), dir: this.dir() },
+        { sort: this.sort(), dir: this.dir(), loan: this.loanFilter() },
         {
           onMeta: (meta) => {
             this.total.set(meta.total);

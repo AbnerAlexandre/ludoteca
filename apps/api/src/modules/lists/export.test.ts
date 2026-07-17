@@ -9,6 +9,7 @@ function item(overrides: { name?: string; note?: string | null } = {}): ListItem
     privacy: 'public',
     note: overrides.note ?? null,
     addedAt: '2026-07-17T00:00:00.000Z',
+    loan: null,
     game: {
       publicId: 'bbbbbbbbbbbb',
       ludopediaId: 404,

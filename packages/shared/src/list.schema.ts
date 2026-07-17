@@ -29,6 +29,20 @@ export const listItemSchema = z.object({
   privacy: privacySchema,
   note: z.string().nullable(),
   addedAt: z.iso.datetime(),
+  /**
+   * The open loan on this copy, if any — null when it's on the shelf.
+   *
+   * Only ever set for the owner's own view: whether your game is out on loan
+   * is between you and the borrower, so this stays null for anyone else.
+   */
+  loan: z
+    .object({
+      status: z.enum(['requested', 'active']),
+      /** Who has it (or asked for it). */
+      counterpartLogin: z.string(),
+      dueAt: z.iso.datetime().nullable(),
+    })
+    .nullable(),
 });
 export type ListItem = z.infer<typeof listItemSchema>;
 
@@ -51,6 +65,12 @@ export const listItemsQuerySchema = paginationSchema.extend({
   dir: sortDirectionSchema.default('desc'),
   /** Client-side filter chips: narrow to a game type without a new round trip. */
   type: z.enum(['all', 'board', 'cards', 'expansion', 'rpg', 'other']).default('all'),
+  /**
+   * 'lent' = out with someone right now, 'available' = on the shelf.
+   * Owner-only: for anyone else this filter has nothing to act on and is
+   * ignored, because loan state isn't visible to them in the first place.
+   */
+  loan: z.enum(['all', 'lent', 'available']).default('all'),
   q: z.string().trim().max(LIMITS.searchQuery.max).optional(),
 });
 export type ListItemsQuery = z.infer<typeof listItemsQuerySchema>;

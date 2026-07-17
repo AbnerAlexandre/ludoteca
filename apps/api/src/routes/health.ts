@@ -25,7 +25,8 @@ const health: FastifyPluginAsyncZod = async (app) => {
   app.get(
     '/health/ready',
     {
-      config: { rateLimit: { max: 30, timeWindow: '1 minute' } },
+      // No per-route rate limit: health endpoints are exempted globally in the
+      // rate-limit plugin, because a healthcheck poller must never be throttled.
       schema: {
         response: {
           200: z.object({ status: z.literal('ready'), database: z.literal('up') }),

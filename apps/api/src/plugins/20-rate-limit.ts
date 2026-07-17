@@ -39,7 +39,10 @@ async function rateLimitPlugin(app: FastifyInstance) {
     // Never rate-limit the test suite into flakiness.
     enableDraftSpec: true,
     skipOnError: false,
-    allowList: () => isTest,
+    // Health endpoints are never rate-limited. A platform healthcheck polls
+    // them, and during a slow start it can poll faster than any budget allows —
+    // a 429 there would fail the deploy for a service that is actually fine.
+    allowList: (request) => isTest || request.url.startsWith('/api/health'),
     errorResponseBuilder: (request, context) => ({
       error: {
         code: 'rate_limited',

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import type { ListItem } from '@ludoteca/shared';
-import { exportFilename, toCsv } from './export.js';
+import { exportFilename, toCsv, toNamesExport } from './export.js';
 
 function item(overrides: { name?: string; note?: string | null } = {}): ListItem {
   return {
@@ -80,4 +80,20 @@ test('exportFilename strips characters that could break the header', () => {
 
 test('exportFilename falls back when the name has nothing usable', () => {
   assert.ok(exportFilename('🎲🎲🎲', 'csv').startsWith('ludoteca-'));
+});
+
+test('toNamesExport writes one title per line and nothing else', () => {
+  const text = toNamesExport([item({ name: 'Azul' }), item({ name: 'Terra Mystica' })]);
+  assert.equal(text, 'Azul\r\nTerra Mystica\r\n');
+});
+
+test('toNamesExport leaves titles verbatim — it is chat text, not a spreadsheet', () => {
+  // No formula escaping and no quoting here: a leading apostrophe or wrapping
+  // quotes would be noise in a pasted message. Nothing executes plain text.
+  const text = toNamesExport([item({ name: '=Catan, Big Box' })]);
+  assert.equal(text, '=Catan, Big Box\r\n');
+});
+
+test('toNamesExport returns empty for an empty list', () => {
+  assert.equal(toNamesExport([]), '');
 });

@@ -1,7 +1,15 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import type { BulkActionInput, List, ListItem, ListItemSort, Privacy, SortDirection } from '@ludoteca/shared';
+import type {
+  BulkActionInput,
+  ExportFormat,
+  List,
+  ListItem,
+  ListItemSort,
+  Privacy,
+  SortDirection,
+} from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
 import { ListsService } from '../../core/lists.service';
 import { Icon } from '../../shared/icon';
@@ -40,17 +48,40 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
       <lt-icon name="arrow-left" [size]="16" /> Minhas listas
     </a>
 
-    <header class="mb-5">
-      <h1 class="text-3xl">{{ list()?.name ?? 'Lista' }}</h1>
-      <p class="mt-1 text-sm text-muted">
-        @if (streaming()) {
-          Carregando…
-          <span class="stat">{{ items().length }}</span> de <span class="stat">{{ total() }}</span>
-        } @else {
-          <span class="stat font-semibold text-strong">{{ filtered().length }}</span>
-          {{ filtered().length === 1 ? 'jogo' : 'jogos' }}
-        }
-      </p>
+    <header class="mb-5 flex flex-wrap items-start justify-between gap-3">
+      <div>
+        <h1 class="text-3xl">{{ list()?.name ?? 'Lista' }}</h1>
+        <p class="mt-1 text-sm text-muted">
+          @if (streaming()) {
+            Carregando…
+            <span class="stat">{{ items().length }}</span> de <span class="stat">{{ total() }}</span>
+          } @else {
+            <span class="stat font-semibold text-strong">{{ filtered().length }}</span>
+            {{ filtered().length === 1 ? 'jogo' : 'jogos' }}
+          }
+        </p>
+      </div>
+
+      <!-- Export the whole list. The same actions exist in the bulk bar for a
+           selection; here they need no selection at all. -->
+      <div class="flex flex-wrap gap-1.5">
+        <button type="button" class="btn btn-ghost btn-sm" (click)="copyNames()" [disabled]="filtered().length === 0">
+          <lt-icon name="check" [size]="16" />
+          {{ copied() ? 'Copiado!' : 'Copiar nomes' }}
+        </button>
+        <button type="button" class="btn btn-ghost btn-sm" (click)="exportAll('names')" [disabled]="filtered().length === 0">
+          <lt-icon name="download" [size]="16" />
+          TXT
+        </button>
+        <button type="button" class="btn btn-ghost btn-sm" (click)="exportAll('csv')" [disabled]="filtered().length === 0">
+          <lt-icon name="download" [size]="16" />
+          CSV
+        </button>
+        <button type="button" class="btn btn-ghost btn-sm" (click)="exportAll('json')" [disabled]="filtered().length === 0">
+          <lt-icon name="download" [size]="16" />
+          JSON
+        </button>
+      </div>
     </header>
 
     <!-- Controls. Wraps rather than scrolls sideways on a phone. -->
@@ -138,8 +169,12 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
           }
         </select>
 
-        <button type="button" class="btn btn-sm bulk-btn" (click)="exportSelection('csv')">Exportar CSV</button>
-        <button type="button" class="btn btn-sm bulk-btn" (click)="exportSelection('json')">Exportar JSON</button>
+        <button type="button" class="btn btn-sm bulk-btn" (click)="copyNames(true)">
+          {{ copied() ? 'Copiado!' : 'Copiar nomes' }}
+        </button>
+        <button type="button" class="btn btn-sm bulk-btn" (click)="exportSelection('names')">TXT</button>
+        <button type="button" class="btn btn-sm bulk-btn" (click)="exportSelection('csv')">CSV</button>
+        <button type="button" class="btn btn-sm bulk-btn" (click)="exportSelection('json')">JSON</button>
         <button type="button" class="btn btn-sm btn-danger" (click)="bulkRemove()" [disabled]="busy()">Remover</button>
       </div>
     }
@@ -315,6 +350,7 @@ export class ListDetailPage {
   protected readonly busy = signal(false);
   protected readonly error = signal<string | null>(null);
   protected readonly notice = signal<string | null>(null);
+  protected readonly copied = signal(false);
 
   protected readonly view = signal<ViewMode>('list');
   protected readonly sort = signal<ListItemSort>('added_at');
@@ -515,11 +551,41 @@ export class ListDetailPage {
     }
   }
 
-  protected async exportSelection(format: 'csv' | 'json'): Promise<void> {
+  protected async exportSelection(format: ExportFormat): Promise<void> {
+    await this.runExport(format, [...this.selected()]);
+  }
+
+  protected async exportAll(format: ExportFormat): Promise<void> {
+    await this.runExport(format);
+  }
+
+  private async runExport(format: ExportFormat, itemIds?: string[]): Promise<void> {
+    this.error.set(null);
     try {
-      await this.service.export(this.listId(), format, [...this.selected()]);
+      await this.service.export(this.listId(), format, itemIds);
     } catch (err) {
       this.error.set(err instanceof ApiFailure ? err.message : 'Não foi possível exportar.');
+    }
+  }
+
+  /**
+   * Names straight to the clipboard — the WhatsApp path. Downloading a .txt
+   * just to open it and copy from it is a detour nobody wants.
+   */
+  protected async copyNames(selectionOnly = false): Promise<void> {
+    this.error.set(null);
+    try {
+      const ids = selectionOnly ? [...this.selected()] : undefined;
+      const text = await this.service.namesText(this.listId(), ids);
+      await navigator.clipboard.writeText(text.trim());
+      this.copied.set(true);
+      // Revert the label so the button doesn't read "Copiado!" forever.
+      setTimeout(() => this.copied.set(false), 2000);
+    } catch (err) {
+      // Clipboard access needs a secure context and can be blocked outright.
+      this.error.set(
+        err instanceof ApiFailure ? err.message : 'Não foi possível copiar. Use o botão TXT para baixar.',
+      );
     }
   }
 }

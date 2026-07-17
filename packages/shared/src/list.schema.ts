@@ -104,8 +104,16 @@ export const bulkActionResultSchema = z.object({
 });
 export type BulkActionResult = z.infer<typeof bulkActionResultSchema>;
 
+/**
+ * `names` is a plain-text list of titles, one per line — for pasting straight
+ * into WhatsApp. CSV in a chat window is unreadable, and most of the time the
+ * question is just "what have you got?".
+ */
+export const exportFormatSchema = z.enum(['csv', 'json', 'names']);
+export type ExportFormat = z.infer<typeof exportFormatSchema>;
+
 export const exportQuerySchema = z.object({
-  format: z.enum(['csv', 'json']).default('csv'),
+  format: exportFormatSchema.default('csv'),
   /** Omit to export the whole list; provide ids to export just the selection. */
   itemIds: z
     .union([z.array(publicIdSchema), z.string()])

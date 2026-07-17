@@ -4,6 +4,7 @@ import type {
   AddListItemInput,
   BulkActionInput,
   BulkActionResult,
+  ExportFormat,
   List,
   ListItem,
   ListItemsQuery,
@@ -11,6 +12,9 @@ import type {
   Privacy,
 } from '@ludoteca/shared';
 import { API_BASE, ApiService } from './api.service';
+
+/** `names` is plain text, so it downloads as .txt rather than .names. */
+const EXTENSION: Record<ExportFormat, string> = { csv: 'csv', json: 'json', names: 'txt' };
 
 @Injectable({ providedIn: 'root' })
 export class ListsService {
@@ -112,8 +116,14 @@ export class ListsService {
     }
   }
 
-  /** Triggers a browser download without ever putting the data in a URL. */
-  async export(listId: string, format: 'csv' | 'json', itemIds?: string[]): Promise<void> {
+  /**
+   * Triggers a browser download without ever putting the data in a URL.
+   *
+   * Omit `itemIds` to export the whole list; pass them to export a selection.
+   * The server sets the real filename in Content-Disposition — this local one
+   * is only the fallback the browser uses if it ignores that header.
+   */
+  async export(listId: string, format: ExportFormat, itemIds?: string[]): Promise<void> {
     const blob = await firstValueFrom(
       this.api.getBlob(`/lists/${listId}/export`, {
         format,
@@ -124,9 +134,23 @@ export class ListsService {
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement('a');
     anchor.href = url;
-    anchor.download = `ludoteca.${format}`;
+    anchor.download = `ludoteca.${EXTENSION[format]}`;
     anchor.click();
     // Revoke or the blob leaks for the lifetime of the document.
     URL.revokeObjectURL(url);
+  }
+
+  /**
+   * The names-only list as a string, for copying rather than downloading —
+   * pasting into a chat is the whole point, and a .txt download is a detour.
+   */
+  async namesText(listId: string, itemIds?: string[]): Promise<string> {
+    const blob = await firstValueFrom(
+      this.api.getBlob(`/lists/${listId}/export`, {
+        format: 'names',
+        ...(itemIds?.length ? { itemIds: itemIds.join(',') } : {}),
+      }),
+    );
+    return blob.text();
   }
 }

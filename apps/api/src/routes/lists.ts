@@ -16,7 +16,7 @@ import {
   updateListSchema,
 } from '@ludoteca/shared';
 import { rateLimits } from '../plugins/20-rate-limit.js';
-import { exportFilename, toCsv, toJsonExport } from '../modules/lists/export.js';
+import { exportFilename, toCsv, toJsonExport, toNamesExport } from '../modules/lists/export.js';
 import * as listService from '../modules/lists/list.service.js';
 
 const listIdParam = z.object({ listId: publicIdSchema });
@@ -223,10 +223,24 @@ const listRoutes: FastifyPluginAsyncZod = async (app) => {
       const items = listService.filterToSelection(all, request.query.itemIds);
       const format = request.query.format;
 
-      const body = format === 'csv' ? toCsv(items) : toJsonExport(items, list.name);
+      const { body, contentType, extension } = (() => {
+        switch (format) {
+          case 'csv':
+            return { body: toCsv(items), contentType: 'text/csv; charset=utf-8', extension: 'csv' as const };
+          case 'names':
+            return { body: toNamesExport(items), contentType: 'text/plain; charset=utf-8', extension: 'txt' as const };
+          case 'json':
+            return {
+              body: toJsonExport(items, list.name),
+              contentType: 'application/json; charset=utf-8',
+              extension: 'json' as const,
+            };
+        }
+      })();
+
       return reply
-        .header('Content-Type', format === 'csv' ? 'text/csv; charset=utf-8' : 'application/json; charset=utf-8')
-        .header('Content-Disposition', `attachment; filename="${exportFilename(list.name, format)}"`)
+        .header('Content-Type', contentType)
+        .header('Content-Disposition', `attachment; filename="${exportFilename(list.name, extension)}"`)
         // The browser must not sniff this into something executable.
         .header('X-Content-Type-Options', 'nosniff')
         .send(body);

@@ -4,6 +4,7 @@ import type { Loan, LoanStatus, PublicUser } from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
 import { ListsService } from '../../core/lists.service';
 import { SocialService } from '../../core/social.service';
+import { Icon } from '../../shared/icon';
 import { EmptyState, SeatToken, Skeleton } from '../../shared/ui';
 
 const STATUS_LABEL: Record<LoanStatus, string> = {
@@ -16,7 +17,7 @@ const STATUS_LABEL: Record<LoanStatus, string> = {
   selector: 'lt-loans',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, SeatToken, Skeleton, EmptyState],
+  imports: [FormsModule, SeatToken, Skeleton, EmptyState, Icon],
   template: `
     <header class="mb-5 flex flex-wrap items-end justify-between gap-4">
       <div>
@@ -83,7 +84,7 @@ const STATUS_LABEL: Record<LoanStatus, string> = {
         }
       </ul>
     } @else if (loans().length === 0) {
-      <lt-empty icon="📦" title="Nada emprestado" message="Quando você emprestar um jogo — ou pegar um emprestado — ele aparece aqui." />
+      <lt-empty icon="loan" title="Nada emprestado" message="Quando você emprestar um jogo — ou pegar um emprestado — ele aparece aqui." />
     } @else {
       <ul class="grid gap-3">
         @for (loan of loans(); track loan.publicId; let i = $index) {
@@ -91,7 +92,7 @@ const STATUS_LABEL: Record<LoanStatus, string> = {
             @if (loan.game.thumbnail) {
               <img [src]="loan.game.thumbnail" alt="" class="h-14 w-14 shrink-0 rounded-lg object-cover" loading="lazy" style="background: var(--surface-sunken)" />
             } @else {
-              <span class="grid h-14 w-14 shrink-0 place-items-center rounded-lg" style="background: var(--surface-sunken)" aria-hidden="true">🎲</span>
+              <span class="grid h-14 w-14 shrink-0 place-items-center rounded-lg text-muted" style="background: var(--surface-sunken)"><lt-icon name="dice" [size]="20" /></span>
             }
 
             <div class="min-w-0 flex-1">

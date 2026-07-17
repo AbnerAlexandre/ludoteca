@@ -111,7 +111,7 @@ import { EmptyState, SeatToken, Skeleton } from '../../shared/ui';
           }
         </div>
       } @else if (friends().length === 0) {
-        <lt-empty icon="🤝" title="Nenhum amigo ainda" message="Busque pelo login de alguém para enviar um pedido." />
+        <lt-empty icon="friends" title="Nenhum amigo ainda" message="Busque pelo login de alguém para enviar um pedido." />
       } @else {
         <ul class="grid gap-2 sm:grid-cols-2">
           @for (friend of friends(); track friend.publicId) {

@@ -60,7 +60,7 @@ import { EmptyState, SeatToken, Skeleton } from '../../shared/ui';
         }
       </div>
     } @else if (groups().length === 0) {
-      <lt-empty icon="👥" title="Nenhum grupo ainda" message="Crie um grupo com seus amigos para ver a coleção de todo mundo junta.">
+      <lt-empty icon="group" title="Nenhum grupo ainda" message="Crie um grupo com seus amigos para ver a coleção de todo mundo junta.">
         <button type="button" class="btn btn-primary" (click)="creating.set(true)">Novo grupo</button>
       </lt-empty>
     } @else {

@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import type { BulkActionInput, List, ListItem, ListItemSort, Privacy, SortDirection } from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
 import { ListsService } from '../../core/lists.service';
+import { Icon } from '../../shared/icon';
 import { EmptyState, Skeleton } from '../../shared/ui';
 
 type ViewMode = 'card' | 'grid';
@@ -28,10 +29,10 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
   selector: 'lt-list-detail',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, RouterLink, Skeleton, EmptyState],
+  imports: [FormsModule, RouterLink, Skeleton, EmptyState, Icon],
   template: `
     <a routerLink="/colecao" class="mb-4 inline-flex items-center gap-1.5 text-sm text-muted hover:text-strong">
-      <span aria-hidden="true">←</span> Minhas listas
+      <lt-icon name="arrow-left" [size]="16" /> Minhas listas
     </a>
 
     <header class="mb-5">
@@ -66,7 +67,7 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
         (click)="toggleDir()"
         [attr.aria-label]="dir() === 'asc' ? 'Ordem crescente. Inverter.' : 'Ordem decrescente. Inverter.'"
       >
-        <span aria-hidden="true">{{ dir() === 'asc' ? '↑' : '↓' }}</span>
+        <lt-icon [name]="dir() === 'asc' ? 'arrow-up' : 'arrow-down'" [size]="17" />
       </button>
 
       <label class="sr-only" for="pagesize">Itens por página</label>
@@ -185,7 +186,7 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
                 style="background: var(--surface-sunken)"
               />
             } @else {
-              <span class="grid h-16 w-16 shrink-0 place-items-center rounded-lg text-xl" style="background: var(--surface-sunken)" aria-hidden="true">🎲</span>
+              <span class="grid h-16 w-16 shrink-0 place-items-center rounded-lg text-muted" style="background: var(--surface-sunken)"><lt-icon name="dice" [size]="22" /></span>
             }
             <div class="min-w-0 flex-1">
               <p class="truncate font-semibold text-strong">{{ item.game.name }}</p>
@@ -219,7 +220,7 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
               (click)="removeItem(item)"
               [attr.aria-label]="'Remover ' + item.game.name"
             >
-              <span aria-hidden="true">✕</span>
+              <lt-icon name="close" [size]="16" />
             </button>
           </li>
         }
@@ -238,7 +239,7 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
             @if (item.game.coverUrl) {
               <img [src]="item.game.coverUrl" alt="" class="aspect-square w-full object-cover" loading="lazy" style="background: var(--surface-sunken)" />
             } @else {
-              <span class="grid aspect-square w-full place-items-center text-3xl" style="background: var(--surface-sunken)" aria-hidden="true">🎲</span>
+              <span class="grid aspect-square w-full place-items-center text-muted" style="background: var(--surface-sunken)"><lt-icon name="dice" [size]="34" /></span>
             }
             <div class="p-2.5">
               <p class="truncate text-sm font-semibold text-strong">{{ item.game.name }}</p>

@@ -5,6 +5,7 @@ import type { FriendGroupDetail, GroupGame } from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
 import { assignSeats } from '../../core/seat';
 import { SocialService } from '../../core/social.service';
+import { Icon } from '../../shared/icon';
 import { EmptyState, SeatToken, Skeleton } from '../../shared/ui';
 
 /**
@@ -22,10 +23,10 @@ import { EmptyState, SeatToken, Skeleton } from '../../shared/ui';
   selector: 'lt-group-detail',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, RouterLink, SeatToken, Skeleton, EmptyState],
+  imports: [FormsModule, RouterLink, SeatToken, Skeleton, EmptyState, Icon],
   template: `
     <a routerLink="/grupos" class="mb-4 inline-flex items-center gap-1.5 text-sm text-muted hover:text-strong">
-      <span aria-hidden="true">←</span> Grupos
+      <lt-icon name="arrow-left" [size]="16" /> Grupos
     </a>
 
     <header class="mb-5 flex flex-wrap items-start justify-between gap-4">
@@ -59,7 +60,7 @@ import { EmptyState, SeatToken, Skeleton } from '../../shared/ui';
       </select>
 
       <button type="button" class="btn btn-ghost btn-sm btn-icon" (click)="toggleDir()" [attr.aria-label]="dir() === 'asc' ? 'Crescente. Inverter.' : 'Decrescente. Inverter.'">
-        <span aria-hidden="true">{{ dir() === 'asc' ? '↑' : '↓' }}</span>
+        <lt-icon [name]="dir() === 'asc' ? 'arrow-up' : 'arrow-down'" [size]="17" />
       </button>
     </div>
 
@@ -77,7 +78,7 @@ import { EmptyState, SeatToken, Skeleton } from '../../shared/ui';
         }
       </ul>
     } @else if (games().length === 0) {
-      <lt-empty icon="🎲" title="Nenhum jogo à vista" message="Quando os membros marcarem jogos como visíveis para você, eles aparecem aqui." />
+      <lt-empty icon="dice" title="Nenhum jogo à vista" message="Quando os membros marcarem jogos como visíveis para você, eles aparecem aqui." />
     } @else {
       <p class="mb-3 text-sm text-muted">
         <span class="stat font-semibold text-strong">{{ total() }}</span> {{ total() === 1 ? 'jogo' : 'jogos' }} na estante do grupo
@@ -88,7 +89,7 @@ import { EmptyState, SeatToken, Skeleton } from '../../shared/ui';
             @if (row.game.thumbnail) {
               <img [src]="row.game.thumbnail" alt="" class="h-14 w-14 shrink-0 rounded-lg object-cover" loading="lazy" style="background: var(--surface-sunken)" />
             } @else {
-              <span class="grid h-14 w-14 shrink-0 place-items-center rounded-lg" style="background: var(--surface-sunken)" aria-hidden="true">🎲</span>
+              <span class="grid h-14 w-14 shrink-0 place-items-center rounded-lg text-muted" style="background: var(--surface-sunken)"><lt-icon name="dice" [size]="20" /></span>
             }
             <div class="min-w-0 flex-1">
               <p class="truncate font-semibold text-strong">{{ row.game.name }}</p>

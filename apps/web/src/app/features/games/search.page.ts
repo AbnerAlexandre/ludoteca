@@ -4,13 +4,14 @@ import type { Game, List } from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
 import { ListsService } from '../../core/lists.service';
 import { GamesService } from '../../core/social.service';
+import { Icon } from '../../shared/icon';
 import { EmptyState, Skeleton } from '../../shared/ui';
 
 @Component({
   selector: 'lt-search',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, Skeleton, EmptyState],
+  imports: [FormsModule, Skeleton, EmptyState, Icon],
   template: `
     <header class="mb-5">
       <h1 class="text-3xl">Buscar jogos</h1>
@@ -72,7 +73,7 @@ import { EmptyState, Skeleton } from '../../shared/ui';
         }
       </ul>
     } @else if (searched() && results().length === 0) {
-      <lt-empty icon="🔍" title="Nenhum jogo encontrado" message="Tente outro nome ou verifique a grafia." />
+      <lt-empty icon="search" title="Nenhum jogo encontrado" message="Tente outro nome ou verifique a grafia." />
     } @else if (results().length > 0) {
       <p class="mb-3 text-sm text-muted">
         <span class="stat font-semibold text-strong">{{ total() }}</span> resultado{{ total() === 1 ? '' : 's' }}
@@ -83,7 +84,7 @@ import { EmptyState, Skeleton } from '../../shared/ui';
             @if (game.thumbnail) {
               <img [src]="game.thumbnail" alt="" class="h-16 w-16 shrink-0 rounded-lg object-cover" loading="lazy" style="background: var(--surface-sunken)" />
             } @else {
-              <span class="grid h-16 w-16 shrink-0 place-items-center rounded-lg text-xl" style="background: var(--surface-sunken)" aria-hidden="true">🎲</span>
+              <span class="grid h-16 w-16 shrink-0 place-items-center rounded-lg text-muted" style="background: var(--surface-sunken)"><lt-icon name="dice" [size]="22" /></span>
             }
             <div class="min-w-0 flex-1">
               <p class="truncate font-semibold text-strong">{{ game.name }}</p>
@@ -114,7 +115,7 @@ import { EmptyState, Skeleton } from '../../shared/ui';
         </nav>
       }
     } @else {
-      <lt-empty icon="🔍" title="Procure um jogo" message="Digite o nome de um jogo para buscar no catálogo da Ludopedia." />
+      <lt-empty icon="search" title="Procure um jogo" message="Digite o nome de um jogo para buscar no catálogo da Ludopedia." />
     }
   `,
 })

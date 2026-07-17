@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthStore } from '../core/auth.store';
 import { ThemeService } from '../core/theme.service';
+import { Icon, type IconName } from '../shared/icon';
 import { SeatToken } from '../shared/ui';
 
 interface NavItem {
   path: string;
   label: string;
-  icon: string;
+  icon: IconName;
 }
 
 /**
@@ -20,7 +21,7 @@ interface NavItem {
   selector: 'lt-shell',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, SeatToken],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, SeatToken, Icon],
   template: `
     <a
       href="#conteudo"
@@ -53,7 +54,7 @@ interface NavItem {
           <div class="flex-1"></div>
 
           <button type="button" class="btn btn-quiet btn-icon" (click)="theme.toggle()" [attr.aria-label]="themeLabel()">
-            <span aria-hidden="true">{{ themeIcon() }}</span>
+            <lt-icon [name]="themeIcon()" />
           </button>
 
           <a routerLink="/conta" class="lg:hidden" aria-label="Conta">
@@ -77,7 +78,7 @@ interface NavItem {
                   #rla="routerLinkActive"
                   [attr.aria-current]="rla.isActive ? 'page' : null"
                 >
-                  <span class="text-base" aria-hidden="true">{{ item.icon }}</span>
+                  <lt-icon [name]="item.icon" />
                   {{ item.label }}
                 </a>
               </li>
@@ -113,7 +114,7 @@ interface NavItem {
                 #rla="routerLinkActive"
                 [attr.aria-current]="rla.isActive ? 'page' : null"
               >
-                <span class="text-lg leading-none" aria-hidden="true">{{ item.icon }}</span>
+                <lt-icon [name]="item.icon" [size]="21" />
                 <span class="text-[0.625rem] font-semibold">{{ item.label }}</span>
               </a>
             </li>
@@ -171,15 +172,15 @@ export class AppShell {
   protected readonly pips = Array.from({ length: 6 });
 
   protected readonly nav: NavItem[] = [
-    { path: '/colecao', label: 'Listas', icon: '🎲' },
-    { path: '/buscar', label: 'Buscar', icon: '🔍' },
-    { path: '/grupos', label: 'Grupos', icon: '👥' },
-    { path: '/amigos', label: 'Amigos', icon: '🤝' },
-    { path: '/emprestimos', label: 'Empréstimos', icon: '📦' },
+    { path: '/colecao', label: 'Listas', icon: 'dice' },
+    { path: '/buscar', label: 'Buscar', icon: 'search' },
+    { path: '/grupos', label: 'Grupos', icon: 'group' },
+    { path: '/amigos', label: 'Amigos', icon: 'friends' },
+    { path: '/emprestimos', label: 'Empréstimos', icon: 'loan' },
   ];
 
-  protected readonly themeIcon = computed(
-    () => ({ light: '☀️', dark: '🌙', system: '💻' })[this.theme.choice()],
+  protected readonly themeIcon = computed<IconName>(
+    () => (({ light: 'sun', dark: 'moon', system: 'monitor' }) as const)[this.theme.choice()],
   );
 
   protected readonly themeLabel = computed(

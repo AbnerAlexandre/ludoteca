@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { initialsFor, seatFor, type Seat } from '../core/seat';
+import { Icon, type IconName } from './icon';
 
 /**
  * A person, as a coloured token. The signature element: a row of these answers
@@ -53,14 +54,14 @@ export class Skeleton {
   selector: 'lt-empty',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [Icon],
   template: `
     <div class="flex flex-col items-center justify-center px-6 py-16 text-center">
       <div
-        class="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl text-2xl"
+        class="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl text-muted"
         style="background: var(--surface-sunken)"
-        aria-hidden="true"
       >
-        {{ icon() }}
+        <lt-icon [name]="icon()" [size]="26" />
       </div>
       <h3 class="mb-1 text-lg">{{ title() }}</h3>
       <p class="mb-5 max-w-sm text-sm text-muted">{{ message() }}</p>
@@ -69,7 +70,7 @@ export class Skeleton {
   `,
 })
 export class EmptyState {
-  readonly icon = input('🎲');
+  readonly icon = input<IconName>('dice');
   readonly title = input.required<string>();
   readonly message = input('');
 }

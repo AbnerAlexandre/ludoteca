@@ -1,11 +1,11 @@
 # Graph Report - MyLudo  (2026-07-17)
 
 ## Corpus Check
-- 99 files · ~43,705 words
+- 100 files · ~44,207 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 886 nodes · 1529 edges · 45 communities (36 shown, 9 thin omitted)
+- 891 nodes · 1535 edges · 44 communities (35 shown, 9 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 29 edges (avg confidence: 0.7)
 - Token cost: 0 input · 0 output
 
@@ -29,7 +29,6 @@
 - compilerOptions
 - compilerOptions
 - game.schema.ts
-- lists.ts
 - compilerOptions
 - App
 - Web
@@ -72,17 +71,17 @@
   apps/api/src/types/fastify.d.ts → apps/api/src/db/schema.ts
 - `auth()` --indirect_call--> `request()`  [INFERRED]
   apps/api/src/routes/auth.ts → apps/api/src/modules/games/ludopedia.client.ts
-- `listRoutes()` --indirect_call--> `request()`  [INFERRED]
-  apps/api/src/routes/lists.ts → apps/api/src/modules/games/ludopedia.client.ts
 - `meRoutes()` --indirect_call--> `request()`  [INFERRED]
   apps/api/src/routes/me.ts → apps/api/src/modules/games/ludopedia.client.ts
 - `listRoutes()` --indirect_call--> `item()`  [INFERRED]
   apps/api/src/routes/lists.ts → apps/api/src/modules/lists/export.test.ts
+- `deriveAvailableLogin()` --calls--> `sql`  [EXTRACTED]
+  apps/api/src/modules/auth/auth.service.ts → apps/api/src/db/index.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (45 total, 9 thin omitted)
+## Communities (44 total, 9 thin omitted)
 
 ### Community 0 - "Build Prompt — Board & Card Game Management Web App ("Ludoteca")"
 Cohesion: 0.14
@@ -93,8 +92,8 @@ Cohesion: 0.09
 Nodes (33): friendGroupMembers, FriendGroupRow, friendGroups, FriendshipRow, friendshipStatusEnum, GameRow, games, gameTypeEnum (+25 more)
 
 ### Community 2 - "game.service.ts"
-Cohesion: 0.09
-Nodes (30): absoluteLink(), coverFromThumb(), fromDetail(), fromSearchResult(), inferGameType(), names(), toGame(), toGameDetail() (+22 more)
+Cohesion: 0.07
+Nodes (40): absoluteLink(), coverFromThumb(), fromDetail(), fromSearchResult(), inferGameType(), names(), toGame(), toGameDetail() (+32 more)
 
 ### Community 3 - "dependencies"
 Cohesion: 0.06
@@ -160,10 +159,6 @@ Nodes (14): compilerOptions, module, moduleResolution, outDir, rootDir, types, e
 Cohesion: 0.15
 Nodes (12): gameTypeSchema, pageOf(), paginationSchema, publicIdSchema, Game, GameDetail, gameDetailSchema, gameSchema (+4 more)
 
-### Community 19 - "lists.ts"
-Cohesion: 0.29
-Nodes (10): COLUMNS, csvCell(), exportFilename(), item(), toCsv(), toJsonExport(), itemParams, listIdParam (+2 more)
-
 ### Community 20 - "compilerOptions"
 Cohesion: 0.18
 Nodes (10): compilerOptions, declarationMap, module, moduleResolution, outDir, rootDir, extends, include (+2 more)
@@ -178,7 +173,7 @@ Nodes (7): Additional Resources, Building, Code scaffolding, Development server,
 
 ### Community 24 - "Modelo de segurança — Ludoteca"
 Cohesion: 0.06
-Nodes (29): API, API em container (opcional), Arquitetura, Comandos, Dev, Grafo do código, Login de exemplo, Ludopedia (+21 more)
+Nodes (33): Convenções que não dá para inferir do código, Grafo, Login de exemplo, Ludoteca — notas para o agente, API, API em container (opcional), Arquitetura, Comandos (+25 more)
 
 ### Community 25 - "devDependencies"
 Cohesion: 0.07
@@ -225,7 +220,7 @@ Cohesion: 0.21
 Nodes (14): audit(), STATUS_BY_CODE, clearAuthCookies(), hashToken(), issueSession(), newRawToken(), persistRefreshToken(), revokeSession() (+6 more)
 
 ## Knowledge Gaps
-- **332 isolated node(s):** `name`, `version`, `private`, `type`, `dev` (+327 more)
+- **335 isolated node(s):** `name`, `version`, `private`, `type`, `dev` (+330 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -241,7 +236,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 4 inferred relationships involving `AuthStore` (e.g. with `authGuard()` and `guestGuard()`) actually correct?**
   _`AuthStore` has 4 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `name`, `version`, `private` to the rest of the system?**
-  _332 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _335 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Build Prompt — Board & Card Game Management Web App ("Ludoteca")` be split into smaller, more focused modules?**
   _Cohesion score 0.14285714285714285 - nodes in this community are weakly interconnected._
 - **Should `5. Features` be split into smaller, more focused modules?**

@@ -16,7 +16,7 @@ import {
   updateListSchema,
 } from '@ludoteca/shared';
 import { rateLimits } from '../plugins/20-rate-limit.js';
-import { exportFilename, toCsv, toJsonExport } from '../modules/lists/export.js';
+import { exportFilename, toCsv, toJsonExport, toNamesExport } from '../modules/lists/export.js';
 import * as listService from '../modules/lists/list.service.js';
 
 const listIdParam = z.object({ listId: publicIdSchema });
@@ -81,11 +81,17 @@ const listRoutes: FastifyPluginAsyncZod = async (app) => {
       },
     },
     async (request) => {
-      const { list, visiblePrivacies } = await listService.getViewableList(
+      const { list, visiblePrivacies, isOwner } = await listService.getViewableList(
         request.currentUser,
         request.params.listId,
       );
-      return listService.listItemsPage(list.id, visiblePrivacies, request.query);
+      // Loan state travels only to the owner — see withLoans().
+      return listService.listItemsPage(
+        list.id,
+        visiblePrivacies,
+        request.query,
+        isOwner ? list.ownerId : null,
+      );
     },
   );
 
@@ -102,11 +108,16 @@ const listRoutes: FastifyPluginAsyncZod = async (app) => {
       schema: { params: listIdParam, querystring: listItemsQuerySchema },
     },
     async (request, reply) => {
-      const { list, visiblePrivacies } = await listService.getViewableList(
+      const { list, visiblePrivacies, isOwner } = await listService.getViewableList(
         request.currentUser,
         request.params.listId,
       );
-      const items = await listService.allListItems(list.id, visiblePrivacies, request.query);
+      const items = await listService.allListItems(
+        list.id,
+        visiblePrivacies,
+        request.query,
+        isOwner ? list.ownerId : null,
+      );
 
       reply.raw.writeHead(200, {
         'Content-Type': 'text/event-stream',
@@ -213,20 +224,35 @@ const listRoutes: FastifyPluginAsyncZod = async (app) => {
     },
     async (request, reply) => {
       const list = await listService.getOwnedList(request.currentUser!, request.params.listId);
-      const all = await listService.allListItems(list.id, ['public', 'friends', 'nobody'], {
-        page: 1,
-        pageSize: 100,
-        sort: 'added_at',
-        dir: 'desc',
-        type: 'all',
-      });
+      // Export is owner-only, so every privacy level is in scope and loan state
+      // is theirs to see. `loan: 'all'` — an export is the whole shelf.
+      const all = await listService.allListItems(
+        list.id,
+        ['public', 'friends', 'nobody'],
+        { page: 1, pageSize: 100, sort: 'added_at', dir: 'desc', type: 'all', loan: 'all' },
+        list.ownerId,
+      );
       const items = listService.filterToSelection(all, request.query.itemIds);
       const format = request.query.format;
 
-      const body = format === 'csv' ? toCsv(items) : toJsonExport(items, list.name);
+      const { body, contentType, extension } = (() => {
+        switch (format) {
+          case 'csv':
+            return { body: toCsv(items), contentType: 'text/csv; charset=utf-8', extension: 'csv' as const };
+          case 'names':
+            return { body: toNamesExport(items), contentType: 'text/plain; charset=utf-8', extension: 'txt' as const };
+          case 'json':
+            return {
+              body: toJsonExport(items, list.name),
+              contentType: 'application/json; charset=utf-8',
+              extension: 'json' as const,
+            };
+        }
+      })();
+
       return reply
-        .header('Content-Type', format === 'csv' ? 'text/csv; charset=utf-8' : 'application/json; charset=utf-8')
-        .header('Content-Disposition', `attachment; filename="${exportFilename(list.name, format)}"`)
+        .header('Content-Type', contentType)
+        .header('Content-Disposition', `attachment; filename="${exportFilename(list.name, extension)}"`)
         // The browser must not sniff this into something executable.
         .header('X-Content-Type-Options', 'nosniff')
         .send(body);

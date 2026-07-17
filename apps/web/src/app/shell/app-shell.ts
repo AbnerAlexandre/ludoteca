@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthStore } from '../core/auth.store';
 import { ThemeService } from '../core/theme.service';
+import { Icon, type IconName } from '../shared/icon';
 import { SeatToken } from '../shared/ui';
 
 interface NavItem {
   path: string;
   label: string;
-  icon: string;
+  icon: IconName;
 }
 
 /**
@@ -20,7 +21,7 @@ interface NavItem {
   selector: 'lt-shell',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, SeatToken],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, SeatToken, Icon],
   template: `
     <a
       href="#conteudo"
@@ -53,7 +54,7 @@ interface NavItem {
           <div class="flex-1"></div>
 
           <button type="button" class="btn btn-quiet btn-icon" (click)="theme.toggle()" [attr.aria-label]="themeLabel()">
-            <span aria-hidden="true">{{ themeIcon() }}</span>
+            <lt-icon [name]="themeIcon()" />
           </button>
 
           <a routerLink="/conta" class="lg:hidden" aria-label="Conta">
@@ -65,31 +66,36 @@ interface NavItem {
       </header>
 
       <div class="container-app flex flex-1 gap-8 py-6">
-        <!-- Desktop rail. Hidden on mobile, where the tab bar takes over. -->
+        <!-- Desktop rail. Hidden on mobile, where the tab bar takes over.
+             The sticky element wraps the WHOLE rail — links and account card
+             together. Sticking only the list left the account card outside the
+             stuck element, so it scrolled up under the page content. -->
         <nav class="hidden w-52 shrink-0 lg:block" aria-label="Navegação principal">
-          <ul class="sticky top-24 space-y-1">
-            @for (item of nav; track item.path) {
-              <li>
-                <a
-                  [routerLink]="item.path"
-                  routerLinkActive="nav-active"
-                  class="nav-link"
-                  #rla="routerLinkActive"
-                  [attr.aria-current]="rla.isActive ? 'page' : null"
-                >
-                  <span class="text-base" aria-hidden="true">{{ item.icon }}</span>
-                  {{ item.label }}
-                </a>
-              </li>
-            }
-          </ul>
+          <div class="sticky top-24 max-h-[calc(100dvh-7rem)] overflow-y-auto">
+            <ul class="space-y-1">
+              @for (item of nav; track item.path) {
+                <li>
+                  <a
+                    [routerLink]="item.path"
+                    routerLinkActive="nav-active"
+                    class="nav-link"
+                    #rla="routerLinkActive"
+                    [attr.aria-current]="rla.isActive ? 'page' : null"
+                  >
+                    <lt-icon [name]="item.icon" />
+                    {{ item.label }}
+                  </a>
+                </li>
+              }
+            </ul>
 
-          @if (user(); as u) {
-            <a routerLink="/conta" routerLinkActive="nav-active" class="nav-link mt-6 gap-2.5">
-              <lt-seat [user]="u" />
-              <span class="min-w-0 flex-1 truncate">{{ u.displayName || u.login }}</span>
-            </a>
-          }
+            @if (user(); as u) {
+              <a routerLink="/conta" routerLinkActive="nav-active" class="nav-link mt-6 gap-2.5">
+                <lt-seat [user]="u" />
+                <span class="min-w-0 flex-1 truncate">{{ u.displayName || u.login }}</span>
+              </a>
+            }
+          </div>
         </nav>
 
         <main id="conteudo" class="min-w-0 flex-1 pb-24 lg:pb-0">
@@ -113,7 +119,7 @@ interface NavItem {
                 #rla="routerLinkActive"
                 [attr.aria-current]="rla.isActive ? 'page' : null"
               >
-                <span class="text-lg leading-none" aria-hidden="true">{{ item.icon }}</span>
+                <lt-icon [name]="item.icon" [size]="21" />
                 <span class="text-[0.625rem] font-semibold">{{ item.label }}</span>
               </a>
             </li>
@@ -171,15 +177,15 @@ export class AppShell {
   protected readonly pips = Array.from({ length: 6 });
 
   protected readonly nav: NavItem[] = [
-    { path: '/colecao', label: 'Listas', icon: '🎲' },
-    { path: '/buscar', label: 'Buscar', icon: '🔍' },
-    { path: '/grupos', label: 'Grupos', icon: '👥' },
-    { path: '/amigos', label: 'Amigos', icon: '🤝' },
-    { path: '/emprestimos', label: 'Empréstimos', icon: '📦' },
+    { path: '/colecao', label: 'Listas', icon: 'dice' },
+    { path: '/buscar', label: 'Buscar', icon: 'search' },
+    { path: '/grupos', label: 'Grupos', icon: 'group' },
+    { path: '/amigos', label: 'Amigos', icon: 'friends' },
+    { path: '/emprestimos', label: 'Empréstimos', icon: 'loan' },
   ];
 
-  protected readonly themeIcon = computed(
-    () => ({ light: '☀️', dark: '🌙', system: '💻' })[this.theme.choice()],
+  protected readonly themeIcon = computed<IconName>(
+    () => (({ light: 'sun', dark: 'moon', system: 'monitor' }) as const)[this.theme.choice()],
   );
 
   protected readonly themeLabel = computed(

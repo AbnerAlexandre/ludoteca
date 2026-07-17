@@ -508,5 +508,10 @@
     "mtime": 1784288449.0113387,
     "ast_hash": "ac5632d922565375866c74a75b43122f",
     "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1784289021.7662086,
+    "ast_hash": "27b7528b6c1962f5f406f0404d7bfe65",
+    "semantic_hash": ""
   }
 }

@@ -31,6 +31,18 @@ export const gameDetailSchema = gameSchema.extend({
   themes: z.array(z.string()),
   designers: z.array(z.string()),
   artists: z.array(z.string()),
+  /**
+   * Ludopedia community counters — how many people own, want, favourite or have
+   * played the game.
+   *
+   * These are NOT a rating and must not be presented as one: the API exposes no
+   * score. Its /jogos/{id}/notas endpoint is a documented stub that returns the
+   * literal string "notas e comentários;". Popularity is what's on offer.
+   */
+  ownedCount: z.number().int().nullable(),
+  wantedCount: z.number().int().nullable(),
+  favoriteCount: z.number().int().nullable(),
+  playedCount: z.number().int().nullable(),
 });
 export type GameDetail = z.infer<typeof gameDetailSchema>;
 

@@ -4,20 +4,26 @@ import { RouterLink } from '@angular/router';
 import type { List } from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
 import { ListsService } from '../../core/lists.service';
+import { Icon, type IconName } from '../../shared/icon';
 import { EmptyState, Skeleton } from '../../shared/ui';
 
-const KIND_META: Record<List['kind'], { icon: string; blurb: string }> = {
-  collection: { icon: '🎲', blurb: 'O que você tem na estante' },
-  wishlist: { icon: '⭐', blurb: 'O que você quer comprar' },
-  favorites: { icon: '❤️', blurb: 'Os que você sempre leva' },
-  custom: { icon: '📋', blurb: 'Lista personalizada' },
+/**
+ * Each seeded list gets its own icon and colour so the three are told apart at a
+ * glance. The colours are chrome accents, deliberately not seat colours — a
+ * seat colour always means "a person".
+ */
+const KIND_META: Record<List['kind'], { icon: IconName; blurb: string; color: string }> = {
+  collection: { icon: 'dice', blurb: 'O que você tem na estante', color: 'var(--color-brand-500)' },
+  wishlist: { icon: 'star', blurb: 'O que você quer comprar', color: 'var(--color-warning)' },
+  favorites: { icon: 'heart', blurb: 'Os que você sempre leva', color: 'var(--color-danger)' },
+  custom: { icon: 'list', blurb: 'Lista personalizada', color: 'var(--color-success)' },
 };
 
 @Component({
   selector: 'lt-lists',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, FormsModule, Skeleton, EmptyState],
+  imports: [RouterLink, FormsModule, Skeleton, EmptyState, Icon],
   template: `
     <header class="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div>
@@ -65,13 +71,19 @@ const KIND_META: Record<List['kind'], { icon: string; blurb: string }> = {
     } @else {
       <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         @for (list of lists(); track list.publicId; let i = $index) {
-          <li class="animate-rise" [style.animation-delay.ms]="i * 40">
+          <li class="animate-rise relative" [style.animation-delay.ms]="i * 40">
             <a
               [routerLink]="['/listas', list.publicId]"
               class="card flex h-full flex-col p-5 transition-transform hover:-translate-y-0.5"
             >
               <div class="mb-3 flex items-start justify-between gap-3">
-                <span class="text-2xl" aria-hidden="true">{{ meta(list).icon }}</span>
+                <span
+                  class="grid h-10 w-10 place-items-center rounded-xl"
+                  [style.color]="meta(list).color"
+                  [style.background]="'color-mix(in srgb, ' + meta(list).color + ' 12%, transparent)'"
+                >
+                  <lt-icon [name]="meta(list).icon" [size]="22" />
+                </span>
                 @if (list.isSystem) {
                   <span class="chip">Padrão</span>
                 }
@@ -83,6 +95,22 @@ const KIND_META: Record<List['kind'], { icon: string; blurb: string }> = {
                 {{ list.itemCount === 1 ? 'jogo' : 'jogos' }}
               </p>
             </a>
+
+            <!-- Only custom lists can go. The seeded three are structural:
+                 other features route to them by kind, and the API refuses to
+                 delete them regardless of what the UI offers. Sits outside the
+                 link so it isn't a button nested inside an anchor. -->
+            @if (!list.isSystem) {
+              <button
+                type="button"
+                class="btn btn-quiet btn-sm btn-icon absolute right-3 bottom-3"
+                (click)="remove(list)"
+                [disabled]="busy()"
+                [attr.aria-label]="'Excluir a lista ' + list.name"
+              >
+                <lt-icon name="trash" [size]="17" />
+              </button>
+            }
           </li>
         }
       </ul>
@@ -120,6 +148,27 @@ export class ListsPage {
       this.error.set(err instanceof ApiFailure ? err.message : 'Não foi possível carregar suas listas.');
     } finally {
       this.loading.set(false);
+    }
+  }
+
+  /**
+   * Deleting a list drops its items, so it asks first and says how many. The
+   * games themselves survive — a list_item is a placement, not the game.
+   */
+  protected async remove(list: List): Promise<void> {
+    const count = list.itemCount;
+    const warning = count > 0 ? ` ${count} ${count === 1 ? 'jogo sai dela' : 'jogos saem dela'}.` : '';
+    if (!confirm(`Excluir a lista "${list.name}"?${warning} Os jogos continuam nas suas outras listas.`)) return;
+
+    this.busy.set(true);
+    this.error.set(null);
+    try {
+      await this.service.remove(list.publicId);
+      this.lists.update((current) => current.filter((l) => l.publicId !== list.publicId));
+    } catch (err) {
+      this.error.set(err instanceof ApiFailure ? err.message : 'Não foi possível excluir a lista.');
+    } finally {
+      this.busy.set(false);
     }
   }
 

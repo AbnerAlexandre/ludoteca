@@ -1,4 +1,4 @@
-import { and, asc, count, desc, eq, inArray, sql, type SQL } from 'drizzle-orm';
+import { and, asc, count, desc, eq, inArray, ne, sql, type SQL } from 'drizzle-orm';
 import type { FastifyRequest } from 'fastify';
 import type {
   AddListItemInput,
@@ -12,7 +12,17 @@ import type {
   UpdateListItemInput,
 } from '@ludoteca/shared';
 import { db } from '../../db/index.js';
-import { games, listItems, lists, type ListItemRow, type ListRow, type UserRow, type GameRow } from '../../db/schema.js';
+import {
+  games,
+  listItems,
+  lists,
+  loans,
+  users,
+  type GameRow,
+  type ListItemRow,
+  type ListRow,
+  type UserRow,
+} from '../../db/schema.js';
 import { audit } from '../../lib/audit.js';
 import { Errors } from '../../lib/errors.js';
 import { newPublicId } from '../../lib/public-id.js';
@@ -77,14 +87,51 @@ function toList(row: ListRow, itemCount: number): List {
   };
 }
 
-function toListItem(item: ListItemRow, game: GameRow): ListItem {
+/**
+ * `loan` is only ever passed for the owner's own view of their list. Whether a
+ * game is out with someone — and with whom — is between the two of them, so it
+ * stays null for every other viewer regardless of the item's privacy.
+ */
+function toListItem(item: ListItemRow, game: GameRow, loan?: ListItem['loan']): ListItem {
   return {
     publicId: item.publicId,
     game: toGame(game),
     privacy: item.privacy,
     note: item.note,
     addedAt: item.addedAt.toISOString(),
+    loan: loan ?? null,
   };
+}
+
+/**
+ * The caller's open loans (requested or active) as lender, keyed by game id.
+ * One query for a whole page rather than a lookup per row.
+ */
+async function openLoansByGame(
+  ownerId: string,
+  gameIds: string[],
+): Promise<Map<string, NonNullable<ListItem['loan']>>> {
+  const map = new Map<string, NonNullable<ListItem['loan']>>();
+  if (gameIds.length === 0) return map;
+
+  const rows = await db
+    .select({ loan: loans, borrower: users })
+    .from(loans)
+    .innerJoin(users, eq(users.id, loans.borrowerId))
+    .where(
+      and(eq(loans.lenderId, ownerId), inArray(loans.gameId, gameIds), ne(loans.status, 'returned'))!,
+    );
+
+  for (const row of rows) {
+    // The partial unique index guarantees at most one open loan per game.
+    if (row.loan.status === 'returned') continue;
+    map.set(row.loan.gameId, {
+      status: row.loan.status,
+      counterpartLogin: row.borrower.login,
+      dueAt: row.loan.dueAt?.toISOString() ?? null,
+    });
+  }
+  return map;
 }
 
 export async function listsForUser(user: UserRow): Promise<List[]> {
@@ -168,35 +215,62 @@ function itemFilters(listId: string, visiblePrivacies: Privacy[], query: ListIte
   return and(...clauses)!;
 }
 
+/**
+ * Attaches loan state and applies the loan filter.
+ *
+ * `ownerId` is non-null only when the caller owns the list. For anyone else the
+ * rows come back with `loan: null` and the filter is a no-op — they can't see
+ * loan state, so they can't filter by it either.
+ */
+async function withLoans(
+  rows: Array<{ item: ListItemRow; game: GameRow }>,
+  ownerId: string | null,
+  loanFilter: ListItemsQuery['loan'],
+): Promise<ListItem[]> {
+  if (!ownerId) return rows.map((r) => toListItem(r.item, r.game));
+
+  const loansByGame = await openLoansByGame(
+    ownerId,
+    rows.map((r) => r.game.id),
+  );
+
+  return rows
+    .filter((r) => {
+      if (loanFilter === 'all') return true;
+      const lent = loansByGame.has(r.game.id);
+      return loanFilter === 'lent' ? lent : !lent;
+    })
+    .map((r) => toListItem(r.item, r.game, loansByGame.get(r.game.id)));
+}
+
 export async function listItemsPage(
   listId: string,
   visiblePrivacies: Privacy[],
   query: ListItemsQuery,
+  ownerId: string | null = null,
 ): Promise<Page<ListItem>> {
   const where = itemFilters(listId, visiblePrivacies, query);
-
-  const [totalRow] = await db
-    .select({ value: count() })
-    .from(listItems)
-    .innerJoin(games, eq(games.id, listItems.gameId))
-    .where(where);
-  const total = totalRow?.value ?? 0;
 
   const rows = await db
     .select({ item: listItems, game: games })
     .from(listItems)
     .innerJoin(games, eq(games.id, listItems.gameId))
     .where(where)
-    .orderBy(...orderFor(query))
-    .limit(query.pageSize)
-    .offset((query.page - 1) * query.pageSize);
+    .orderBy(...orderFor(query));
+
+  // The loan filter is applied in-process rather than in SQL: it needs the same
+  // "one open loan per game" resolution the map already does, and a list is a
+  // personal shelf — tens of rows, not thousands. Paginate after filtering so
+  // the totals match what the user is actually looking at.
+  const filtered = await withLoans(rows, ownerId, query.loan);
+  const start = (query.page - 1) * query.pageSize;
 
   return {
-    items: rows.map((r) => toListItem(r.item, r.game)),
+    items: filtered.slice(start, start + query.pageSize),
     page: query.page,
     pageSize: query.pageSize,
-    total,
-    totalPages: Math.max(1, Math.ceil(total / query.pageSize)),
+    total: filtered.length,
+    totalPages: Math.max(1, Math.ceil(filtered.length / query.pageSize)),
   };
 }
 
@@ -205,6 +279,7 @@ export async function allListItems(
   listId: string,
   visiblePrivacies: Privacy[],
   query: ListItemsQuery,
+  ownerId: string | null = null,
 ): Promise<ListItem[]> {
   const rows = await db
     .select({ item: listItems, game: games })
@@ -212,7 +287,7 @@ export async function allListItems(
     .innerJoin(games, eq(games.id, listItems.gameId))
     .where(itemFilters(listId, visiblePrivacies, query))
     .orderBy(...orderFor(query));
-  return rows.map((r) => toListItem(r.item, r.game));
+  return withLoans(rows, ownerId, query.loan);
 }
 
 export async function addItem(

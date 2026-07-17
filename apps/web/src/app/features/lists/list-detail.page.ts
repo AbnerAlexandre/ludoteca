@@ -1,12 +1,26 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import type { BulkActionInput, List, ListItem, ListItemSort, Privacy, SortDirection } from '@ludoteca/shared';
+import type {
+  BulkActionInput,
+  ExportFormat,
+  List,
+  ListItem,
+  ListItemSort,
+  Privacy,
+  SortDirection,
+} from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
 import { ListsService } from '../../core/lists.service';
+import { Icon } from '../../shared/icon';
 import { EmptyState, Skeleton } from '../../shared/ui';
 
-type ViewMode = 'card' | 'grid';
+/**
+ * Named for what the user sees, not for the CSS underneath: 'list' is rows with
+ * a thumbnail, 'cards' is a grid of cover tiles. The old names were 'card' and
+ * 'grid', which had it backwards — "Cartões" rendered the rows.
+ */
+type ViewMode = 'list' | 'cards';
 
 const PRIVACY_LABEL: Record<Privacy, string> = {
   public: 'Público',
@@ -28,23 +42,46 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
   selector: 'lt-list-detail',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, RouterLink, Skeleton, EmptyState],
+  imports: [FormsModule, RouterLink, Skeleton, EmptyState, Icon],
   template: `
     <a routerLink="/colecao" class="mb-4 inline-flex items-center gap-1.5 text-sm text-muted hover:text-strong">
-      <span aria-hidden="true">←</span> Minhas listas
+      <lt-icon name="arrow-left" [size]="16" /> Minhas listas
     </a>
 
-    <header class="mb-5">
-      <h1 class="text-3xl">{{ list()?.name ?? 'Lista' }}</h1>
-      <p class="mt-1 text-sm text-muted">
-        @if (streaming()) {
-          Carregando…
-          <span class="stat">{{ items().length }}</span> de <span class="stat">{{ total() }}</span>
-        } @else {
-          <span class="stat font-semibold text-strong">{{ filtered().length }}</span>
-          {{ filtered().length === 1 ? 'jogo' : 'jogos' }}
-        }
-      </p>
+    <header class="mb-5 flex flex-wrap items-start justify-between gap-3">
+      <div>
+        <h1 class="text-3xl">{{ list()?.name ?? 'Lista' }}</h1>
+        <p class="mt-1 text-sm text-muted">
+          @if (streaming()) {
+            Carregando…
+            <span class="stat">{{ items().length }}</span> de <span class="stat">{{ total() }}</span>
+          } @else {
+            <span class="stat font-semibold text-strong">{{ filtered().length }}</span>
+            {{ filtered().length === 1 ? 'jogo' : 'jogos' }}
+          }
+        </p>
+      </div>
+
+      <!-- Export the whole list. The same actions exist in the bulk bar for a
+           selection; here they need no selection at all. -->
+      <div class="flex flex-wrap gap-1.5">
+        <button type="button" class="btn btn-ghost btn-sm" (click)="copyNames()" [disabled]="filtered().length === 0">
+          <lt-icon name="check" [size]="16" />
+          {{ copied() ? 'Copiado!' : 'Copiar nomes' }}
+        </button>
+        <button type="button" class="btn btn-ghost btn-sm" (click)="exportAll('names')" [disabled]="filtered().length === 0">
+          <lt-icon name="download" [size]="16" />
+          TXT
+        </button>
+        <button type="button" class="btn btn-ghost btn-sm" (click)="exportAll('csv')" [disabled]="filtered().length === 0">
+          <lt-icon name="download" [size]="16" />
+          CSV
+        </button>
+        <button type="button" class="btn btn-ghost btn-sm" (click)="exportAll('json')" [disabled]="filtered().length === 0">
+          <lt-icon name="download" [size]="16" />
+          JSON
+        </button>
+      </div>
     </header>
 
     <!-- Controls. Wraps rather than scrolls sideways on a phone. -->
@@ -66,8 +103,19 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
         (click)="toggleDir()"
         [attr.aria-label]="dir() === 'asc' ? 'Ordem crescente. Inverter.' : 'Ordem decrescente. Inverter.'"
       >
-        <span aria-hidden="true">{{ dir() === 'asc' ? '↑' : '↓' }}</span>
+        <lt-icon [name]="dir() === 'asc' ? 'arrow-up' : 'arrow-down'" [size]="17" />
       </button>
+
+      <!-- Loan filter. Only the owner sees loan state at all, and it only means
+           something where games actually live — the collection. -->
+      @if (showLoanFilter()) {
+        <label class="sr-only" for="loan">Situação de empréstimo</label>
+        <select id="loan" class="field w-auto" [ngModel]="loanFilter()" (ngModelChange)="changeLoanFilter($event)">
+          <option value="all">Todos</option>
+          <option value="lent">Emprestados</option>
+          <option value="available">Na estante</option>
+        </select>
+      }
 
       <label class="sr-only" for="pagesize">Itens por página</label>
       <select id="pagesize" class="field w-auto" [ngModel]="pageSize()" (ngModelChange)="changePageSize(+$event)">
@@ -76,26 +124,32 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
         }
       </select>
 
+      <!-- Each button is named after what it actually renders, and its icon
+           mirrors that layout: rows with a leading thumbnail, or a tile grid. -->
       <div class="flex gap-1 rounded-xl p-1" style="background: var(--surface-sunken)" role="group" aria-label="Modo de exibição">
         <button
           type="button"
           class="btn btn-sm"
-          [class.btn-primary]="view() === 'card'"
-          [class.btn-quiet]="view() !== 'card'"
-          (click)="view.set('card')"
-          [attr.aria-pressed]="view() === 'card'"
+          [class.btn-primary]="view() === 'list'"
+          [class.btn-quiet]="view() !== 'list'"
+          (click)="view.set('list')"
+          [attr.aria-pressed]="view() === 'list'"
+          aria-label="Ver como lista"
         >
-          Cartões
+          <lt-icon name="view-list" [size]="17" />
+          <span class="hidden sm:inline">Lista</span>
         </button>
         <button
           type="button"
           class="btn btn-sm"
-          [class.btn-primary]="view() === 'grid'"
-          [class.btn-quiet]="view() !== 'grid'"
-          (click)="view.set('grid')"
-          [attr.aria-pressed]="view() === 'grid'"
+          [class.btn-primary]="view() === 'cards'"
+          [class.btn-quiet]="view() !== 'cards'"
+          (click)="view.set('cards')"
+          [attr.aria-pressed]="view() === 'cards'"
+          aria-label="Ver como cartões"
         >
-          Grade
+          <lt-icon name="view-cards" [size]="17" />
+          <span class="hidden sm:inline">Cartões</span>
         </button>
       </div>
     </div>
@@ -126,8 +180,12 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
           }
         </select>
 
-        <button type="button" class="btn btn-sm bulk-btn" (click)="exportSelection('csv')">Exportar CSV</button>
-        <button type="button" class="btn btn-sm bulk-btn" (click)="exportSelection('json')">Exportar JSON</button>
+        <button type="button" class="btn btn-sm bulk-btn" (click)="copyNames(true)">
+          {{ copied() ? 'Copiado!' : 'Copiar nomes' }}
+        </button>
+        <button type="button" class="btn btn-sm bulk-btn" (click)="exportSelection('names')">TXT</button>
+        <button type="button" class="btn btn-sm bulk-btn" (click)="exportSelection('csv')">CSV</button>
+        <button type="button" class="btn btn-sm bulk-btn" (click)="exportSelection('json')">JSON</button>
         <button type="button" class="btn btn-sm btn-danger" (click)="bulkRemove()" [disabled]="busy()">Remover</button>
       </div>
     }
@@ -165,7 +223,7 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
       >
         <a routerLink="/buscar" class="btn btn-primary">Buscar jogos</a>
       </lt-empty>
-    } @else if (view() === 'card') {
+    } @else if (view() === 'list') {
       <ul class="grid gap-3">
         @for (item of paged(); track item.publicId; let i = $index) {
           <li class="card animate-rise flex items-center gap-3 p-3" [style.animation-delay.ms]="i * 25">
@@ -176,32 +234,49 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
               (change)="toggle(item.publicId)"
               [attr.aria-label]="'Selecionar ' + item.game.name"
             />
-            @if (item.game.thumbnail) {
-              <img
-                [src]="item.game.thumbnail"
-                [alt]="''"
-                class="h-16 w-16 shrink-0 rounded-lg object-cover"
-                loading="lazy"
-                style="background: var(--surface-sunken)"
-              />
-            } @else {
-              <span class="grid h-16 w-16 shrink-0 place-items-center rounded-lg text-xl" style="background: var(--surface-sunken)" aria-hidden="true">🎲</span>
-            }
-            <div class="min-w-0 flex-1">
-              <p class="truncate font-semibold text-strong">{{ item.game.name }}</p>
-              <p class="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
-                @if (item.game.year) {
-                  <span class="stat">{{ item.game.year }}</span>
-                }
-                @if (item.game.minPlayers) {
-                  <span class="stat">{{ item.game.minPlayers }}–{{ item.game.maxPlayers }}p</span>
-                }
-                @if (item.game.playTimeMinutes) {
-                  <span class="stat">{{ item.game.playTimeMinutes }}min</span>
-                }
-                <span class="chip">{{ typeLabel(item.game.type) }}</span>
-              </p>
-            </div>
+            <!-- Cover and title open the game's full sheet. The checkbox and
+                 the controls at the end stay outside the link. -->
+            <a [routerLink]="['/jogos', item.game.publicId]" class="flex min-w-0 flex-1 items-center gap-3">
+              @if (item.game.thumbnail) {
+                <img
+                  [src]="item.game.thumbnail"
+                  alt=""
+                  class="h-16 w-16 shrink-0 rounded-lg object-cover"
+                  loading="lazy"
+                  style="background: var(--surface-sunken)"
+                />
+              } @else {
+                <span class="grid h-16 w-16 shrink-0 place-items-center rounded-lg text-muted" style="background: var(--surface-sunken)"><lt-icon name="dice" [size]="22" /></span>
+              }
+              <span class="min-w-0 flex-1">
+                <span class="block truncate font-semibold text-strong">{{ item.game.name }}</span>
+                <span class="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
+                  @if (item.game.year) {
+                    <span class="stat">{{ item.game.year }}</span>
+                  }
+                  @if (item.game.minPlayers) {
+                    <span class="stat">{{ item.game.minPlayers }}–{{ item.game.maxPlayers }}p</span>
+                  }
+                  @if (item.game.playTimeMinutes) {
+                    <span class="stat">{{ item.game.playTimeMinutes }}min</span>
+                  }
+                  <span class="chip">{{ typeLabel(item.game.type) }}</span>
+
+                  <!-- Says who has it, not just that it's gone. -->
+                  @if (item.loan; as loan) {
+                    <span
+                      class="chip"
+                      [style.background]="'color-mix(in srgb, ' + loanColor(loan.status) + ' 14%, transparent)'"
+                      [style.border-color]="'color-mix(in srgb, ' + loanColor(loan.status) + ' 35%, transparent)'"
+                      [style.color]="loanColor(loan.status)"
+                    >
+                      <lt-icon name="loan" [size]="12" />
+                      {{ loan.status === 'active' ? 'Com ' + loan.counterpartLogin : 'Pedido de ' + loan.counterpartLogin }}
+                    </span>
+                  }
+                </span>
+              </span>
+            </a>
             <label class="sr-only" [attr.for]="'privacy-' + item.publicId">Privacidade de {{ item.game.name }}</label>
             <select
               [attr.id]="'privacy-' + item.publicId"
@@ -219,7 +294,7 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
               (click)="removeItem(item)"
               [attr.aria-label]="'Remover ' + item.game.name"
             >
-              <span aria-hidden="true">✕</span>
+              <lt-icon name="close" [size]="16" />
             </button>
           </li>
         }
@@ -235,15 +310,17 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
               (change)="toggle(item.publicId)"
               [attr.aria-label]="'Selecionar ' + item.game.name"
             />
-            @if (item.game.coverUrl) {
-              <img [src]="item.game.coverUrl" alt="" class="aspect-square w-full object-cover" loading="lazy" style="background: var(--surface-sunken)" />
-            } @else {
-              <span class="grid aspect-square w-full place-items-center text-3xl" style="background: var(--surface-sunken)" aria-hidden="true">🎲</span>
-            }
-            <div class="p-2.5">
-              <p class="truncate text-sm font-semibold text-strong">{{ item.game.name }}</p>
-              <p class="stat mt-0.5 text-xs text-muted">{{ item.game.year ?? '—' }}</p>
-            </div>
+            <a [routerLink]="['/jogos', item.game.publicId]" class="block">
+              @if (item.game.coverUrl) {
+                <img [src]="item.game.coverUrl" alt="" class="aspect-square w-full object-cover" loading="lazy" style="background: var(--surface-sunken)" />
+              } @else {
+                <span class="grid aspect-square w-full place-items-center text-muted" style="background: var(--surface-sunken)"><lt-icon name="dice" [size]="34" /></span>
+              }
+              <span class="block p-2.5">
+                <span class="block truncate text-sm font-semibold text-strong">{{ item.game.name }}</span>
+                <span class="stat mt-0.5 block text-xs text-muted">{{ item.game.year ?? '—' }}</span>
+              </span>
+            </a>
           </li>
         }
       </ul>
@@ -297,10 +374,12 @@ export class ListDetailPage {
   protected readonly busy = signal(false);
   protected readonly error = signal<string | null>(null);
   protected readonly notice = signal<string | null>(null);
+  protected readonly copied = signal(false);
 
-  protected readonly view = signal<ViewMode>('card');
+  protected readonly view = signal<ViewMode>('list');
   protected readonly sort = signal<ListItemSort>('added_at');
   protected readonly dir = signal<SortDirection>('desc');
+  protected readonly loanFilter = signal<'all' | 'lent' | 'available'>('all');
   protected readonly page = signal(1);
   protected readonly pageSize = signal(24);
   protected readonly query = signal('');
@@ -326,6 +405,13 @@ export class ListDetailPage {
 
   /** Copy targets: every list except the one we're looking at. */
   protected readonly otherLists = computed(() => this.allLists().filter((l) => l.publicId !== this.listId()));
+
+  /**
+   * Lending only applies to games you actually own, so the filter appears on
+   * the collection and nowhere else — a wishlist is a list of games you
+   * explicitly do NOT have, and there is nothing to lend from it.
+   */
+  protected readonly showLoanFilter = computed(() => this.list()?.kind === 'collection');
 
   private abort: AbortController | null = null;
 
@@ -375,6 +461,16 @@ export class ListDetailPage {
     void this.load();
   }
 
+  protected changeLoanFilter(value: 'all' | 'lent' | 'available'): void {
+    this.loanFilter.set(value);
+    // Server-side: only it knows the loan table, so this is a fresh stream.
+    void this.load();
+  }
+
+  protected loanColor(status: 'requested' | 'active'): string {
+    return status === 'active' ? 'var(--color-warning)' : 'var(--color-brand-500)';
+  }
+
   protected changePageSize(size: number): void {
     this.pageSize.set(size);
     this.page.set(1);
@@ -400,7 +496,7 @@ export class ListDetailPage {
 
       await this.service.streamItems(
         this.listId(),
-        { sort: this.sort(), dir: this.dir() },
+        { sort: this.sort(), dir: this.dir(), loan: this.loanFilter() },
         {
           onMeta: (meta) => {
             this.total.set(meta.total);
@@ -497,11 +593,41 @@ export class ListDetailPage {
     }
   }
 
-  protected async exportSelection(format: 'csv' | 'json'): Promise<void> {
+  protected async exportSelection(format: ExportFormat): Promise<void> {
+    await this.runExport(format, [...this.selected()]);
+  }
+
+  protected async exportAll(format: ExportFormat): Promise<void> {
+    await this.runExport(format);
+  }
+
+  private async runExport(format: ExportFormat, itemIds?: string[]): Promise<void> {
+    this.error.set(null);
     try {
-      await this.service.export(this.listId(), format, [...this.selected()]);
+      await this.service.export(this.listId(), format, itemIds);
     } catch (err) {
       this.error.set(err instanceof ApiFailure ? err.message : 'Não foi possível exportar.');
+    }
+  }
+
+  /**
+   * Names straight to the clipboard — the WhatsApp path. Downloading a .txt
+   * just to open it and copy from it is a detour nobody wants.
+   */
+  protected async copyNames(selectionOnly = false): Promise<void> {
+    this.error.set(null);
+    try {
+      const ids = selectionOnly ? [...this.selected()] : undefined;
+      const text = await this.service.namesText(this.listId(), ids);
+      await navigator.clipboard.writeText(text.trim());
+      this.copied.set(true);
+      // Revert the label so the button doesn't read "Copiado!" forever.
+      setTimeout(() => this.copied.set(false), 2000);
+    } catch (err) {
+      // Clipboard access needs a secure context and can be blocked outright.
+      this.error.set(
+        err instanceof ApiFailure ? err.message : 'Não foi possível copiar. Use o botão TXT para baixar.',
+      );
     }
   }
 }

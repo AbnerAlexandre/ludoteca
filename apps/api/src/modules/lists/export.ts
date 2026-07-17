@@ -69,6 +69,19 @@ export function toCsv(items: ListItem[]): string {
   return `﻿${rows.join('\r\n')}\r\n`;
 }
 
+/**
+ * One title per line, nothing else.
+ *
+ * For the person who just wants to paste their shelf into a chat. No formula
+ * escaping here on purpose: this is text/plain destined for a message box, not
+ * a spreadsheet, and a stray leading quote would be noise in the paste. The
+ * `\r\n` keeps Windows notepad-style targets happy.
+ */
+export function toNamesExport(items: ListItem[]): string {
+  if (items.length === 0) return '';
+  return `${items.map((item) => item.game.name).join('\r\n')}\r\n`;
+}
+
 export function toJsonExport(items: ListItem[], listName: string): string {
   return JSON.stringify(
     {
@@ -100,7 +113,7 @@ export function toJsonExport(items: ListItem[], listName: string): string {
  * dropped: a quote or a newline in a user-chosen list name would otherwise
  * break out of the header and let the client control the response headers.
  */
-export function exportFilename(listName: string, extension: 'csv' | 'json'): string {
+export function exportFilename(listName: string, extension: 'csv' | 'json' | 'txt'): string {
   const safe = listName
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')

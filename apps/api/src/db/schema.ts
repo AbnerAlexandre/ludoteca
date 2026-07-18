@@ -20,10 +20,23 @@ import {
 // `assertSchemaParity` in db/parity.ts, which fails the test run if they drift.
 
 export const privacyEnum = pgEnum('privacy', ['friends', 'public', 'nobody']);
-export const gameTypeEnum = pgEnum('game_type', ['board', 'cards', 'expansion', 'rpg', 'other']);
+export const gameTypeEnum = pgEnum('game_type', [
+  'board',
+  'cards',
+  'expansion',
+  'rpg',
+  'party',
+  'dice',
+  'abstract',
+  'children',
+  'other',
+]);
 export const listKindEnum = pgEnum('list_kind', ['collection', 'wishlist', 'favorites', 'custom']);
 export const friendshipStatusEnum = pgEnum('friendship_status', ['pending', 'accepted']);
 export const loanStatusEnum = pgEnum('loan_status', ['requested', 'active', 'returned']);
+export const groupRoleEnum = pgEnum('group_role', ['admin', 'member']);
+export const groupMemberStatusEnum = pgEnum('group_member_status', ['active', 'invited', 'requested']);
+export const groupVisibilityEnum = pgEnum('group_visibility', ['open', 'closed']);
 
 const timestamps = {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
@@ -167,11 +180,14 @@ export const friendGroups = pgTable(
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),
     name: varchar('name', { length: 60 }).notNull(),
+    // 'open' groups appear in the directory and accept join requests.
+    visibility: groupVisibilityEnum('visibility').notNull().default('closed'),
     ...timestamps,
   },
   (t) => [
     uniqueIndex('friend_groups_public_id_uq').on(t.publicId),
     index('friend_groups_owner_idx').on(t.ownerId),
+    index('friend_groups_visibility_idx').on(t.visibility),
   ],
 );
 
@@ -184,11 +200,22 @@ export const friendGroupMembers = pgTable(
     userId: uuid('user_id')
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),
+    /** admin manages members and requests; member is a regular participant. */
+    role: groupRoleEnum('role').notNull().default('member'),
+    /**
+     * active = full member; invited = an admin invited them (awaiting accept);
+     * requested = they asked to join an open group (awaiting an admin). Only
+     * active memberships feed the group's aggregated shelf.
+     */
+    status: groupMemberStatusEnum('status').notNull().default('active'),
+    /** Who sent the invite, for the invitee's notification. */
+    invitedById: uuid('invited_by_id').references(() => users.id, { onDelete: 'set null' }),
     addedAt: timestamp('added_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
     primaryKey({ columns: [t.groupId, t.userId] }),
     index('friend_group_members_user_idx').on(t.userId),
+    index('friend_group_members_status_idx').on(t.groupId, t.status),
   ],
 );
 

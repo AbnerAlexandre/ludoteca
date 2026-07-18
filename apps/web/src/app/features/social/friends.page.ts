@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import type { FriendRequest, PublicUser } from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
 import { SocialService } from '../../core/social.service';
@@ -9,7 +10,7 @@ import { EmptyState, SeatToken, Skeleton } from '../../shared/ui';
   selector: 'lt-friends',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, SeatToken, Skeleton, EmptyState],
+  imports: [FormsModule, RouterLink, SeatToken, Skeleton, EmptyState],
   template: `
     <header class="mb-5">
       <h1 class="text-3xl">Amigos</h1>
@@ -72,11 +73,11 @@ import { EmptyState, SeatToken, Skeleton } from '../../shared/ui';
         <ul class="grid gap-2">
           @for (user of results(); track user.publicId) {
             <li class="card animate-rise flex items-center gap-3 p-3">
-              <lt-seat [user]="user" />
-              <div class="min-w-0 flex-1">
-                <p class="truncate font-semibold text-strong">{{ user.displayName || user.login }}</p>
+              <a [routerLink]="['/perfil', user.publicId]"><lt-seat [user]="user" /></a>
+              <a [routerLink]="['/perfil', user.publicId]" class="min-w-0 flex-1">
+                <p class="truncate font-semibold text-strong hover:underline">{{ user.displayName || user.login }}</p>
                 <p class="truncate text-xs text-muted">{{ '@' + user.login }}</p>
-              </div>
+              </a>
               @switch (user.relation) {
                 @case ('friend') {
                   <span class="chip">Já são amigos</span>
@@ -116,11 +117,11 @@ import { EmptyState, SeatToken, Skeleton } from '../../shared/ui';
         <ul class="grid gap-2 sm:grid-cols-2">
           @for (friend of friends(); track friend.publicId) {
             <li class="card flex items-center gap-3 p-3">
-              <lt-seat [user]="friend" />
-              <div class="min-w-0 flex-1">
-                <p class="truncate font-semibold text-strong">{{ friend.displayName || friend.login }}</p>
+              <a [routerLink]="['/perfil', friend.publicId]"><lt-seat [user]="friend" /></a>
+              <a [routerLink]="['/perfil', friend.publicId]" class="min-w-0 flex-1">
+                <p class="truncate font-semibold text-strong hover:underline">{{ friend.displayName || friend.login }}</p>
                 <p class="truncate text-xs text-muted">{{ '@' + friend.login }}</p>
-              </div>
+              </a>
               <button
                 type="button"
                 class="btn btn-quiet btn-sm"

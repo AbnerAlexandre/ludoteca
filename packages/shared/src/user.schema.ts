@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { LIMITS, paginationSchema, pageOf, privacySchema, publicIdSchema, trimmed } from './common.js';
+import { LIMITS, listKindSchema, paginationSchema, pageOf, privacySchema, publicIdSchema, trimmed } from './common.js';
 
 export const loginSchema = trimmed(LIMITS.login.min, LIMITS.login.max).regex(
   /^[a-zA-Z0-9._-]+$/,
@@ -45,6 +45,28 @@ export const userSearchQuerySchema = paginationSchema.extend({
   q: z.string().trim().min(LIMITS.searchQuery.min).max(LIMITS.searchQuery.max),
 });
 export type UserSearchQuery = z.infer<typeof userSearchQuerySchema>;
+
+/**
+ * A user's public profile. Each list carries the count of items *this viewer*
+ * is allowed to see, so a profile never reveals more than the privacy rules
+ * permit — and lists whose every item is hidden don't appear at all.
+ */
+export const profileListSchema = z.object({
+  publicId: publicIdSchema,
+  name: z.string(),
+  kind: listKindSchema,
+  visibleItemCount: z.number().int(),
+});
+export type ProfileList = z.infer<typeof profileListSchema>;
+
+export const userProfileSchema = z.object({
+  user: publicUserSchema,
+  memberSince: z.iso.datetime(),
+  /** Total games visible across the collection, for the headline stat. */
+  visibleGameCount: z.number().int(),
+  lists: z.array(profileListSchema),
+});
+export type UserProfile = z.infer<typeof userProfileSchema>;
 
 export const userSearchResultSchema = pageOf(publicUserSchema);
 

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   LIMITS,
+  gameTypeFilterSchema,
   listItemSortSchema,
   listKindSchema,
   pageOf,
@@ -63,8 +64,8 @@ export type UpdateListInput = z.infer<typeof updateListSchema>;
 export const listItemsQuerySchema = paginationSchema.extend({
   sort: listItemSortSchema.default('added_at'),
   dir: sortDirectionSchema.default('desc'),
-  /** Client-side filter chips: narrow to a game type without a new round trip. */
-  type: z.enum(['all', 'board', 'cards', 'expansion', 'rpg', 'other']).default('all'),
+  /** Filter chips: narrow to a game type. */
+  type: gameTypeFilterSchema.default('all'),
   /**
    * 'lent' = out with someone right now, 'available' = on the shelf.
    * Owner-only: for anyone else this filter has nothing to act on and is

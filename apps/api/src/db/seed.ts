@@ -149,18 +149,38 @@ async function main() {
   if (!existingGroup) {
     const [group] = await db
       .insert(friendGroups)
-      .values({ publicId: newPublicId(), ownerId: alice.id, name: 'Mesa de Sexta' })
+      .values({ publicId: newPublicId(), ownerId: alice.id, name: 'Mesa de Sexta', visibility: 'closed' })
       .returning();
     if (group) {
       await db
         .insert(friendGroupMembers)
         .values([
-          { groupId: group.id, userId: alice.id },
-          { groupId: group.id, userId: bruno.id },
+          // Alice owns it and is an admin; Bruno is an active member; Carla has
+          // an open invite to accept.
+          { groupId: group.id, userId: alice.id, role: 'admin' as const, status: 'active' as const },
+          { groupId: group.id, userId: bruno.id, role: 'member' as const, status: 'active' as const },
+          { groupId: group.id, userId: carla.id, role: 'member' as const, status: 'invited' as const, invitedById: alice.id },
         ])
         .onConflictDoNothing();
     }
-    console.log('  friend group "Mesa de Sexta" created');
+    console.log('  friend group "Mesa de Sexta" created (alice admin, bruno member, carla invited)');
+
+    // An open group anyone can find and ask to join.
+    const [openGroup] = await db
+      .insert(friendGroups)
+      .values({ publicId: newPublicId(), ownerId: bruno.id, name: 'Boardgamers BR', visibility: 'open' })
+      .returning();
+    if (openGroup) {
+      await db
+        .insert(friendGroupMembers)
+        .values([
+          { groupId: openGroup.id, userId: bruno.id, role: 'admin' as const, status: 'active' as const },
+          // Carla asked to join and is waiting for approval.
+          { groupId: openGroup.id, userId: carla.id, role: 'member' as const, status: 'requested' as const },
+        ])
+        .onConflictDoNothing();
+    }
+    console.log('  open group "Boardgamers BR" created (bruno admin, carla requested)');
   }
 
   console.log(`\nDone. Log in with alice@example.com / ${SEED_PASSWORD}`);

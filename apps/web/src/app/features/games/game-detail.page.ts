@@ -1,21 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
-import type { GameDetail, List } from '@ludoteca/shared';
+import { GAME_TYPE_LABELS, type GameDetail, type List } from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
 import { ListsService } from '../../core/lists.service';
 import { GamesService } from '../../core/social.service';
 import { Icon } from '../../shared/icon';
 import { Skeleton } from '../../shared/ui';
 import { featuredById } from '../landing/featured-games';
-
-const TYPE_LABEL: Record<string, string> = {
-  board: 'Tabuleiro',
-  cards: 'Cartas',
-  expansion: 'Expansão',
-  rpg: 'RPG',
-  other: 'Outro',
-};
 
 /**
  * The full sheet for one game, from the Ludopedia cache.
@@ -257,7 +249,7 @@ export class GameDetailPage {
   }
 
   protected typeLabel(type: string): string {
-    return TYPE_LABEL[type] ?? type;
+    return GAME_TYPE_LABELS[type as keyof typeof GAME_TYPE_LABELS] ?? type;
   }
 
   protected back(): void {

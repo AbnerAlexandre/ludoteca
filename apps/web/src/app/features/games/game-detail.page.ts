@@ -7,6 +7,7 @@ import { ListsService } from '../../core/lists.service';
 import { GamesService } from '../../core/social.service';
 import { Icon } from '../../shared/icon';
 import { Skeleton } from '../../shared/ui';
+import { featuredById } from '../landing/featured-games';
 
 const TYPE_LABEL: Record<string, string> = {
   board: 'Tabuleiro',
@@ -114,6 +115,12 @@ const TYPE_LABEL: Record<string, string> = {
             }
           </div>
 
+          <!-- Synopsis, when we have one for this game. Ludopedia's API exposes
+               no description, so it comes from our featured-games data. -->
+          @if (description(); as text) {
+            <p class="mt-4 max-w-2xl leading-relaxed text-body">{{ text }}</p>
+          }
+
           <!-- Vital stats: the numbers you check before putting it on the table. -->
           <dl class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
             @for (fact of facts(); track fact.label) {
@@ -206,6 +213,12 @@ export class GameDetailPage {
   protected readonly adding = signal(false);
   protected readonly error = signal<string | null>(null);
   protected readonly notice = signal<string | null>(null);
+
+  /** Synopsis for the featured games — Ludopedia's API provides none. */
+  protected readonly description = computed(() => {
+    const g = this.game();
+    return g ? (featuredById(g.ludopediaId)?.description ?? null) : null;
+  });
 
   /** Only the facts upstream actually knows — a null field is left out entirely. */
   protected readonly facts = computed(() => {

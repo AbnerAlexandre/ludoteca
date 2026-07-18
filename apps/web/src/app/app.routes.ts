@@ -7,6 +7,21 @@ import { authGuard, guestGuard } from './core/auth.guard';
  */
 export const routes: Routes = [
   {
+    // Public hero. pathMatch:'full' so it owns only the exact root — the
+    // authed shell below still matches every /colecao, /buscar, … underneath.
+    path: '',
+    pathMatch: 'full',
+    loadComponent: () => import('./features/landing/landing.page').then((m) => m.LandingPage),
+    title: 'Ludoteca — sua coleção de jogos',
+  },
+  {
+    // Public game page for the showcased games, keyed by Ludopedia id so the
+    // landing marquee can link straight to it with no auth and no lookup.
+    path: 'jogo/:ludopediaId',
+    loadComponent: () => import('./features/landing/game-showcase.page').then((m) => m.GameShowcasePage),
+    title: 'Jogo · Ludoteca',
+  },
+  {
     path: 'entrar',
     canActivate: [guestGuard],
     loadComponent: () => import('./features/auth/login.page').then((m) => m.LoginPage),
@@ -23,7 +38,6 @@ export const routes: Routes = [
     loadComponent: () => import('./shell/app-shell').then((m) => m.AppShell),
     canActivate: [authGuard],
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'colecao' },
       {
         path: 'colecao',
         loadComponent: () => import('./features/lists/lists.page').then((m) => m.ListsPage),

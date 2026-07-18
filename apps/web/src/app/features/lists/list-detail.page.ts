@@ -1,14 +1,16 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import type {
-  BulkActionInput,
-  ExportFormat,
-  List,
-  ListItem,
-  ListItemSort,
-  Privacy,
-  SortDirection,
+import {
+  GAME_TYPE_LABELS,
+  type BulkActionInput,
+  type ExportFormat,
+  type GameType,
+  type List,
+  type ListItem,
+  type ListItemSort,
+  type Privacy,
+  type SortDirection,
 } from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
 import { ListsService } from '../../core/lists.service';
@@ -153,6 +155,19 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
         </button>
       </div>
     </div>
+
+    <!-- Type filter chips. Only shows the types actually present in the list, so
+         it never offers a filter that would empty the screen. Hidden when
+         everything is one type. -->
+    @if (availableTypes().length > 2) {
+      <div class="mb-4 flex flex-wrap gap-1.5" role="group" aria-label="Filtrar por tipo">
+        @for (t of availableTypes(); track t.value) {
+          <button type="button" class="chip" [class.chip-active]="typeFilter() === t.value" (click)="changeTypeFilter(t.value)" [attr.aria-pressed]="typeFilter() === t.value">
+            {{ t.label }}
+          </button>
+        }
+      </div>
+    }
 
     <!-- Bulk bar. Appears only with a selection, so it never steals space. -->
     @if (selectedCount() > 0) {
@@ -380,16 +395,41 @@ export class ListDetailPage {
   protected readonly sort = signal<ListItemSort>('added_at');
   protected readonly dir = signal<SortDirection>('desc');
   protected readonly loanFilter = signal<'all' | 'lent' | 'available'>('all');
+  protected readonly typeFilter = signal<GameType | 'all'>('all');
+
+  /** Every game type, for building the chip row (narrowed to what's present). */
+  protected readonly typeFilterOptions: Array<{ value: GameType | 'all'; label: string }> = [
+    { value: 'all', label: 'Todos' },
+    { value: 'board', label: 'Tabuleiro' },
+    { value: 'cards', label: 'Cartas' },
+    { value: 'rpg', label: 'RPG' },
+    { value: 'party', label: 'Festa' },
+    { value: 'dice', label: 'Dados' },
+    { value: 'abstract', label: 'Abstrato' },
+    { value: 'children', label: 'Infantil' },
+    { value: 'expansion', label: 'Expansão' },
+    { value: 'other', label: 'Outro' },
+  ];
   protected readonly page = signal(1);
   protected readonly pageSize = signal(24);
   protected readonly query = signal('');
   protected readonly selected = signal<ReadonlySet<string>>(new Set());
 
-  /** Client-side filter over the streamed rows — no round trip to type. */
+  /** Client-side filters over the streamed rows — instant, no round trip. */
   protected readonly filtered = computed(() => {
     const q = this.query().trim().toLowerCase();
-    if (!q) return this.items();
-    return this.items().filter((i) => i.game.name.toLowerCase().includes(q));
+    const type = this.typeFilter();
+    return this.items().filter(
+      (i) =>
+        (type === 'all' || i.game.type === type) &&
+        (!q || i.game.name.toLowerCase().includes(q)),
+    );
+  });
+
+  /** Which game types actually appear in this list, for the chip row. */
+  protected readonly availableTypes = computed(() => {
+    const present = new Set(this.items().map((i) => i.game.type));
+    return this.typeFilterOptions.filter((t) => t.value === 'all' || present.has(t.value));
   });
 
   protected readonly totalPages = computed(() =>
@@ -422,9 +462,7 @@ export class ListDetailPage {
   }
 
   protected typeLabel(type: string): string {
-    return (
-      { board: 'Tabuleiro', cards: 'Cartas', expansion: 'Expansão', rpg: 'RPG', other: 'Outro' }[type] ?? type
-    );
+    return GAME_TYPE_LABELS[type as keyof typeof GAME_TYPE_LABELS] ?? type;
   }
 
   protected privacyLabel(p: Privacy): string {
@@ -465,6 +503,13 @@ export class ListDetailPage {
     this.loanFilter.set(value);
     // Server-side: only it knows the loan table, so this is a fresh stream.
     void this.load();
+  }
+
+  protected changeTypeFilter(value: GameType | 'all'): void {
+    // Client-side over the already-streamed rows, so it's instant.
+    this.typeFilter.set(value);
+    this.page.set(1);
+    this.clearSelection();
   }
 
   protected loanColor(status: 'requested' | 'active'): string {

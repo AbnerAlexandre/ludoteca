@@ -45,5 +45,18 @@
   "43": "SearchPage",
   "44": "ListsPage",
   "45": "theme-boot.js",
-  "46": "GroupsPage"
+  "46": "GroupsPage",
+  "47": "user.schema.ts",
+  "48": "scripts",
+  "49": "AccountPage",
+  "50": "UserRow",
+  "51": "errors.ts",
+  "52": "GroupDirectoryPage",
+  "53": "ProfilePage",
+  "54": "package.json",
+  "55": "RegisterPage",
+  "56": "@angular/compiler-cli",
+  "57": "@fontsource-variable/jetbrains-mono",
+  "58": "@fontsource-variable/plus-jakarta-sans",
+  "59": "postcss"
 }

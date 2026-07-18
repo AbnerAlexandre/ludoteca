@@ -31,7 +31,11 @@ export type IconName =
   | 'cart'
   | 'users'
   | 'clock'
-  | 'calendar';
+  | 'calendar'
+  | 'crown'
+  | 'user'
+  | 'globe'
+  | 'lock';
 
 /**
  * Inline SVG icon set.
@@ -193,6 +197,23 @@ export type IconName =
         @case ('calendar') {
           <rect x="3.5" y="5" width="17" height="16" rx="2.5" />
           <path d="M3.5 10h17M8 3v4M16 3v4" />
+        }
+        @case ('crown') {
+          <path d="M3 7.5l4 3.5 5-6.5 5 6.5 4-3.5-1.8 11H4.8z" />
+          <path d="M4.5 20.5h15" />
+        }
+        @case ('user') {
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4.5 20a7.5 7.5 0 0 1 15 0" />
+        }
+        @case ('globe') {
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18" />
+          <path d="M12 3c2.6 2.4 4 5.6 4 9s-1.4 6.6-4 9c-2.6-2.4-4-5.6-4-9s1.4-6.6 4-9z" />
+        }
+        @case ('lock') {
+          <rect x="4.5" y="10.5" width="15" height="10" rx="2.2" />
+          <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" />
         }
       }
     </svg>

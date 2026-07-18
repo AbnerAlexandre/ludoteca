@@ -40,8 +40,15 @@ export function inferGameType(
   if (tpJogo === 'e') return 'expansion';
 
   const haystack = categories.join(' ').toLowerCase();
+  // Order matters: the most specific/telling category wins. RPG and card games
+  // are checked before the generic board fallback; a "party card game" reads as
+  // cards, which is the shelf people expect it on.
+  if (/\brpg\b|interpreta[çc]/.test(haystack)) return 'rpg';
   if (/\bcartas?\b|\bcard\b/.test(haystack)) return 'cards';
-  if (/\brpg\b/.test(haystack)) return 'rpg';
+  if (/infantil|crian[çc]a|\bkids?\b|children/.test(haystack)) return 'children';
+  if (/festivo|\bfesta\b|\bparty\b/.test(haystack)) return 'party';
+  if (/\bdados?\b|\bdice\b/.test(haystack)) return 'dice';
+  if (/abstrat/.test(haystack)) return 'abstract';
   if (tpJogo === 'b') return 'board';
   return 'other';
 }

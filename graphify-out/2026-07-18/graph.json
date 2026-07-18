@@ -84,40 +84,70 @@
       "norm_label": "dev"
     },
     {
-      "label": "build",
+      "label": "prebuild",
       "file_type": "code",
       "source_file": "apps/api/package.json",
       "source_location": "L8",
+      "_origin": "ast",
+      "id": "apps_api_package_scripts_prebuild",
+      "community": 10,
+      "norm_label": "prebuild"
+    },
+    {
+      "label": "build",
+      "file_type": "code",
+      "source_file": "apps/api/package.json",
+      "source_location": "L9",
       "_origin": "ast",
       "id": "apps_api_package_scripts_build",
       "community": 10,
       "norm_label": "build"
     },
     {
-      "label": "start",
+      "label": "pretypecheck",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L9",
+      "source_location": "L10",
       "_origin": "ast",
-      "id": "apps_api_package_scripts_start",
+      "id": "apps_api_package_scripts_pretypecheck",
       "community": 10,
-      "norm_label": "start"
+      "norm_label": "pretypecheck"
     },
     {
       "label": "typecheck",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L10",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "apps_api_package_scripts_typecheck",
       "community": 10,
       "norm_label": "typecheck"
     },
     {
+      "label": "start",
+      "file_type": "code",
+      "source_file": "apps/api/package.json",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "apps_api_package_scripts_start",
+      "community": 10,
+      "norm_label": "start"
+    },
+    {
+      "label": "start:migrate",
+      "file_type": "code",
+      "source_file": "apps/api/package.json",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "apps_api_package_scripts_start_migrate",
+      "community": 10,
+      "norm_label": "start:migrate"
+    },
+    {
       "label": "test",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L11",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "apps_api_package_scripts_test",
       "community": 10,
@@ -127,7 +157,7 @@
       "label": "db:generate",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L12",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "apps_api_package_scripts_db_generate",
       "community": 10,
@@ -137,17 +167,27 @@
       "label": "db:migrate",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L13",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "apps_api_package_scripts_db_migrate",
       "community": 10,
       "norm_label": "db:migrate"
     },
     {
+      "label": "db:migrate:prod",
+      "file_type": "code",
+      "source_file": "apps/api/package.json",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "apps_api_package_scripts_db_migrate_prod",
+      "community": 10,
+      "norm_label": "db:migrate:prod"
+    },
+    {
       "label": "db:seed",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L14",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "apps_api_package_scripts_db_seed",
       "community": 10,
@@ -157,7 +197,7 @@
       "label": "db:studio",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L15",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "apps_api_package_scripts_db_studio",
       "community": 10,
@@ -167,7 +207,7 @@
       "label": "dependencies",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L17",
+      "source_location": "L21",
       "_origin": "ast",
       "id": "apps_api_package_dependencies",
       "community": 6,
@@ -177,7 +217,7 @@
       "label": "@fastify/autoload",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L18",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_fastify_autoload",
       "community": 6,
@@ -187,7 +227,7 @@
       "label": "@fastify/autoload",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L18",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "fastify_autoload",
       "community": 6,
@@ -197,7 +237,7 @@
       "label": "@fastify/cookie",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L19",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_fastify_cookie",
       "community": 6,
@@ -207,7 +247,7 @@
       "label": "@fastify/cookie",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L19",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "fastify_cookie",
       "community": 6,
@@ -217,7 +257,7 @@
       "label": "@fastify/cors",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L20",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_fastify_cors",
       "community": 6,
@@ -227,7 +267,7 @@
       "label": "@fastify/cors",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L20",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "fastify_cors",
       "community": 6,
@@ -237,7 +277,7 @@
       "label": "@fastify/csrf-protection",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L21",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_fastify_csrf_protection",
       "community": 6,
@@ -247,7 +287,7 @@
       "label": "@fastify/csrf-protection",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L21",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "fastify_csrf_protection",
       "community": 6,
@@ -257,7 +297,7 @@
       "label": "@fastify/helmet",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L22",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_fastify_helmet",
       "community": 6,
@@ -267,7 +307,7 @@
       "label": "@fastify/helmet",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L22",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "fastify_helmet",
       "community": 6,
@@ -277,7 +317,7 @@
       "label": "@fastify/jwt",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L23",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_fastify_jwt",
       "community": 6,
@@ -287,7 +327,7 @@
       "label": "@fastify/jwt",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L23",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "fastify_jwt",
       "community": 6,
@@ -297,7 +337,7 @@
       "label": "@fastify/rate-limit",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L24",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_fastify_rate_limit",
       "community": 6,
@@ -307,7 +347,7 @@
       "label": "@fastify/rate-limit",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L24",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "fastify_rate_limit",
       "community": 6,
@@ -317,7 +357,7 @@
       "label": "@fastify/sensible",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L25",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_fastify_sensible",
       "community": 6,
@@ -327,7 +367,7 @@
       "label": "@fastify/sensible",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L25",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "fastify_sensible",
       "community": 6,
@@ -337,7 +377,7 @@
       "label": "@ludoteca/shared",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L26",
+      "source_location": "L30",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_ludoteca_shared",
       "community": 6,
@@ -347,7 +387,7 @@
       "label": "@ludoteca/shared",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L26",
+      "source_location": "L30",
       "_origin": "ast",
       "id": "apps_api_package_json_ludoteca_shared",
       "community": 6,
@@ -357,7 +397,7 @@
       "label": "argon2",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L27",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_argon2",
       "community": 6,
@@ -367,7 +407,7 @@
       "label": "argon2",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L27",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "argon2",
       "community": 6,
@@ -377,7 +417,7 @@
       "label": "close-with-grace",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L28",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_close_with_grace",
       "community": 6,
@@ -387,7 +427,7 @@
       "label": "close-with-grace",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L28",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "close_with_grace",
       "community": 6,
@@ -397,7 +437,7 @@
       "label": "drizzle-orm",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L29",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_drizzle_orm",
       "community": 6,
@@ -407,7 +447,7 @@
       "label": "drizzle-orm",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L29",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "drizzle_orm",
       "community": 6,
@@ -417,7 +457,7 @@
       "label": "fastify",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L30",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_fastify",
       "community": 6,
@@ -427,7 +467,7 @@
       "label": "fastify",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L30",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "fastify",
       "community": 6,
@@ -437,7 +477,7 @@
       "label": "fastify-plugin",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L31",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_fastify_plugin",
       "community": 6,
@@ -447,7 +487,7 @@
       "label": "fastify-plugin",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L31",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "fastify_plugin",
       "community": 6,
@@ -457,7 +497,7 @@
       "label": "fastify-type-provider-zod",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L32",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_fastify_type_provider_zod",
       "community": 6,
@@ -467,7 +507,7 @@
       "label": "fastify-type-provider-zod",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L32",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "fastify_type_provider_zod",
       "community": 6,
@@ -477,7 +517,7 @@
       "label": "nanoid",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L33",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_nanoid",
       "community": 6,
@@ -487,7 +527,7 @@
       "label": "nanoid",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L33",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "nanoid",
       "community": 6,
@@ -497,7 +537,7 @@
       "label": "postgres",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L34",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_postgres",
       "community": 6,
@@ -507,7 +547,7 @@
       "label": "postgres",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L34",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "postgres",
       "community": 6,
@@ -517,7 +557,7 @@
       "label": "zod",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L35",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "apps_api_package_dependencies_zod",
       "community": 6,
@@ -527,7 +567,7 @@
       "label": "zod",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L35",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "apps_api_package_json_zod",
       "community": 6,
@@ -537,7 +577,7 @@
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L37",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "apps_api_package_devdependencies",
       "community": 10,
@@ -547,7 +587,7 @@
       "label": "@types/node",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L38",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "apps_api_package_devdependencies_types_node",
       "community": 10,
@@ -557,7 +597,7 @@
       "label": "@types/node",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L38",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "types_node",
       "community": 10,
@@ -567,7 +607,7 @@
       "label": "drizzle-kit",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L39",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "apps_api_package_devdependencies_drizzle_kit",
       "community": 10,
@@ -577,7 +617,7 @@
       "label": "drizzle-kit",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L39",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "drizzle_kit",
       "community": 10,
@@ -587,7 +627,7 @@
       "label": "pino-pretty",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L40",
+      "source_location": "L44",
       "_origin": "ast",
       "id": "apps_api_package_devdependencies_pino_pretty",
       "community": 10,
@@ -597,7 +637,7 @@
       "label": "pino-pretty",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L40",
+      "source_location": "L44",
       "_origin": "ast",
       "id": "pino_pretty",
       "community": 10,
@@ -607,7 +647,7 @@
       "label": "tsx",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L41",
+      "source_location": "L45",
       "_origin": "ast",
       "id": "apps_api_package_devdependencies_tsx",
       "community": 10,
@@ -617,7 +657,7 @@
       "label": "tsx",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L41",
+      "source_location": "L45",
       "_origin": "ast",
       "id": "tsx",
       "community": 10,
@@ -627,7 +667,7 @@
       "label": "typescript",
       "file_type": "code",
       "source_file": "apps/api/package.json",
-      "source_location": "L42",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "apps_api_package_devdependencies_typescript",
       "community": 10,
@@ -637,7 +677,7 @@
       "label": "typescript",
       "file_type": "concept",
       "source_file": "apps/api/package.json",
-      "source_location": "L42",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "apps_api_package_json_typescript",
       "community": 10,
@@ -720,7 +760,7 @@
       "source_location": "L66",
       "_origin": "ast",
       "id": "apps_api_src_config_env_env",
-      "community": 1,
+      "community": 4,
       "norm_label": "env"
     },
     {
@@ -740,7 +780,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_db_index",
-      "community": 1,
+      "community": 33,
       "norm_label": "index.ts"
     },
     {
@@ -750,7 +790,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_api_src_db_index_sql",
-      "community": 1,
+      "community": 7,
       "norm_label": "sql"
     },
     {
@@ -760,7 +800,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "apps_api_src_db_index_db",
-      "community": 1,
+      "community": 33,
       "norm_label": "db"
     },
     {
@@ -770,7 +810,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_api_src_db_index_database",
-      "community": 1,
+      "community": 33,
       "norm_label": "database"
     },
     {
@@ -780,7 +820,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "apps_api_src_db_index_closedb",
-      "community": 1,
+      "community": 33,
       "norm_label": "closedb()"
     },
     {
@@ -790,7 +830,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_db_migrate",
-      "community": 1,
+      "community": 33,
       "norm_label": "migrate.ts"
     },
     {
@@ -800,17 +840,27 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_api_src_db_migrate_here",
-      "community": 1,
+      "community": 33,
       "norm_label": "here"
+    },
+    {
+      "label": "waitForDatabase()",
+      "file_type": "code",
+      "source_file": "apps/api/src/db/migrate.ts",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "apps_api_src_db_migrate_waitfordatabase",
+      "community": 33,
+      "norm_label": "waitfordatabase()"
     },
     {
       "label": "main()",
       "file_type": "code",
       "source_file": "apps/api/src/db/migrate.ts",
-      "source_location": "L8",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "apps_api_src_db_migrate_main",
-      "community": 1,
+      "community": 33,
       "norm_label": "main()"
     },
     {
@@ -910,7 +960,7 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "apps_api_src_db_schema_refreshtokens",
-      "community": 1,
+      "community": 4,
       "norm_label": "refreshtokens"
     },
     {
@@ -940,7 +990,7 @@
       "source_location": "L133",
       "_origin": "ast",
       "id": "apps_api_src_db_schema_friendships",
-      "community": 1,
+      "community": 8,
       "norm_label": "friendships"
     },
     {
@@ -1020,7 +1070,7 @@
       "source_location": "L334",
       "_origin": "ast",
       "id": "apps_api_src_db_schema_gamerow",
-      "community": 1,
+      "community": 32,
       "norm_label": "gamerow"
     },
     {
@@ -1070,7 +1120,7 @@
       "source_location": "L339",
       "_origin": "ast",
       "id": "apps_api_src_db_schema_friendgrouprow",
-      "community": 1,
+      "community": 8,
       "norm_label": "friendgrouprow"
     },
     {
@@ -1110,7 +1160,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "apps_api_src_db_seed_upsertuser",
-      "community": 1,
+      "community": 39,
       "norm_label": "upsertuser()"
     },
     {
@@ -1120,7 +1170,7 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "apps_api_src_db_seed_main",
-      "community": 1,
+      "community": 39,
       "norm_label": "main()"
     },
     {
@@ -1130,7 +1180,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_lib_audit",
-      "community": 1,
+      "community": 33,
       "norm_label": "audit.ts"
     },
     {
@@ -1140,7 +1190,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_api_src_lib_audit_auditevent",
-      "community": 1,
+      "community": 33,
       "norm_label": "auditevent"
     },
     {
@@ -1150,7 +1200,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_api_src_lib_audit_audit",
-      "community": 1,
+      "community": 26,
       "norm_label": "audit()"
     },
     {
@@ -1160,7 +1210,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_lib_errors",
-      "community": 1,
+      "community": 8,
       "norm_label": "errors.ts"
     },
     {
@@ -1170,7 +1220,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_api_src_lib_errors_status_by_code",
-      "community": 1,
+      "community": 8,
       "norm_label": "status_by_code"
     },
     {
@@ -1210,7 +1260,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "apps_api_src_lib_errors_errors",
-      "community": 1,
+      "community": 26,
       "norm_label": "errors"
     },
     {
@@ -1310,7 +1360,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_lib_public_id",
-      "community": 1,
+      "community": 39,
       "norm_label": "public-id.ts"
     },
     {
@@ -1320,7 +1370,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_api_src_lib_public_id_generate",
-      "community": 1,
+      "community": 39,
       "norm_label": "generate"
     },
     {
@@ -1330,7 +1380,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_api_src_lib_public_id_newpublicid",
-      "community": 1,
+      "community": 39,
       "norm_label": "newpublicid()"
     },
     {
@@ -1670,7 +1720,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_mapper_test",
-      "community": 2,
+      "community": 32,
       "norm_label": "game.mapper.test.ts"
     },
     {
@@ -1680,7 +1730,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_mapper",
-      "community": 2,
+      "community": 32,
       "norm_label": "game.mapper.ts"
     },
     {
@@ -1690,7 +1740,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_mapper_absolutelink",
-      "community": 2,
+      "community": 32,
       "norm_label": "absolutelink()"
     },
     {
@@ -1700,7 +1750,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_mapper_coverfromthumb",
-      "community": 2,
+      "community": 32,
       "norm_label": "coverfromthumb()"
     },
     {
@@ -1710,7 +1760,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_mapper_infergametype",
-      "community": 2,
+      "community": 32,
       "norm_label": "infergametype()"
     },
     {
@@ -1720,7 +1770,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_mapper_names",
-      "community": 2,
+      "community": 32,
       "norm_label": "names()"
     },
     {
@@ -1730,7 +1780,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_mapper_fromsearchresult",
-      "community": 2,
+      "community": 32,
       "norm_label": "fromsearchresult()"
     },
     {
@@ -1740,7 +1790,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_mapper_fromdetail",
-      "community": 2,
+      "community": 32,
       "norm_label": "fromdetail()"
     },
     {
@@ -1750,7 +1800,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_mapper_togame",
-      "community": 2,
+      "community": 32,
       "norm_label": "togame()"
     },
     {
@@ -1760,7 +1810,7 @@
       "source_location": "L120",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_mapper_togamedetail",
-      "community": 2,
+      "community": 32,
       "norm_label": "togamedetail()"
     },
     {
@@ -1770,7 +1820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_service",
-      "community": 2,
+      "community": 32,
       "norm_label": "game.service.ts"
     },
     {
@@ -1780,7 +1830,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_service_ttlms",
-      "community": 2,
+      "community": 32,
       "norm_label": "ttlms()"
     },
     {
@@ -1790,7 +1840,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_service_isstale",
-      "community": 2,
+      "community": 32,
       "norm_label": "isstale()"
     },
     {
@@ -1800,7 +1850,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_service_cachesearchrows",
-      "community": 2,
+      "community": 39,
       "norm_label": "cachesearchrows()"
     },
     {
@@ -1810,7 +1860,7 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_service_searchgames",
-      "community": 2,
+      "community": 32,
       "norm_label": "searchgames()"
     },
     {
@@ -1820,7 +1870,7 @@
       "source_location": "L89",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_service_searchcache",
-      "community": 2,
+      "community": 32,
       "norm_label": "searchcache()"
     },
     {
@@ -1830,7 +1880,7 @@
       "source_location": "L131",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_service_ensuregame",
-      "community": 2,
+      "community": 32,
       "norm_label": "ensuregame()"
     },
     {
@@ -1840,7 +1890,7 @@
       "source_location": "L162",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_service_getgamebypublicid",
-      "community": 2,
+      "community": 32,
       "norm_label": "getgamebypublicid()"
     },
     {
@@ -1850,7 +1900,7 @@
       "source_location": "L169",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_game_service_getgamedetail",
-      "community": 2,
+      "community": 32,
       "norm_label": "getgamedetail()"
     },
     {
@@ -2060,7 +2110,7 @@
       "source_location": "L226",
       "_origin": "ast",
       "id": "apps_api_src_modules_games_ludopedia_client_isunavailable",
-      "community": 2,
+      "community": 32,
       "norm_label": "isunavailable()"
     },
     {
@@ -2070,7 +2120,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_export_test",
-      "community": 31,
+      "community": 2,
       "norm_label": "export.test.ts"
     },
     {
@@ -2080,7 +2130,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_export_test_item",
-      "community": 31,
+      "community": 2,
       "norm_label": "item()"
     },
     {
@@ -2090,7 +2140,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_export",
-      "community": 31,
+      "community": 2,
       "norm_label": "export.ts"
     },
     {
@@ -2100,7 +2150,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_export_columns",
-      "community": 31,
+      "community": 2,
       "norm_label": "columns"
     },
     {
@@ -2110,7 +2160,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_export_csvcell",
-      "community": 31,
+      "community": 2,
       "norm_label": "csvcell()"
     },
     {
@@ -2120,7 +2170,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_export_tocsv",
-      "community": 31,
+      "community": 2,
       "norm_label": "tocsv()"
     },
     {
@@ -2130,7 +2180,7 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_export_tonamesexport",
-      "community": 31,
+      "community": 2,
       "norm_label": "tonamesexport()"
     },
     {
@@ -2140,7 +2190,7 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_export_tojsonexport",
-      "community": 31,
+      "community": 2,
       "norm_label": "tojsonexport()"
     },
     {
@@ -2150,7 +2200,7 @@
       "source_location": "L116",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_export_exportfilename",
-      "community": 31,
+      "community": 2,
       "norm_label": "exportfilename()"
     },
     {
@@ -2160,7 +2210,7 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "docref_rfc_4180",
-      "community": 31,
+      "community": 2,
       "norm_label": "rfc-4180"
     },
     {
@@ -2170,7 +2220,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service",
-      "community": 1,
+      "community": 26,
       "norm_label": "list.service.ts"
     },
     {
@@ -2180,7 +2230,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_getownedlist",
-      "community": 1,
+      "community": 26,
       "norm_label": "getownedlist()"
     },
     {
@@ -2190,7 +2240,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_getviewablelist",
-      "community": 1,
+      "community": 8,
       "norm_label": "getviewablelist()"
     },
     {
@@ -2200,7 +2250,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_tolist",
-      "community": 1,
+      "community": 26,
       "norm_label": "tolist()"
     },
     {
@@ -2210,7 +2260,7 @@
       "source_location": "L95",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_tolistitem",
-      "community": 1,
+      "community": 26,
       "norm_label": "tolistitem()"
     },
     {
@@ -2220,7 +2270,7 @@
       "source_location": "L110",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_openloansbygame",
-      "community": 1,
+      "community": 26,
       "norm_label": "openloansbygame()"
     },
     {
@@ -2230,7 +2280,7 @@
       "source_location": "L137",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_listsforuser",
-      "community": 1,
+      "community": 26,
       "norm_label": "listsforuser()"
     },
     {
@@ -2240,7 +2290,7 @@
       "source_location": "L153",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_createlist",
-      "community": 1,
+      "community": 26,
       "norm_label": "createlist()"
     },
     {
@@ -2250,7 +2300,7 @@
       "source_location": "L162",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_renamelist",
-      "community": 1,
+      "community": 26,
       "norm_label": "renamelist()"
     },
     {
@@ -2260,7 +2310,7 @@
       "source_location": "L177",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_deletelist",
-      "community": 1,
+      "community": 26,
       "norm_label": "deletelist()"
     },
     {
@@ -2270,7 +2320,7 @@
       "source_location": "L184",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_orderfor",
-      "community": 1,
+      "community": 26,
       "norm_label": "orderfor()"
     },
     {
@@ -2280,7 +2330,7 @@
       "source_location": "L208",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_itemfilters",
-      "community": 1,
+      "community": 26,
       "norm_label": "itemfilters()"
     },
     {
@@ -2290,7 +2340,7 @@
       "source_location": "L225",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_withloans",
-      "community": 1,
+      "community": 26,
       "norm_label": "withloans()"
     },
     {
@@ -2300,7 +2350,7 @@
       "source_location": "L246",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_listitemspage",
-      "community": 1,
+      "community": 26,
       "norm_label": "listitemspage()"
     },
     {
@@ -2310,7 +2360,7 @@
       "source_location": "L278",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_alllistitems",
-      "community": 1,
+      "community": 26,
       "norm_label": "alllistitems()"
     },
     {
@@ -2320,7 +2370,7 @@
       "source_location": "L293",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_additem",
-      "community": 1,
+      "community": 26,
       "norm_label": "additem()"
     },
     {
@@ -2330,7 +2380,7 @@
       "source_location": "L330",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_updateitem",
-      "community": 1,
+      "community": 26,
       "norm_label": "updateitem()"
     },
     {
@@ -2340,7 +2390,7 @@
       "source_location": "L364",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_removeitem",
-      "community": 1,
+      "community": 26,
       "norm_label": "removeitem()"
     },
     {
@@ -2350,7 +2400,7 @@
       "source_location": "L381",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_bulkaction",
-      "community": 1,
+      "community": 26,
       "norm_label": "bulkaction()"
     },
     {
@@ -2360,7 +2410,7 @@
       "source_location": "L425",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_copyitems",
-      "community": 1,
+      "community": 39,
       "norm_label": "copyitems()"
     },
     {
@@ -2370,7 +2420,7 @@
       "source_location": "L458",
       "_origin": "ast",
       "id": "apps_api_src_modules_lists_list_service_filtertoselection",
-      "community": 1,
+      "community": 26,
       "norm_label": "filtertoselection()"
     },
     {
@@ -2380,7 +2430,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friend_service",
-      "community": 1,
+      "community": 8,
       "norm_label": "friend.service.ts"
     },
     {
@@ -2390,7 +2440,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friend_service_searchusers",
-      "community": 1,
+      "community": 8,
       "norm_label": "searchusers()"
     },
     {
@@ -2400,7 +2450,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friend_service_getuserbypublicid",
-      "community": 1,
+      "community": 26,
       "norm_label": "getuserbypublicid()"
     },
     {
@@ -2410,7 +2460,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friend_service_friendsof",
-      "community": 1,
+      "community": 8,
       "norm_label": "friendsof()"
     },
     {
@@ -2420,7 +2470,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friend_service_pendingrequests",
-      "community": 1,
+      "community": 8,
       "norm_label": "pendingrequests()"
     },
     {
@@ -2430,7 +2480,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friend_service_sendrequest",
-      "community": 1,
+      "community": 26,
       "norm_label": "sendrequest()"
     },
     {
@@ -2440,7 +2490,7 @@
       "source_location": "L139",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friend_service_acceptrequest",
-      "community": 1,
+      "community": 26,
       "norm_label": "acceptrequest()"
     },
     {
@@ -2450,7 +2500,7 @@
       "source_location": "L175",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friend_service_removefriendship",
-      "community": 1,
+      "community": 26,
       "norm_label": "removefriendship()"
     },
     {
@@ -2460,7 +2510,7 @@
       "source_location": "L189",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friend_service_unfrienduser",
-      "community": 1,
+      "community": 26,
       "norm_label": "unfrienduser()"
     },
     {
@@ -2470,7 +2520,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friendship_service",
-      "community": 1,
+      "community": 8,
       "norm_label": "friendship.service.ts"
     },
     {
@@ -2480,7 +2530,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friendship_service_involves",
-      "community": 1,
+      "community": 8,
       "norm_label": "involves()"
     },
     {
@@ -2490,7 +2540,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friendship_service_between",
-      "community": 1,
+      "community": 8,
       "norm_label": "between()"
     },
     {
@@ -2500,7 +2550,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friendship_service_arefriends",
-      "community": 1,
+      "community": 8,
       "norm_label": "arefriends()"
     },
     {
@@ -2510,7 +2560,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friendship_service_acceptedfriendids",
-      "community": 1,
+      "community": 8,
       "norm_label": "acceptedfriendids()"
     },
     {
@@ -2520,7 +2570,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friendship_service_relationbetween",
-      "community": 1,
+      "community": 8,
       "norm_label": "relationbetween()"
     },
     {
@@ -2530,7 +2580,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_friendship_service_relationsfor",
-      "community": 1,
+      "community": 8,
       "norm_label": "relationsfor()"
     },
     {
@@ -2540,7 +2590,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_group_service",
-      "community": 1,
+      "community": 8,
       "norm_label": "group.service.ts"
     },
     {
@@ -2550,7 +2600,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_group_service_getvisiblegroup",
-      "community": 1,
+      "community": 8,
       "norm_label": "getvisiblegroup()"
     },
     {
@@ -2560,7 +2610,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_group_service_getownedgroup",
-      "community": 1,
+      "community": 8,
       "norm_label": "getownedgroup()"
     },
     {
@@ -2570,7 +2620,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_group_service_groupsfor",
-      "community": 1,
+      "community": 7,
       "norm_label": "groupsfor()"
     },
     {
@@ -2580,7 +2630,7 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_group_service_groupdetail",
-      "community": 1,
+      "community": 8,
       "norm_label": "groupdetail()"
     },
     {
@@ -2590,7 +2640,7 @@
       "source_location": "L104",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_group_service_assertallarefriends",
-      "community": 1,
+      "community": 8,
       "norm_label": "assertallarefriends()"
     },
     {
@@ -2600,7 +2650,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_group_service_creategroup",
-      "community": 1,
+      "community": 8,
       "norm_label": "creategroup()"
     },
     {
@@ -2610,7 +2660,7 @@
       "source_location": "L138",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_group_service_renamegroup",
-      "community": 1,
+      "community": 8,
       "norm_label": "renamegroup()"
     },
     {
@@ -2620,7 +2670,7 @@
       "source_location": "L144",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_group_service_deletegroup",
-      "community": 1,
+      "community": 8,
       "norm_label": "deletegroup()"
     },
     {
@@ -2630,7 +2680,7 @@
       "source_location": "L149",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_group_service_addmembers",
-      "community": 1,
+      "community": 8,
       "norm_label": "addmembers()"
     },
     {
@@ -2640,7 +2690,7 @@
       "source_location": "L163",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_group_service_removemembers",
-      "community": 1,
+      "community": 8,
       "norm_label": "removemembers()"
     },
     {
@@ -2650,7 +2700,7 @@
       "source_location": "L194",
       "_origin": "ast",
       "id": "apps_api_src_modules_social_group_service_groupgames",
-      "community": 1,
+      "community": 8,
       "norm_label": "groupgames()"
     },
     {
@@ -2730,7 +2780,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_api_src_modules_users_user_mapper_tome",
-      "community": 1,
+      "community": 4,
       "norm_label": "tome()"
     },
     {
@@ -2740,7 +2790,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_api_src_modules_users_user_mapper_topublicuser",
-      "community": 1,
+      "community": 8,
       "norm_label": "topublicuser()"
     },
     {
@@ -2800,7 +2850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_plugins_20_rate_limit",
-      "community": 31,
+      "community": 2,
       "norm_label": "20-rate-limit.ts"
     },
     {
@@ -2810,7 +2860,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_api_src_plugins_20_rate_limit_keyfor",
-      "community": 31,
+      "community": 2,
       "norm_label": "keyfor()"
     },
     {
@@ -2820,7 +2870,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_api_src_plugins_20_rate_limit_ratelimits",
-      "community": 31,
+      "community": 2,
       "norm_label": "ratelimits"
     },
     {
@@ -2830,7 +2880,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "apps_api_src_plugins_20_rate_limit_ratelimitplugin",
-      "community": 31,
+      "community": 2,
       "norm_label": "ratelimitplugin()"
     },
     {
@@ -2900,7 +2950,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_routes_games",
-      "community": 2,
+      "community": 32,
       "norm_label": "games.ts"
     },
     {
@@ -2910,7 +2960,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_api_src_routes_games_gameroutes",
-      "community": 2,
+      "community": 32,
       "norm_label": "gameroutes()"
     },
     {
@@ -2920,7 +2970,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_routes_health",
-      "community": 1,
+      "community": 33,
       "norm_label": "health.ts"
     },
     {
@@ -2930,7 +2980,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_api_src_routes_health_health",
-      "community": 1,
+      "community": 7,
       "norm_label": "health()"
     },
     {
@@ -2940,7 +2990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_routes_lists",
-      "community": 31,
+      "community": 2,
       "norm_label": "lists.ts"
     },
     {
@@ -2950,7 +3000,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "apps_api_src_routes_lists_listidparam",
-      "community": 31,
+      "community": 2,
       "norm_label": "listidparam"
     },
     {
@@ -2960,7 +3010,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "apps_api_src_routes_lists_itemparams",
-      "community": 31,
+      "community": 2,
       "norm_label": "itemparams"
     },
     {
@@ -2970,7 +3020,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "apps_api_src_routes_lists_listroutes",
-      "community": 31,
+      "community": 2,
       "norm_label": "listroutes()"
     },
     {
@@ -2980,7 +3030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_routes_me",
-      "community": 1,
+      "community": 33,
       "norm_label": "me.ts"
     },
     {
@@ -2990,7 +3040,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_api_src_routes_me_meroutes",
-      "community": 1,
+      "community": 26,
       "norm_label": "meroutes()"
     },
     {
@@ -3000,7 +3050,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_api_src_routes_social",
-      "community": 31,
+      "community": 2,
       "norm_label": "social.ts"
     },
     {
@@ -3010,7 +3060,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "apps_api_src_routes_social_groupidparam",
-      "community": 31,
+      "community": 2,
       "norm_label": "groupidparam"
     },
     {
@@ -3020,7 +3070,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "apps_api_src_routes_social_socialroutes",
-      "community": 31,
+      "community": 2,
       "norm_label": "socialroutes()"
     },
     {
@@ -3217,7 +3267,7 @@
       "label": "exclude",
       "file_type": "code",
       "source_file": "apps/api/tsconfig.json",
-      "source_location": "L11",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "apps_api_tsconfig_exclude",
       "community": 17,
@@ -3227,7 +3277,7 @@
       "label": "dist",
       "file_type": "concept",
       "source_file": "apps/api/tsconfig.json",
-      "source_location": "L11",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "apps_api_tsconfig_json_ref_dist",
       "community": 17,
@@ -3237,11 +3287,21 @@
       "label": "node_modules",
       "file_type": "concept",
       "source_file": "apps/api/tsconfig.json",
-      "source_location": "L11",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "ref_node_modules",
       "community": 17,
       "norm_label": "node_modules"
+    },
+    {
+      "label": "src/**/*.test.ts",
+      "file_type": "concept",
+      "source_file": "apps/api/tsconfig.json",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "ref_src_test_ts",
+      "community": 17,
+      "norm_label": "src/**/*.test.ts"
     },
     {
       "label": "angular.json",
@@ -3504,10 +3564,20 @@
       "norm_label": "outputhashing"
     },
     {
+      "label": "optimization",
+      "file_type": "code",
+      "source_file": "apps/web/angular.json",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "apps_web_angular_production_optimization",
+      "community": 5,
+      "norm_label": "optimization"
+    },
+    {
       "label": "development",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L47",
+      "source_location": "L55",
       "_origin": "ast",
       "id": "apps_web_angular_configurations_development",
       "community": 5,
@@ -3517,7 +3587,7 @@
       "label": "optimization",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L48",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "apps_web_angular_development_optimization",
       "community": 5,
@@ -3527,7 +3597,7 @@
       "label": "extractLicenses",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L49",
+      "source_location": "L57",
       "_origin": "ast",
       "id": "apps_web_angular_development_extractlicenses",
       "community": 5,
@@ -3537,7 +3607,7 @@
       "label": "sourceMap",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L50",
+      "source_location": "L58",
       "_origin": "ast",
       "id": "apps_web_angular_development_sourcemap",
       "community": 5,
@@ -3547,7 +3617,7 @@
       "label": "defaultConfiguration",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L53",
+      "source_location": "L61",
       "_origin": "ast",
       "id": "apps_web_angular_build_defaultconfiguration",
       "community": 5,
@@ -3557,7 +3627,7 @@
       "label": "serve",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L55",
+      "source_location": "L63",
       "_origin": "ast",
       "id": "apps_web_angular_architect_serve",
       "community": 5,
@@ -3567,7 +3637,7 @@
       "label": "builder",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L56",
+      "source_location": "L64",
       "_origin": "ast",
       "id": "apps_web_angular_serve_builder",
       "community": 5,
@@ -3577,7 +3647,7 @@
       "label": "options",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L57",
+      "source_location": "L65",
       "_origin": "ast",
       "id": "apps_web_angular_serve_options",
       "community": 5,
@@ -3587,7 +3657,7 @@
       "label": "port",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L58",
+      "source_location": "L66",
       "_origin": "ast",
       "id": "apps_web_angular_options_port",
       "community": 5,
@@ -3597,7 +3667,7 @@
       "label": "proxyConfig",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L59",
+      "source_location": "L67",
       "_origin": "ast",
       "id": "apps_web_angular_options_proxyconfig",
       "community": 5,
@@ -3607,7 +3677,7 @@
       "label": "configurations",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L61",
+      "source_location": "L69",
       "_origin": "ast",
       "id": "apps_web_angular_serve_configurations",
       "community": 5,
@@ -3617,7 +3687,7 @@
       "label": "buildTarget",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L63",
+      "source_location": "L71",
       "_origin": "ast",
       "id": "apps_web_angular_production_buildtarget",
       "community": 5,
@@ -3627,7 +3697,7 @@
       "label": "buildTarget",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L66",
+      "source_location": "L74",
       "_origin": "ast",
       "id": "apps_web_angular_development_buildtarget",
       "community": 5,
@@ -3637,7 +3707,7 @@
       "label": "defaultConfiguration",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L69",
+      "source_location": "L77",
       "_origin": "ast",
       "id": "apps_web_angular_serve_defaultconfiguration",
       "community": 5,
@@ -3647,7 +3717,7 @@
       "label": "test",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L71",
+      "source_location": "L79",
       "_origin": "ast",
       "id": "apps_web_angular_architect_test",
       "community": 5,
@@ -3657,7 +3727,7 @@
       "label": "builder",
       "file_type": "code",
       "source_file": "apps/web/angular.json",
-      "source_location": "L72",
+      "source_location": "L80",
       "_origin": "ast",
       "id": "apps_web_angular_test_builder",
       "community": 5,
@@ -3734,10 +3804,20 @@
       "norm_label": "start"
     },
     {
-      "label": "build",
+      "label": "prebuild",
       "file_type": "code",
       "source_file": "apps/web/package.json",
       "source_location": "L8",
+      "_origin": "ast",
+      "id": "apps_web_package_scripts_prebuild",
+      "community": 3,
+      "norm_label": "prebuild"
+    },
+    {
+      "label": "build",
+      "file_type": "code",
+      "source_file": "apps/web/package.json",
+      "source_location": "L9",
       "_origin": "ast",
       "id": "apps_web_package_scripts_build",
       "community": 3,
@@ -3747,7 +3827,7 @@
       "label": "watch",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L9",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "apps_web_package_scripts_watch",
       "community": 3,
@@ -3757,17 +3837,27 @@
       "label": "test",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L10",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "apps_web_package_scripts_test",
       "community": 3,
       "norm_label": "test"
     },
     {
+      "label": "pretypecheck",
+      "file_type": "code",
+      "source_file": "apps/web/package.json",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "apps_web_package_scripts_pretypecheck",
+      "community": 3,
+      "norm_label": "pretypecheck"
+    },
+    {
       "label": "typecheck",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L11",
+      "source_location": "L13",
       "_origin": "ast",
       "id": "apps_web_package_scripts_typecheck",
       "community": 3,
@@ -3777,7 +3867,7 @@
       "label": "private",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L13",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "apps_web_package_private",
       "community": 3,
@@ -3787,7 +3877,7 @@
       "label": "dependencies",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L14",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "apps_web_package_dependencies",
       "community": 3,
@@ -3797,7 +3887,7 @@
       "label": "@angular/common",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L15",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "apps_web_package_dependencies_angular_common",
       "community": 3,
@@ -3807,7 +3897,7 @@
       "label": "@angular/common",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L15",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "angular_common",
       "community": 3,
@@ -3817,7 +3907,7 @@
       "label": "@angular/compiler",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L16",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "apps_web_package_dependencies_angular_compiler",
       "community": 3,
@@ -3827,7 +3917,7 @@
       "label": "@angular/compiler",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L16",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "angular_compiler",
       "community": 3,
@@ -3837,7 +3927,7 @@
       "label": "@angular/core",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L17",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "apps_web_package_dependencies_angular_core",
       "community": 3,
@@ -3847,7 +3937,7 @@
       "label": "@angular/core",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L17",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "angular_core",
       "community": 3,
@@ -3857,7 +3947,7 @@
       "label": "@angular/forms",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L18",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "apps_web_package_dependencies_angular_forms",
       "community": 3,
@@ -3867,7 +3957,7 @@
       "label": "@angular/forms",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L18",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "angular_forms",
       "community": 3,
@@ -3877,7 +3967,7 @@
       "label": "@angular/platform-browser",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L19",
+      "source_location": "L21",
       "_origin": "ast",
       "id": "apps_web_package_dependencies_angular_platform_browser",
       "community": 3,
@@ -3887,7 +3977,7 @@
       "label": "@angular/platform-browser",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L19",
+      "source_location": "L21",
       "_origin": "ast",
       "id": "angular_platform_browser",
       "community": 3,
@@ -3897,7 +3987,7 @@
       "label": "@angular/router",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L20",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "apps_web_package_dependencies_angular_router",
       "community": 3,
@@ -3907,7 +3997,7 @@
       "label": "@angular/router",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L20",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "angular_router",
       "community": 3,
@@ -3917,7 +4007,7 @@
       "label": "@ludoteca/shared",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L21",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "apps_web_package_dependencies_ludoteca_shared",
       "community": 3,
@@ -3927,7 +4017,7 @@
       "label": "@ludoteca/shared",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L21",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "apps_web_package_json_ludoteca_shared",
       "community": 3,
@@ -3937,7 +4027,7 @@
       "label": "rxjs",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L22",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "apps_web_package_dependencies_rxjs",
       "community": 3,
@@ -3947,7 +4037,7 @@
       "label": "rxjs",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L22",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "rxjs",
       "community": 3,
@@ -3957,7 +4047,7 @@
       "label": "tslib",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L23",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "apps_web_package_dependencies_tslib",
       "community": 3,
@@ -3967,7 +4057,7 @@
       "label": "tslib",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L23",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "tslib",
       "community": 3,
@@ -3977,7 +4067,7 @@
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L25",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "apps_web_package_devdependencies",
       "community": 25,
@@ -3987,7 +4077,7 @@
       "label": "@angular/build",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L26",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "apps_web_package_devdependencies_angular_build",
       "community": 25,
@@ -3997,7 +4087,7 @@
       "label": "@angular/build",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L26",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "angular_build",
       "community": 25,
@@ -4007,7 +4097,7 @@
       "label": "@angular/cli",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L27",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "apps_web_package_devdependencies_angular_cli",
       "community": 25,
@@ -4017,7 +4107,7 @@
       "label": "@angular/cli",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L27",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "angular_cli",
       "community": 25,
@@ -4027,7 +4117,7 @@
       "label": "@angular/compiler-cli",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L28",
+      "source_location": "L30",
       "_origin": "ast",
       "id": "apps_web_package_devdependencies_angular_compiler_cli",
       "community": 25,
@@ -4037,7 +4127,7 @@
       "label": "@angular/compiler-cli",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L28",
+      "source_location": "L30",
       "_origin": "ast",
       "id": "angular_compiler_cli",
       "community": 25,
@@ -4047,7 +4137,7 @@
       "label": "@fontsource-variable/bricolage-grotesque",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L29",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "apps_web_package_devdependencies_fontsource_variable_bricolage_grotesque",
       "community": 25,
@@ -4057,7 +4147,7 @@
       "label": "@fontsource-variable/bricolage-grotesque",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L29",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "fontsource_variable_bricolage_grotesque",
       "community": 25,
@@ -4067,7 +4157,7 @@
       "label": "@fontsource-variable/jetbrains-mono",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L30",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "apps_web_package_devdependencies_fontsource_variable_jetbrains_mono",
       "community": 25,
@@ -4077,7 +4167,7 @@
       "label": "@fontsource-variable/jetbrains-mono",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L30",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "fontsource_variable_jetbrains_mono",
       "community": 25,
@@ -4087,7 +4177,7 @@
       "label": "@fontsource-variable/plus-jakarta-sans",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L31",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "apps_web_package_devdependencies_fontsource_variable_plus_jakarta_sans",
       "community": 25,
@@ -4097,7 +4187,7 @@
       "label": "@fontsource-variable/plus-jakarta-sans",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L31",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "fontsource_variable_plus_jakarta_sans",
       "community": 25,
@@ -4107,7 +4197,7 @@
       "label": "@tailwindcss/postcss",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L32",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "apps_web_package_devdependencies_tailwindcss_postcss",
       "community": 25,
@@ -4117,7 +4207,7 @@
       "label": "@tailwindcss/postcss",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L32",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "tailwindcss_postcss",
       "community": 25,
@@ -4127,7 +4217,7 @@
       "label": "jsdom",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L33",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "apps_web_package_devdependencies_jsdom",
       "community": 25,
@@ -4137,7 +4227,7 @@
       "label": "jsdom",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L33",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "jsdom",
       "community": 25,
@@ -4147,7 +4237,7 @@
       "label": "postcss",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L34",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "apps_web_package_devdependencies_postcss",
       "community": 25,
@@ -4157,7 +4247,7 @@
       "label": "postcss",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L34",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "postcss",
       "community": 25,
@@ -4167,7 +4257,7 @@
       "label": "prettier",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L35",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "apps_web_package_devdependencies_prettier",
       "community": 25,
@@ -4177,7 +4267,7 @@
       "label": "prettier",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L35",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "prettier",
       "community": 25,
@@ -4187,7 +4277,7 @@
       "label": "tailwindcss",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L36",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "apps_web_package_devdependencies_tailwindcss",
       "community": 25,
@@ -4197,7 +4287,7 @@
       "label": "tailwindcss",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L36",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "tailwindcss",
       "community": 25,
@@ -4207,7 +4297,7 @@
       "label": "typescript",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L37",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "apps_web_package_devdependencies_typescript",
       "community": 25,
@@ -4217,7 +4307,7 @@
       "label": "typescript",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L37",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "apps_web_package_json_typescript",
       "community": 25,
@@ -4227,7 +4317,7 @@
       "label": "vitest",
       "file_type": "code",
       "source_file": "apps/web/package.json",
-      "source_location": "L38",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "apps_web_package_devdependencies_vitest",
       "community": 25,
@@ -4237,11 +4327,21 @@
       "label": "vitest",
       "file_type": "concept",
       "source_file": "apps/web/package.json",
-      "source_location": "L38",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "vitest",
       "community": 25,
       "norm_label": "vitest"
+    },
+    {
+      "label": "theme-boot.js",
+      "file_type": "code",
+      "source_file": "apps/web/public/theme-boot.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_web_public_theme_boot",
+      "community": 45,
+      "norm_label": "theme-boot.js"
     },
     {
       "label": "app.config.ts",
@@ -4480,7 +4580,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_app_core_auth_store",
-      "community": 26,
+      "community": 21,
       "norm_label": "auth.store.ts"
     },
     {
@@ -5060,7 +5160,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "apps_web_src_app_core_social_service_socialservice_group",
-      "community": 31,
+      "community": 2,
       "norm_label": ".group()"
     },
     {
@@ -5150,7 +5250,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_app_core_theme_service",
-      "community": 26,
+      "community": 21,
       "norm_label": "theme.service.ts"
     },
     {
@@ -5160,7 +5260,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_web_src_app_core_theme_service_themechoice",
-      "community": 26,
+      "community": 21,
       "norm_label": "themechoice"
     },
     {
@@ -5170,7 +5270,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_web_src_app_core_theme_service_themeservice",
-      "community": 26,
+      "community": 21,
       "norm_label": "themeservice"
     },
     {
@@ -5180,7 +5280,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "apps_web_src_app_core_theme_service_ts_injectable",
-      "community": 26,
+      "community": 21,
       "norm_label": "injectable"
     },
     {
@@ -5190,7 +5290,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_web_src_app_core_theme_service_themeservice_constructor",
-      "community": 26,
+      "community": 21,
       "norm_label": ".constructor()"
     },
     {
@@ -5200,7 +5300,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "apps_web_src_app_core_theme_service_themeservice_set",
-      "community": 26,
+      "community": 21,
       "norm_label": ".set()"
     },
     {
@@ -5210,7 +5310,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "apps_web_src_app_core_theme_service_themeservice_toggle",
-      "community": 26,
+      "community": 21,
       "norm_label": ".toggle()"
     },
     {
@@ -5220,7 +5320,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "apps_web_src_app_core_theme_service_themeservice_apply",
-      "community": 26,
+      "community": 21,
       "norm_label": ".apply()"
     },
     {
@@ -5230,7 +5330,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "apps_web_src_app_core_theme_service_themeservice_readstored",
-      "community": 26,
+      "community": 21,
       "norm_label": ".readstored()"
     },
     {
@@ -5240,7 +5340,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_app_features_account_account_page",
-      "community": 26,
+      "community": 21,
       "norm_label": "account.page.ts"
     },
     {
@@ -5250,7 +5350,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_web_src_app_features_account_account_page_privacy_copy",
-      "community": 26,
+      "community": 21,
       "norm_label": "privacy_copy"
     },
     {
@@ -5260,7 +5360,7 @@
       "source_location": "L133",
       "_origin": "ast",
       "id": "apps_web_src_app_features_account_account_page_accountpage",
-      "community": 8,
+      "community": 21,
       "norm_label": "accountpage"
     },
     {
@@ -5270,7 +5370,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "apps_web_src_app_features_account_account_page_ts_component",
-      "community": 8,
+      "community": 21,
       "norm_label": "component"
     },
     {
@@ -5280,7 +5380,7 @@
       "source_location": "L157",
       "_origin": "ast",
       "id": "apps_web_src_app_features_account_account_page_accountpage_copy",
-      "community": 8,
+      "community": 21,
       "norm_label": ".copy()"
     },
     {
@@ -5290,7 +5390,7 @@
       "source_location": "L161",
       "_origin": "ast",
       "id": "apps_web_src_app_features_account_account_page_accountpage_saveprofile",
-      "community": 8,
+      "community": 21,
       "norm_label": ".saveprofile()"
     },
     {
@@ -5300,7 +5400,7 @@
       "source_location": "L175",
       "_origin": "ast",
       "id": "apps_web_src_app_features_account_account_page_accountpage_setprivacy",
-      "community": 8,
+      "community": 21,
       "norm_label": ".setprivacy()"
     },
     {
@@ -5310,7 +5410,7 @@
       "source_location": "L188",
       "_origin": "ast",
       "id": "apps_web_src_app_features_account_account_page_accountpage_logout",
-      "community": 8,
+      "community": 21,
       "norm_label": ".logout()"
     },
     {
@@ -5320,7 +5420,7 @@
       "source_location": "L193",
       "_origin": "ast",
       "id": "apps_web_src_app_features_account_account_page_accountpage_deleteaccount",
-      "community": 8,
+      "community": 21,
       "norm_label": ".deleteaccount()"
     },
     {
@@ -5330,7 +5430,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_app_features_auth_auth_layout",
-      "community": 26,
+      "community": 21,
       "norm_label": "auth-layout.ts"
     },
     {
@@ -5340,7 +5440,7 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "apps_web_src_app_features_auth_auth_layout_authlayout",
-      "community": 26,
+      "community": 21,
       "norm_label": "authlayout"
     },
     {
@@ -5350,7 +5450,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "apps_web_src_app_features_auth_auth_layout_ts_component",
-      "community": 26,
+      "community": 21,
       "norm_label": "component"
     },
     {
@@ -5360,7 +5460,7 @@
       "source_location": "L90",
       "_origin": "ast",
       "id": "apps_web_src_app_features_auth_auth_layout_authlayout_constructor",
-      "community": 26,
+      "community": 21,
       "norm_label": ".constructor()"
     },
     {
@@ -5370,7 +5470,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_app_features_auth_login_page",
-      "community": 26,
+      "community": 21,
       "norm_label": "login.page.ts"
     },
     {
@@ -5380,7 +5480,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "apps_web_src_app_features_auth_login_page_loginpage",
-      "community": 33,
+      "community": 21,
       "norm_label": "loginpage"
     },
     {
@@ -5390,7 +5490,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "apps_web_src_app_features_auth_login_page_ts_component",
-      "community": 33,
+      "community": 21,
       "norm_label": "component"
     },
     {
@@ -5400,7 +5500,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "apps_web_src_app_features_auth_login_page_loginpage_invalid",
-      "community": 33,
+      "community": 21,
       "norm_label": ".invalid()"
     },
     {
@@ -5410,7 +5510,7 @@
       "source_location": "L99",
       "_origin": "ast",
       "id": "apps_web_src_app_features_auth_login_page_loginpage_submit",
-      "community": 33,
+      "community": 21,
       "norm_label": ".submit()"
     },
     {
@@ -5420,7 +5520,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_app_features_auth_register_page",
-      "community": 26,
+      "community": 21,
       "norm_label": "register.page.ts"
     },
     {
@@ -5430,7 +5530,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "apps_web_src_app_features_auth_register_page_registerpage",
-      "community": 26,
+      "community": 21,
       "norm_label": "registerpage"
     },
     {
@@ -5440,7 +5540,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "apps_web_src_app_features_auth_register_page_ts_component",
-      "community": 26,
+      "community": 21,
       "norm_label": "component"
     },
     {
@@ -5450,7 +5550,7 @@
       "source_location": "L129",
       "_origin": "ast",
       "id": "apps_web_src_app_features_auth_register_page_registerpage_invalid",
-      "community": 26,
+      "community": 21,
       "norm_label": ".invalid()"
     },
     {
@@ -5460,7 +5560,7 @@
       "source_location": "L134",
       "_origin": "ast",
       "id": "apps_web_src_app_features_auth_register_page_registerpage_submit",
-      "community": 26,
+      "community": 21,
       "norm_label": ".submit()"
     },
     {
@@ -5477,7 +5577,7 @@
       "label": "TYPE_LABEL",
       "file_type": "code",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L11",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "apps_web_src_app_features_games_game_detail_page_type_label",
       "community": 27,
@@ -5487,7 +5587,7 @@
       "label": "GameDetailPage",
       "file_type": "code",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L195",
+      "source_location": "L202",
       "_origin": "ast",
       "id": "apps_web_src_app_features_games_game_detail_page_gamedetailpage",
       "community": 12,
@@ -5507,7 +5607,7 @@
       "label": ".constructor()",
       "file_type": "code",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L242",
+      "source_location": "L255",
       "_origin": "ast",
       "id": "apps_web_src_app_features_games_game_detail_page_gamedetailpage_constructor",
       "community": 12,
@@ -5517,7 +5617,7 @@
       "label": ".typeLabel()",
       "file_type": "code",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L246",
+      "source_location": "L259",
       "_origin": "ast",
       "id": "apps_web_src_app_features_games_game_detail_page_gamedetailpage_typelabel",
       "community": 12,
@@ -5527,7 +5627,7 @@
       "label": ".back()",
       "file_type": "code",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L250",
+      "source_location": "L263",
       "_origin": "ast",
       "id": "apps_web_src_app_features_games_game_detail_page_gamedetailpage_back",
       "community": 12,
@@ -5537,7 +5637,7 @@
       "label": ".load()",
       "file_type": "code",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L254",
+      "source_location": "L267",
       "_origin": "ast",
       "id": "apps_web_src_app_features_games_game_detail_page_gamedetailpage_load",
       "community": 12,
@@ -5547,7 +5647,7 @@
       "label": ".add()",
       "file_type": "code",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L269",
+      "source_location": "L282",
       "_origin": "ast",
       "id": "apps_web_src_app_features_games_game_detail_page_gamedetailpage_add",
       "community": 12,
@@ -5642,6 +5742,256 @@
       "id": "apps_web_src_app_features_games_search_page_searchpage_add",
       "community": 43,
       "norm_label": ".add()"
+    },
+    {
+      "label": "featured-games.ts",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_featured_games",
+      "community": 31,
+      "norm_label": "featured-games.ts"
+    },
+    {
+      "label": "FeaturedType",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_featured_games_featuredtype",
+      "community": 31,
+      "norm_label": "featuredtype"
+    },
+    {
+      "label": "FeaturedGame",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_featured_games_featuredgame",
+      "community": 31,
+      "norm_label": "featuredgame"
+    },
+    {
+      "label": "coverUrl()",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_featured_games_coverurl",
+      "community": 31,
+      "norm_label": "coverurl()"
+    },
+    {
+      "label": "thumbUrl()",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L41",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_featured_games_thumburl",
+      "community": 31,
+      "norm_label": "thumburl()"
+    },
+    {
+      "label": "ludopediaLink()",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_featured_games_ludopedialink",
+      "community": 31,
+      "norm_label": "ludopedialink()"
+    },
+    {
+      "label": "FEATURED_GAMES",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L50",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_featured_games_featured_games",
+      "community": 31,
+      "norm_label": "featured_games"
+    },
+    {
+      "label": "BY_ID",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L367",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_featured_games_by_id",
+      "community": 31,
+      "norm_label": "by_id"
+    },
+    {
+      "label": "featuredById()",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L369",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_featured_games_featuredbyid",
+      "community": 31,
+      "norm_label": "featuredbyid()"
+    },
+    {
+      "label": "game-showcase.page.ts",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_game_showcase_page",
+      "community": 31,
+      "norm_label": "game-showcase.page.ts"
+    },
+    {
+      "label": "TYPE_LABEL",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_game_showcase_page_type_label",
+      "community": 31,
+      "norm_label": "type_label"
+    },
+    {
+      "label": "GameShowcasePage",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L141",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage",
+      "community": 31,
+      "norm_label": "gameshowcasepage"
+    },
+    {
+      "label": "Component",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_game_showcase_page_ts_component",
+      "community": 31,
+      "norm_label": "component"
+    },
+    {
+      "label": ".typeLabel()",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L172",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_typelabel",
+      "community": 31,
+      "norm_label": ".typelabel()"
+    },
+    {
+      "label": ".cover()",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L175",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_cover",
+      "community": 31,
+      "norm_label": ".cover()"
+    },
+    {
+      "label": ".link()",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L178",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_link",
+      "community": 31,
+      "norm_label": ".link()"
+    },
+    {
+      "label": ".back()",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L182",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_back",
+      "community": 31,
+      "norm_label": ".back()"
+    },
+    {
+      "label": ".addToCollection()",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L187",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_addtocollection",
+      "community": 31,
+      "norm_label": ".addtocollection()"
+    },
+    {
+      "label": "landing.page.ts",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_landing_page",
+      "community": 19,
+      "norm_label": "landing.page.ts"
+    },
+    {
+      "label": "Feature",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_landing_page_feature",
+      "community": 19,
+      "norm_label": "feature"
+    },
+    {
+      "label": "LandingPage",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L401",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_landing_page_landingpage",
+      "community": 31,
+      "norm_label": "landingpage"
+    },
+    {
+      "label": "Component",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_landing_page_ts_component",
+      "community": 31,
+      "norm_label": "component"
+    },
+    {
+      "label": ".rowTop()",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L421",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_landing_page_landingpage_rowtop",
+      "community": 31,
+      "norm_label": ".rowtop()"
+    },
+    {
+      "label": ".rowBottom()",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L424",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_landing_page_landingpage_rowbottom",
+      "community": 31,
+      "norm_label": ".rowbottom()"
+    },
+    {
+      "label": ".cover()",
+      "file_type": "code",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L428",
+      "_origin": "ast",
+      "id": "apps_web_src_app_features_landing_landing_page_landingpage_cover",
+      "community": 31,
+      "norm_label": ".cover()"
     },
     {
       "label": "list-detail.page.ts",
@@ -6450,7 +6800,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_app_shared_icon",
-      "community": 27,
+      "community": 19,
       "norm_label": "icon.ts"
     },
     {
@@ -6460,7 +6810,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_web_src_app_shared_icon_iconname",
-      "community": 27,
+      "community": 19,
       "norm_label": "iconname"
     },
     {
@@ -6470,7 +6820,7 @@
       "source_location": "L201",
       "_origin": "ast",
       "id": "apps_web_src_app_shared_icon_icon",
-      "community": 27,
+      "community": 19,
       "norm_label": "icon"
     },
     {
@@ -6480,7 +6830,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "apps_web_src_app_shared_icon_ts_component",
-      "community": 27,
+      "community": 19,
       "norm_label": "component"
     },
     {
@@ -6540,7 +6890,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_app_shell_app_shell",
-      "community": 27,
+      "community": 19,
       "norm_label": "app-shell.ts"
     },
     {
@@ -6550,7 +6900,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_web_src_app_shell_app_shell_navitem",
-      "community": 27,
+      "community": 19,
       "norm_label": "navitem"
     },
     {
@@ -6704,10 +7054,30 @@
       "norm_label": "dev:web"
     },
     {
-      "label": "build",
+      "label": "start",
       "file_type": "code",
       "source_file": "package.json",
       "source_location": "L14",
+      "_origin": "ast",
+      "id": "package_scripts_start",
+      "community": 11,
+      "norm_label": "start"
+    },
+    {
+      "label": "start:migrate",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "package_scripts_start_migrate",
+      "community": 11,
+      "norm_label": "start:migrate"
+    },
+    {
+      "label": "build",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "package_scripts_build",
       "community": 11,
@@ -6717,7 +7087,7 @@
       "label": "typecheck",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L15",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "package_scripts_typecheck",
       "community": 11,
@@ -6727,7 +7097,7 @@
       "label": "lint",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L16",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "package_scripts_lint",
       "community": 11,
@@ -6737,7 +7107,7 @@
       "label": "test",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L17",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "package_scripts_test",
       "community": 11,
@@ -6747,7 +7117,7 @@
       "label": "db:up",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L18",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "package_scripts_db_up",
       "community": 11,
@@ -6757,7 +7127,7 @@
       "label": "db:down",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L19",
+      "source_location": "L21",
       "_origin": "ast",
       "id": "package_scripts_db_down",
       "community": 11,
@@ -6767,7 +7137,7 @@
       "label": "db:generate",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L20",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "package_scripts_db_generate",
       "community": 11,
@@ -6777,7 +7147,7 @@
       "label": "db:migrate",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L21",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "package_scripts_db_migrate",
       "community": 11,
@@ -6787,7 +7157,7 @@
       "label": "db:seed",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L22",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "package_scripts_db_seed",
       "community": 11,
@@ -6797,7 +7167,7 @@
       "label": "db:studio",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L23",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "package_scripts_db_studio",
       "community": 11,
@@ -6807,7 +7177,7 @@
       "label": "audit",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L24",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "package_scripts_audit",
       "community": 11,
@@ -6817,7 +7187,7 @@
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L26",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "package_devdependencies",
       "community": 11,
@@ -6827,7 +7197,7 @@
       "label": "typescript",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L27",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "package_devdependencies_typescript",
       "community": 11,
@@ -6837,7 +7207,7 @@
       "label": "typescript",
       "file_type": "concept",
       "source_file": "package.json",
-      "source_location": "L27",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "package_json_typescript",
       "community": 11,
@@ -8404,6 +8774,116 @@
       "norm_label": "src/**/*.ts"
     },
     {
+      "label": "railway.json",
+      "file_type": "code",
+      "source_file": "railway.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "railway",
+      "community": 35,
+      "norm_label": "railway.json"
+    },
+    {
+      "label": "$schema",
+      "file_type": "code",
+      "source_file": "railway.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "railway_schema",
+      "community": 35,
+      "norm_label": "$schema"
+    },
+    {
+      "label": "build",
+      "file_type": "code",
+      "source_file": "railway.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "railway_build",
+      "community": 35,
+      "norm_label": "build"
+    },
+    {
+      "label": "builder",
+      "file_type": "code",
+      "source_file": "railway.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "railway_build_builder",
+      "community": 35,
+      "norm_label": "builder"
+    },
+    {
+      "label": "deploy",
+      "file_type": "code",
+      "source_file": "railway.json",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "railway_deploy",
+      "community": 35,
+      "norm_label": "deploy"
+    },
+    {
+      "label": "startCommand",
+      "file_type": "code",
+      "source_file": "railway.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "railway_deploy_startcommand",
+      "community": 35,
+      "norm_label": "startcommand"
+    },
+    {
+      "label": "healthcheckPath",
+      "file_type": "code",
+      "source_file": "railway.json",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "railway_deploy_healthcheckpath",
+      "community": 35,
+      "norm_label": "healthcheckpath"
+    },
+    {
+      "label": "healthcheckTimeout",
+      "file_type": "code",
+      "source_file": "railway.json",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "railway_deploy_healthchecktimeout",
+      "community": 35,
+      "norm_label": "healthchecktimeout"
+    },
+    {
+      "label": "restartPolicyType",
+      "file_type": "code",
+      "source_file": "railway.json",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "railway_deploy_restartpolicytype",
+      "community": 35,
+      "norm_label": "restartpolicytype"
+    },
+    {
+      "label": "restartPolicyMaxRetries",
+      "file_type": "code",
+      "source_file": "railway.json",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "railway_deploy_restartpolicymaxretries",
+      "community": 35,
+      "norm_label": "restartpolicymaxretries"
+    },
+    {
+      "label": "numReplicas",
+      "file_type": "code",
+      "source_file": "railway.json",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "railway_deploy_numreplicas",
+      "community": 35,
+      "norm_label": "numreplicas"
+    },
+    {
       "label": "tsconfig.base.json",
       "file_type": "code",
       "source_file": "tsconfig.base.json",
@@ -8594,6 +9074,86 @@
       "norm_label": "sourcemap"
     },
     {
+      "label": "vercel.json",
+      "file_type": "code",
+      "source_file": "vercel.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "vercel",
+      "community": 36,
+      "norm_label": "vercel.json"
+    },
+    {
+      "label": "$schema",
+      "file_type": "code",
+      "source_file": "vercel.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "vercel_schema",
+      "community": 36,
+      "norm_label": "$schema"
+    },
+    {
+      "label": "installCommand",
+      "file_type": "code",
+      "source_file": "vercel.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "vercel_installcommand",
+      "community": 36,
+      "norm_label": "installcommand"
+    },
+    {
+      "label": "buildCommand",
+      "file_type": "code",
+      "source_file": "vercel.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "vercel_buildcommand",
+      "community": 36,
+      "norm_label": "buildcommand"
+    },
+    {
+      "label": "outputDirectory",
+      "file_type": "code",
+      "source_file": "vercel.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "vercel_outputdirectory",
+      "community": 36,
+      "norm_label": "outputdirectory"
+    },
+    {
+      "label": "framework",
+      "file_type": "code",
+      "source_file": "vercel.json",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "vercel_framework",
+      "community": 36,
+      "norm_label": "framework"
+    },
+    {
+      "label": "rewrites",
+      "file_type": "code",
+      "source_file": "vercel.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "vercel_rewrites",
+      "community": 36,
+      "norm_label": "rewrites"
+    },
+    {
+      "label": "headers",
+      "file_type": "code",
+      "source_file": "vercel.json",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "vercel_headers",
+      "community": 36,
+      "norm_label": "headers"
+    },
+    {
       "label": "CLAUDE.md",
       "file_type": "document",
       "source_file": "CLAUDE.md",
@@ -8642,6 +9202,76 @@
       "id": "claude_login_de_exemplo",
       "community": 24,
       "norm_label": "login de exemplo"
+    },
+    {
+      "label": "DEPLOY.md",
+      "file_type": "document",
+      "source_file": "DEPLOY.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "deploy",
+      "community": 24,
+      "norm_label": "deploy.md"
+    },
+    {
+      "label": "Deploy \u2014 Web na Vercel, API no Railway",
+      "file_type": "document",
+      "source_file": "DEPLOY.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "deploy_deploy_web_na_vercel_api_no_railway",
+      "community": 24,
+      "norm_label": "deploy \u2014 web na vercel, api no railway"
+    },
+    {
+      "label": "1. Railway \u2014 API + Postgres",
+      "file_type": "document",
+      "source_file": "DEPLOY.md",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "deploy_1_railway_api_postgres",
+      "community": 24,
+      "norm_label": "1. railway \u2014 api + postgres"
+    },
+    {
+      "label": "2. Vercel \u2014 Web",
+      "file_type": "document",
+      "source_file": "DEPLOY.md",
+      "source_location": "L53",
+      "_origin": "ast",
+      "id": "deploy_2_vercel_web",
+      "community": 24,
+      "norm_label": "2. vercel \u2014 web"
+    },
+    {
+      "label": "Por que o rewrite (leia isto)",
+      "file_type": "document",
+      "source_file": "DEPLOY.md",
+      "source_location": "L80",
+      "_origin": "ast",
+      "id": "deploy_por_que_o_rewrite_leia_isto",
+      "community": 24,
+      "norm_label": "por que o rewrite (leia isto)"
+    },
+    {
+      "label": "Checklist p\u00f3s-deploy",
+      "file_type": "document",
+      "source_file": "DEPLOY.md",
+      "source_location": "L105",
+      "_origin": "ast",
+      "id": "deploy_checklist_p\u00f3s_deploy",
+      "community": 24,
+      "norm_label": "checklist pos-deploy"
+    },
+    {
+      "label": "Alternativa: tudo no Railway",
+      "file_type": "document",
+      "source_file": "DEPLOY.md",
+      "source_location": "L129",
+      "_origin": "ast",
+      "id": "deploy_alternativa_tudo_no_railway",
+      "community": 24,
+      "norm_label": "alternativa: tudo no railway"
     },
     {
       "label": "MyLudo.md",
@@ -8934,10 +9564,20 @@
       "norm_label": "seguranca"
     },
     {
-      "label": "Grafo do c\u00f3digo",
+      "label": "Deploy",
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L180",
+      "_origin": "ast",
+      "id": "readme_deploy",
+      "community": 24,
+      "norm_label": "deploy"
+    },
+    {
+      "label": "Grafo do c\u00f3digo",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L187",
       "_origin": "ast",
       "id": "readme_grafo_do_c\u00f3digo",
       "community": 24,
@@ -9179,7 +9819,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L17",
+      "source_location": "L21",
       "weight": 1.0,
       "source": "apps_api_package",
       "target": "apps_api_package_dependencies",
@@ -9189,7 +9829,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L37",
+      "source_location": "L41",
       "weight": 1.0,
       "source": "apps_api_package",
       "target": "apps_api_package_devdependencies",
@@ -9249,7 +9889,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0,
       "source": "apps_api_package_scripts",
       "target": "apps_api_package_scripts_build",
@@ -9259,7 +9899,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L12",
+      "source_location": "L15",
       "weight": 1.0,
       "source": "apps_api_package_scripts",
       "target": "apps_api_package_scripts_db_generate",
@@ -9269,7 +9909,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L13",
+      "source_location": "L16",
       "weight": 1.0,
       "source": "apps_api_package_scripts",
       "target": "apps_api_package_scripts_db_migrate",
@@ -9279,7 +9919,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L14",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "apps_api_package_scripts",
+      "target": "apps_api_package_scripts_db_migrate_prod",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L18",
       "weight": 1.0,
       "source": "apps_api_package_scripts",
       "target": "apps_api_package_scripts_db_seed",
@@ -9289,7 +9939,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L15",
+      "source_location": "L19",
       "weight": 1.0,
       "source": "apps_api_package_scripts",
       "target": "apps_api_package_scripts_db_studio",
@@ -9309,20 +9959,10 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L9",
+      "source_location": "L8",
       "weight": 1.0,
       "source": "apps_api_package_scripts",
-      "target": "apps_api_package_scripts_start",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/package.json",
-      "source_location": "L11",
-      "weight": 1.0,
-      "source": "apps_api_package_scripts",
-      "target": "apps_api_package_scripts_test",
+      "target": "apps_api_package_scripts_prebuild",
       "confidence_score": 1.0
     },
     {
@@ -9332,107 +9972,47 @@
       "source_location": "L10",
       "weight": 1.0,
       "source": "apps_api_package_scripts",
+      "target": "apps_api_package_scripts_pretypecheck",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "apps_api_package_scripts",
+      "target": "apps_api_package_scripts_start",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "apps_api_package_scripts",
+      "target": "apps_api_package_scripts_start_migrate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "apps_api_package_scripts",
+      "target": "apps_api_package_scripts_test",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "apps_api_package_scripts",
       "target": "apps_api_package_scripts_typecheck",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/package.json",
-      "source_location": "L27",
-      "weight": 1.0,
-      "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_argon2",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/package.json",
-      "source_location": "L28",
-      "weight": 1.0,
-      "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_close_with_grace",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/package.json",
-      "source_location": "L29",
-      "weight": 1.0,
-      "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_drizzle_orm",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/package.json",
-      "source_location": "L30",
-      "weight": 1.0,
-      "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_fastify",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/package.json",
-      "source_location": "L18",
-      "weight": 1.0,
-      "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_fastify_autoload",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/package.json",
-      "source_location": "L19",
-      "weight": 1.0,
-      "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_fastify_cookie",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/package.json",
-      "source_location": "L20",
-      "weight": 1.0,
-      "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_fastify_cors",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/package.json",
-      "source_location": "L21",
-      "weight": 1.0,
-      "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_fastify_csrf_protection",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/package.json",
-      "source_location": "L22",
-      "weight": 1.0,
-      "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_fastify_helmet",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/package.json",
-      "source_location": "L23",
-      "weight": 1.0,
-      "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_fastify_jwt",
       "confidence_score": 1.0
     },
     {
@@ -9442,27 +10022,7 @@
       "source_location": "L31",
       "weight": 1.0,
       "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_fastify_plugin",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/package.json",
-      "source_location": "L24",
-      "weight": 1.0,
-      "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_fastify_rate_limit",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/package.json",
-      "source_location": "L25",
-      "weight": 1.0,
-      "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_fastify_sensible",
+      "target": "apps_api_package_dependencies_argon2",
       "confidence_score": 1.0
     },
     {
@@ -9472,17 +10032,7 @@
       "source_location": "L32",
       "weight": 1.0,
       "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_fastify_type_provider_zod",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/api/package.json",
-      "source_location": "L26",
-      "weight": 1.0,
-      "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_ludoteca_shared",
+      "target": "apps_api_package_dependencies_close_with_grace",
       "confidence_score": 1.0
     },
     {
@@ -9492,7 +10042,7 @@
       "source_location": "L33",
       "weight": 1.0,
       "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_nanoid",
+      "target": "apps_api_package_dependencies_drizzle_orm",
       "confidence_score": 1.0
     },
     {
@@ -9502,7 +10052,67 @@
       "source_location": "L34",
       "weight": 1.0,
       "source": "apps_api_package_dependencies",
-      "target": "apps_api_package_dependencies_postgres",
+      "target": "apps_api_package_dependencies_fastify",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "apps_api_package_dependencies",
+      "target": "apps_api_package_dependencies_fastify_autoload",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "apps_api_package_dependencies",
+      "target": "apps_api_package_dependencies_fastify_cookie",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "apps_api_package_dependencies",
+      "target": "apps_api_package_dependencies_fastify_cors",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "apps_api_package_dependencies",
+      "target": "apps_api_package_dependencies_fastify_csrf_protection",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "apps_api_package_dependencies",
+      "target": "apps_api_package_dependencies_fastify_helmet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "apps_api_package_dependencies",
+      "target": "apps_api_package_dependencies_fastify_jwt",
       "confidence_score": 1.0
     },
     {
@@ -9512,6 +10122,76 @@
       "source_location": "L35",
       "weight": 1.0,
       "source": "apps_api_package_dependencies",
+      "target": "apps_api_package_dependencies_fastify_plugin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "apps_api_package_dependencies",
+      "target": "apps_api_package_dependencies_fastify_rate_limit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "apps_api_package_dependencies",
+      "target": "apps_api_package_dependencies_fastify_sensible",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "apps_api_package_dependencies",
+      "target": "apps_api_package_dependencies_fastify_type_provider_zod",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "apps_api_package_dependencies",
+      "target": "apps_api_package_dependencies_ludoteca_shared",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "apps_api_package_dependencies",
+      "target": "apps_api_package_dependencies_nanoid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "apps_api_package_dependencies",
+      "target": "apps_api_package_dependencies_postgres",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/package.json",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "apps_api_package_dependencies",
       "target": "apps_api_package_dependencies_zod",
       "confidence_score": 1.0
     },
@@ -9519,7 +10199,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L18",
+      "source_location": "L22",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_fastify_autoload",
@@ -9530,7 +10210,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L19",
+      "source_location": "L23",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_fastify_cookie",
@@ -9541,7 +10221,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L20",
+      "source_location": "L24",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_fastify_cors",
@@ -9552,7 +10232,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L21",
+      "source_location": "L25",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_fastify_csrf_protection",
@@ -9563,7 +10243,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L22",
+      "source_location": "L26",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_fastify_helmet",
@@ -9574,7 +10254,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L23",
+      "source_location": "L27",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_fastify_jwt",
@@ -9585,7 +10265,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L24",
+      "source_location": "L28",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_fastify_rate_limit",
@@ -9596,7 +10276,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L25",
+      "source_location": "L29",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_fastify_sensible",
@@ -9607,7 +10287,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L26",
+      "source_location": "L30",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_ludoteca_shared",
@@ -9618,7 +10298,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L27",
+      "source_location": "L31",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_argon2",
@@ -9629,7 +10309,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L28",
+      "source_location": "L32",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_close_with_grace",
@@ -9640,7 +10320,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L29",
+      "source_location": "L33",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_drizzle_orm",
@@ -9651,7 +10331,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L30",
+      "source_location": "L34",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_fastify",
@@ -9662,7 +10342,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L31",
+      "source_location": "L35",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_fastify_plugin",
@@ -9673,7 +10353,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L32",
+      "source_location": "L36",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_fastify_type_provider_zod",
@@ -9684,7 +10364,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L33",
+      "source_location": "L37",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_nanoid",
@@ -9695,7 +10375,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L34",
+      "source_location": "L38",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_postgres",
@@ -9706,7 +10386,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L35",
+      "source_location": "L39",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_dependencies_zod",
@@ -9717,7 +10397,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L39",
+      "source_location": "L43",
       "weight": 1.0,
       "source": "apps_api_package_devdependencies",
       "target": "apps_api_package_devdependencies_drizzle_kit",
@@ -9727,7 +10407,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L40",
+      "source_location": "L44",
       "weight": 1.0,
       "source": "apps_api_package_devdependencies",
       "target": "apps_api_package_devdependencies_pino_pretty",
@@ -9737,7 +10417,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L41",
+      "source_location": "L45",
       "weight": 1.0,
       "source": "apps_api_package_devdependencies",
       "target": "apps_api_package_devdependencies_tsx",
@@ -9747,7 +10427,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L38",
+      "source_location": "L42",
       "weight": 1.0,
       "source": "apps_api_package_devdependencies",
       "target": "apps_api_package_devdependencies_types_node",
@@ -9757,7 +10437,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L42",
+      "source_location": "L46",
       "weight": 1.0,
       "source": "apps_api_package_devdependencies",
       "target": "apps_api_package_devdependencies_typescript",
@@ -9767,7 +10447,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L38",
+      "source_location": "L42",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_devdependencies_types_node",
@@ -9778,7 +10458,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L39",
+      "source_location": "L43",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_devdependencies_drizzle_kit",
@@ -9789,7 +10469,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L40",
+      "source_location": "L44",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_devdependencies_pino_pretty",
@@ -9800,7 +10480,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L41",
+      "source_location": "L45",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_devdependencies_tsx",
@@ -9811,7 +10491,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/package.json",
-      "source_location": "L42",
+      "source_location": "L46",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_package_devdependencies_typescript",
@@ -10402,6 +11082,28 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/db/migrate.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "apps_api_src_db_migrate",
+      "target": "apps_api_src_db_index_sql",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/db/migrate.ts",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "apps_api_src_db_migrate_waitfordatabase",
+      "target": "apps_api_src_db_index_sql",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -10550,7 +11252,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "apps/api/src/routes/health.ts",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0,
       "source": "apps_api_src_routes_health_health",
       "target": "apps_api_src_db_index_sql"
@@ -10767,10 +11469,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/src/db/migrate.ts",
-      "source_location": "L8",
+      "source_location": "L40",
       "weight": 1.0,
       "source": "apps_api_src_db_migrate",
       "target": "apps_api_src_db_migrate_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/db/migrate.ts",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "apps_api_src_db_migrate",
+      "target": "apps_api_src_db_migrate_waitfordatabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/db/migrate.ts",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "apps_api_src_db_migrate_main",
+      "target": "apps_api_src_db_migrate_waitfordatabase",
       "confidence_score": 1.0
     },
     {
@@ -16985,7 +17708,7 @@
       "relation": "indirect_call",
       "confidence": "INFERRED",
       "source_file": "apps/api/src/plugins/20-rate-limit.ts",
-      "source_location": "L53",
+      "source_location": "L55",
       "weight": 1.0,
       "context": "argument",
       "source": "apps_api_src_plugins_20_rate_limit",
@@ -17116,7 +17839,7 @@
       "relation": "indirect_call",
       "confidence": "INFERRED",
       "source_file": "apps/api/src/plugins/30-error-handler.ts",
-      "source_location": "L106",
+      "source_location": "L113",
       "weight": 1.0,
       "context": "argument",
       "source": "apps_api_src_plugins_30_error_handler",
@@ -17343,7 +18066,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/tsconfig.json",
-      "source_location": "L11",
+      "source_location": "L14",
       "weight": 1.0,
       "source": "apps_api_tsconfig",
       "target": "apps_api_tsconfig_exclude",
@@ -17456,7 +18179,7 @@
       "relation": "extends",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/tsconfig.json",
-      "source_location": "L11",
+      "source_location": "L14",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_tsconfig_exclude",
@@ -17467,11 +18190,22 @@
       "relation": "extends",
       "confidence": "EXTRACTED",
       "source_file": "apps/api/tsconfig.json",
-      "source_location": "L11",
+      "source_location": "L14",
       "weight": 1.0,
       "context": "import",
       "source": "apps_api_tsconfig_exclude",
       "target": "ref_node_modules",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/tsconfig.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "import",
+      "source": "apps_api_tsconfig_exclude",
+      "target": "ref_src_test_ts",
       "confidence_score": 1.0
     },
     {
@@ -17618,7 +18352,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L55",
+      "source_location": "L63",
       "weight": 1.0,
       "source": "apps_web_angular_web_architect",
       "target": "apps_web_angular_architect_serve",
@@ -17628,7 +18362,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L71",
+      "source_location": "L79",
       "weight": 1.0,
       "source": "apps_web_angular_web_architect",
       "target": "apps_web_angular_architect_test",
@@ -17658,7 +18392,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L53",
+      "source_location": "L61",
       "weight": 1.0,
       "source": "apps_web_angular_architect_build",
       "target": "apps_web_angular_build_defaultconfiguration",
@@ -17729,7 +18463,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L47",
+      "source_location": "L55",
       "weight": 1.0,
       "source": "apps_web_angular_build_configurations",
       "target": "apps_web_angular_configurations_development",
@@ -17759,10 +18493,20 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L63",
+      "source_location": "L71",
       "weight": 1.0,
       "source": "apps_web_angular_configurations_production",
       "target": "apps_web_angular_production_buildtarget",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/angular.json",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "apps_web_angular_configurations_production",
+      "target": "apps_web_angular_production_optimization",
       "confidence_score": 1.0
     },
     {
@@ -17779,7 +18523,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L62",
+      "source_location": "L70",
       "weight": 1.0,
       "source": "apps_web_angular_serve_configurations",
       "target": "apps_web_angular_configurations_production",
@@ -17789,7 +18533,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L66",
+      "source_location": "L74",
       "weight": 1.0,
       "source": "apps_web_angular_configurations_development",
       "target": "apps_web_angular_development_buildtarget",
@@ -17799,7 +18543,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L49",
+      "source_location": "L57",
       "weight": 1.0,
       "source": "apps_web_angular_configurations_development",
       "target": "apps_web_angular_development_extractlicenses",
@@ -17809,7 +18553,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L48",
+      "source_location": "L56",
       "weight": 1.0,
       "source": "apps_web_angular_configurations_development",
       "target": "apps_web_angular_development_optimization",
@@ -17819,7 +18563,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L50",
+      "source_location": "L58",
       "weight": 1.0,
       "source": "apps_web_angular_configurations_development",
       "target": "apps_web_angular_development_sourcemap",
@@ -17829,7 +18573,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L65",
+      "source_location": "L73",
       "weight": 1.0,
       "source": "apps_web_angular_serve_configurations",
       "target": "apps_web_angular_configurations_development",
@@ -17839,7 +18583,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L56",
+      "source_location": "L64",
       "weight": 1.0,
       "source": "apps_web_angular_architect_serve",
       "target": "apps_web_angular_serve_builder",
@@ -17849,7 +18593,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L61",
+      "source_location": "L69",
       "weight": 1.0,
       "source": "apps_web_angular_architect_serve",
       "target": "apps_web_angular_serve_configurations",
@@ -17859,7 +18603,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L69",
+      "source_location": "L77",
       "weight": 1.0,
       "source": "apps_web_angular_architect_serve",
       "target": "apps_web_angular_serve_defaultconfiguration",
@@ -17869,7 +18613,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L57",
+      "source_location": "L65",
       "weight": 1.0,
       "source": "apps_web_angular_architect_serve",
       "target": "apps_web_angular_serve_options",
@@ -17879,7 +18623,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L58",
+      "source_location": "L66",
       "weight": 1.0,
       "source": "apps_web_angular_serve_options",
       "target": "apps_web_angular_options_port",
@@ -17889,7 +18633,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L59",
+      "source_location": "L67",
       "weight": 1.0,
       "source": "apps_web_angular_serve_options",
       "target": "apps_web_angular_options_proxyconfig",
@@ -17899,7 +18643,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/angular.json",
-      "source_location": "L72",
+      "source_location": "L80",
       "weight": 1.0,
       "source": "apps_web_angular_architect_test",
       "target": "apps_web_angular_test_builder",
@@ -17909,7 +18653,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L14",
+      "source_location": "L16",
       "weight": 1.0,
       "source": "apps_web_package",
       "target": "apps_web_package_dependencies",
@@ -17919,7 +18663,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L25",
+      "source_location": "L27",
       "weight": 1.0,
       "source": "apps_web_package",
       "target": "apps_web_package_devdependencies",
@@ -17939,7 +18683,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L13",
+      "source_location": "L15",
       "weight": 1.0,
       "source": "apps_web_package",
       "target": "apps_web_package_private",
@@ -17969,7 +18713,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0,
       "source": "apps_web_package_scripts",
       "target": "apps_web_package_scripts_build",
@@ -17999,6 +18743,26 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_web_package_scripts",
+      "target": "apps_web_package_scripts_prebuild",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/package.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "apps_web_package_scripts",
+      "target": "apps_web_package_scripts_pretypecheck",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/package.json",
       "source_location": "L7",
       "weight": 1.0,
       "source": "apps_web_package_scripts",
@@ -18009,7 +18773,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "source": "apps_web_package_scripts",
       "target": "apps_web_package_scripts_test",
@@ -18019,7 +18783,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L11",
+      "source_location": "L13",
       "weight": 1.0,
       "source": "apps_web_package_scripts",
       "target": "apps_web_package_scripts_typecheck",
@@ -18029,7 +18793,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1.0,
       "source": "apps_web_package_scripts",
       "target": "apps_web_package_scripts_watch",
@@ -18039,7 +18803,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L15",
+      "source_location": "L17",
       "weight": 1.0,
       "source": "apps_web_package_dependencies",
       "target": "apps_web_package_dependencies_angular_common",
@@ -18049,7 +18813,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L16",
+      "source_location": "L18",
       "weight": 1.0,
       "source": "apps_web_package_dependencies",
       "target": "apps_web_package_dependencies_angular_compiler",
@@ -18059,7 +18823,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L17",
+      "source_location": "L19",
       "weight": 1.0,
       "source": "apps_web_package_dependencies",
       "target": "apps_web_package_dependencies_angular_core",
@@ -18069,7 +18833,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L18",
+      "source_location": "L20",
       "weight": 1.0,
       "source": "apps_web_package_dependencies",
       "target": "apps_web_package_dependencies_angular_forms",
@@ -18079,7 +18843,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L19",
+      "source_location": "L21",
       "weight": 1.0,
       "source": "apps_web_package_dependencies",
       "target": "apps_web_package_dependencies_angular_platform_browser",
@@ -18089,7 +18853,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L20",
+      "source_location": "L22",
       "weight": 1.0,
       "source": "apps_web_package_dependencies",
       "target": "apps_web_package_dependencies_angular_router",
@@ -18099,7 +18863,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L21",
+      "source_location": "L23",
       "weight": 1.0,
       "source": "apps_web_package_dependencies",
       "target": "apps_web_package_dependencies_ludoteca_shared",
@@ -18109,7 +18873,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1.0,
       "source": "apps_web_package_dependencies",
       "target": "apps_web_package_dependencies_rxjs",
@@ -18119,7 +18883,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L23",
+      "source_location": "L25",
       "weight": 1.0,
       "source": "apps_web_package_dependencies",
       "target": "apps_web_package_dependencies_tslib",
@@ -18129,7 +18893,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L15",
+      "source_location": "L17",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_dependencies_angular_common",
@@ -18140,7 +18904,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L16",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_dependencies_angular_compiler",
@@ -18151,7 +18915,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L17",
+      "source_location": "L19",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_dependencies_angular_core",
@@ -18162,7 +18926,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L18",
+      "source_location": "L20",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_dependencies_angular_forms",
@@ -18173,7 +18937,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L19",
+      "source_location": "L21",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_dependencies_angular_platform_browser",
@@ -18184,7 +18948,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L20",
+      "source_location": "L22",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_dependencies_angular_router",
@@ -18195,7 +18959,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L21",
+      "source_location": "L23",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_dependencies_ludoteca_shared",
@@ -18206,7 +18970,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_dependencies_rxjs",
@@ -18217,7 +18981,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L23",
+      "source_location": "L25",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_dependencies_tslib",
@@ -18228,7 +18992,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L26",
+      "source_location": "L28",
       "weight": 1.0,
       "source": "apps_web_package_devdependencies",
       "target": "apps_web_package_devdependencies_angular_build",
@@ -18238,7 +19002,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L27",
+      "source_location": "L29",
       "weight": 1.0,
       "source": "apps_web_package_devdependencies",
       "target": "apps_web_package_devdependencies_angular_cli",
@@ -18248,7 +19012,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L28",
+      "source_location": "L30",
       "weight": 1.0,
       "source": "apps_web_package_devdependencies",
       "target": "apps_web_package_devdependencies_angular_compiler_cli",
@@ -18258,7 +19022,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L29",
+      "source_location": "L31",
       "weight": 1.0,
       "source": "apps_web_package_devdependencies",
       "target": "apps_web_package_devdependencies_fontsource_variable_bricolage_grotesque",
@@ -18268,7 +19032,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L30",
+      "source_location": "L32",
       "weight": 1.0,
       "source": "apps_web_package_devdependencies",
       "target": "apps_web_package_devdependencies_fontsource_variable_jetbrains_mono",
@@ -18278,7 +19042,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0,
       "source": "apps_web_package_devdependencies",
       "target": "apps_web_package_devdependencies_fontsource_variable_plus_jakarta_sans",
@@ -18288,7 +19052,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L33",
+      "source_location": "L35",
       "weight": 1.0,
       "source": "apps_web_package_devdependencies",
       "target": "apps_web_package_devdependencies_jsdom",
@@ -18298,7 +19062,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L34",
+      "source_location": "L36",
       "weight": 1.0,
       "source": "apps_web_package_devdependencies",
       "target": "apps_web_package_devdependencies_postcss",
@@ -18308,7 +19072,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L35",
+      "source_location": "L37",
       "weight": 1.0,
       "source": "apps_web_package_devdependencies",
       "target": "apps_web_package_devdependencies_prettier",
@@ -18318,7 +19082,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L36",
+      "source_location": "L38",
       "weight": 1.0,
       "source": "apps_web_package_devdependencies",
       "target": "apps_web_package_devdependencies_tailwindcss",
@@ -18328,7 +19092,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L32",
+      "source_location": "L34",
       "weight": 1.0,
       "source": "apps_web_package_devdependencies",
       "target": "apps_web_package_devdependencies_tailwindcss_postcss",
@@ -18338,7 +19102,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L37",
+      "source_location": "L39",
       "weight": 1.0,
       "source": "apps_web_package_devdependencies",
       "target": "apps_web_package_devdependencies_typescript",
@@ -18348,7 +19112,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L38",
+      "source_location": "L40",
       "weight": 1.0,
       "source": "apps_web_package_devdependencies",
       "target": "apps_web_package_devdependencies_vitest",
@@ -18358,7 +19122,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L26",
+      "source_location": "L28",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_devdependencies_angular_build",
@@ -18369,7 +19133,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L27",
+      "source_location": "L29",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_devdependencies_angular_cli",
@@ -18380,7 +19144,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L28",
+      "source_location": "L30",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_devdependencies_angular_compiler_cli",
@@ -18391,7 +19155,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L29",
+      "source_location": "L31",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_devdependencies_fontsource_variable_bricolage_grotesque",
@@ -18402,7 +19166,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L30",
+      "source_location": "L32",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_devdependencies_fontsource_variable_jetbrains_mono",
@@ -18413,7 +19177,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_devdependencies_fontsource_variable_plus_jakarta_sans",
@@ -18424,7 +19188,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L32",
+      "source_location": "L34",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_devdependencies_tailwindcss_postcss",
@@ -18435,7 +19199,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L33",
+      "source_location": "L35",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_devdependencies_jsdom",
@@ -18446,7 +19210,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L34",
+      "source_location": "L36",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_devdependencies_postcss",
@@ -18457,7 +19221,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L35",
+      "source_location": "L37",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_devdependencies_prettier",
@@ -18468,7 +19232,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L36",
+      "source_location": "L38",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_devdependencies_tailwindcss",
@@ -18479,7 +19243,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L37",
+      "source_location": "L39",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_devdependencies_typescript",
@@ -18490,7 +19254,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/package.json",
-      "source_location": "L38",
+      "source_location": "L40",
       "weight": 1.0,
       "context": "import",
       "source": "apps_web_package_devdependencies_vitest",
@@ -18846,6 +19610,17 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
+      "target": "apps_web_src_app_core_api_service",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "apps/web/src/app/features/lists/list-detail.page.ts",
       "source_location": "L13",
       "weight": 1.0,
@@ -18980,6 +19755,17 @@
       "source_location": "L5",
       "weight": 1.0,
       "source": "apps_web_src_app_features_games_search_page",
+      "target": "apps_web_src_app_core_api_service_apifailure",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
       "target": "apps_web_src_app_core_api_service_apifailure",
       "confidence_score": 1.0
     },
@@ -19353,6 +20139,28 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
+      "target": "apps_web_src_app_core_auth_store",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page",
+      "target": "apps_web_src_app_core_auth_store",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "apps/web/src/app/shell/app-shell.ts",
       "source_location": "L3",
       "weight": 1.0,
@@ -19524,6 +20332,28 @@
       "source_location": "L6",
       "weight": 1.0,
       "source": "apps_web_src_app_features_auth_register_page",
+      "target": "apps_web_src_app_core_auth_store_authstore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
+      "target": "apps_web_src_app_core_auth_store_authstore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page",
       "target": "apps_web_src_app_core_auth_store_authstore",
       "confidence_score": 1.0
     },
@@ -19734,6 +20564,17 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
+      "target": "apps_web_src_app_core_lists_service",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "apps/web/src/app/features/lists/list-detail.page.ts",
       "source_location": "L14",
       "weight": 1.0,
@@ -19913,6 +20754,17 @@
       "source_location": "L6",
       "weight": 1.0,
       "source": "apps_web_src_app_features_games_search_page",
+      "target": "apps_web_src_app_core_lists_service_listsservice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
       "target": "apps_web_src_app_core_lists_service_listsservice",
       "confidence_score": 1.0
     },
@@ -20540,6 +21392,17 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page",
+      "target": "apps_web_src_app_core_theme_service",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "apps/web/src/app/shell/app-shell.ts",
       "source_location": "L4",
       "weight": 1.0,
@@ -20662,6 +21525,17 @@
       "weight": 1.0,
       "source": "apps_web_src_app_features_auth_auth_layout_authlayout_constructor",
       "target": "apps_web_src_app_core_theme_service_themeservice"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page",
+      "target": "apps_web_src_app_core_theme_service_themeservice",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -20960,7 +21834,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L195",
+      "source_location": "L202",
       "weight": 1.0,
       "source": "apps_web_src_app_features_games_game_detail_page",
       "target": "apps_web_src_app_features_games_game_detail_page_gamedetailpage",
@@ -20970,10 +21844,32 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0,
       "source": "apps_web_src_app_features_games_game_detail_page",
       "target": "apps_web_src_app_features_games_game_detail_page_type_label",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_games_game_detail_page",
+      "target": "apps_web_src_app_features_landing_featured_games",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_games_game_detail_page",
+      "target": "apps_web_src_app_features_landing_featured_games_featuredbyid",
       "confidence_score": 1.0
     },
     {
@@ -21024,7 +21920,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L269",
+      "source_location": "L282",
       "weight": 1.0,
       "source": "apps_web_src_app_features_games_game_detail_page_gamedetailpage",
       "target": "apps_web_src_app_features_games_game_detail_page_gamedetailpage_add",
@@ -21034,7 +21930,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L250",
+      "source_location": "L263",
       "weight": 1.0,
       "source": "apps_web_src_app_features_games_game_detail_page_gamedetailpage",
       "target": "apps_web_src_app_features_games_game_detail_page_gamedetailpage_back",
@@ -21044,7 +21940,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L242",
+      "source_location": "L255",
       "weight": 1.0,
       "source": "apps_web_src_app_features_games_game_detail_page_gamedetailpage",
       "target": "apps_web_src_app_features_games_game_detail_page_gamedetailpage_constructor",
@@ -21054,7 +21950,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L254",
+      "source_location": "L267",
       "weight": 1.0,
       "source": "apps_web_src_app_features_games_game_detail_page_gamedetailpage",
       "target": "apps_web_src_app_features_games_game_detail_page_gamedetailpage_load",
@@ -21064,7 +21960,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L246",
+      "source_location": "L259",
       "weight": 1.0,
       "source": "apps_web_src_app_features_games_game_detail_page_gamedetailpage",
       "target": "apps_web_src_app_features_games_game_detail_page_gamedetailpage_typelabel",
@@ -21074,7 +21970,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L29",
+      "source_location": "L30",
       "weight": 1.0,
       "context": "decorator",
       "source": "apps_web_src_app_features_games_game_detail_page_gamedetailpage",
@@ -21086,7 +21982,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "apps/web/src/app/features/games/game-detail.page.ts",
-      "source_location": "L243",
+      "source_location": "L256",
       "weight": 1.0,
       "source": "apps_web_src_app_features_games_game_detail_page_gamedetailpage_constructor",
       "target": "apps_web_src_app_features_games_game_detail_page_gamedetailpage_load",
@@ -21259,6 +22155,503 @@
       "weight": 1.0,
       "source": "apps_web_src_app_features_games_search_page_searchpage_goto",
       "target": "apps_web_src_app_features_games_search_page_searchpage_run",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L367",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_featured_games",
+      "target": "apps_web_src_app_features_landing_featured_games_by_id",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_featured_games",
+      "target": "apps_web_src_app_features_landing_featured_games_coverurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_featured_games",
+      "target": "apps_web_src_app_features_landing_featured_games_featured_games",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L369",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_featured_games",
+      "target": "apps_web_src_app_features_landing_featured_games_featuredbyid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_featured_games",
+      "target": "apps_web_src_app_features_landing_featured_games_featuredgame",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_featured_games",
+      "target": "apps_web_src_app_features_landing_featured_games_featuredtype",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_featured_games",
+      "target": "apps_web_src_app_features_landing_featured_games_ludopedialink",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_featured_games",
+      "target": "apps_web_src_app_features_landing_featured_games_thumburl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
+      "target": "apps_web_src_app_features_landing_featured_games",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page",
+      "target": "apps_web_src_app_features_landing_featured_games",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
+      "target": "apps_web_src_app_features_landing_featured_games_featuredgame",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L187",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_addtocollection",
+      "target": "apps_web_src_app_features_landing_featured_games_featuredgame",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L175",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_cover",
+      "target": "apps_web_src_app_features_landing_featured_games_featuredgame",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L178",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_link",
+      "target": "apps_web_src_app_features_landing_featured_games_featuredgame",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page",
+      "target": "apps_web_src_app_features_landing_featured_games_featuredgame",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L428",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page_landingpage_cover",
+      "target": "apps_web_src_app_features_landing_featured_games_featuredgame",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L424",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page_landingpage_rowbottom",
+      "target": "apps_web_src_app_features_landing_featured_games_featuredgame",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L421",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page_landingpage_rowtop",
+      "target": "apps_web_src_app_features_landing_featured_games_featuredgame",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
+      "target": "apps_web_src_app_features_landing_featured_games_coverurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L176",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_cover",
+      "target": "apps_web_src_app_features_landing_featured_games_coverurl"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page",
+      "target": "apps_web_src_app_features_landing_featured_games_coverurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L429",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page_landingpage_cover",
+      "target": "apps_web_src_app_features_landing_featured_games_coverurl"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
+      "target": "apps_web_src_app_features_landing_featured_games_ludopedialink",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L179",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_link",
+      "target": "apps_web_src_app_features_landing_featured_games_ludopedialink"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page",
+      "target": "apps_web_src_app_features_landing_featured_games_featured_games",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/web/src/app/features/landing/featured-games.ts",
+      "source_location": "L370",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_featured_games_featuredbyid",
+      "target": "apps_web_src_app_features_landing_featured_games_by_id"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
+      "target": "apps_web_src_app_features_landing_featured_games_featuredbyid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L141",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
+      "target": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
+      "target": "apps_web_src_app_features_landing_game_showcase_page_type_label",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
+      "target": "apps_web_src_app_shared_icon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page",
+      "target": "apps_web_src_app_shared_icon_icon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L187",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage",
+      "target": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_addtocollection",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L182",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage",
+      "target": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_back",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L175",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage",
+      "target": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_cover",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L178",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage",
+      "target": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_link",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L172",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage",
+      "target": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage_typelabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/game-showcase.page.ts",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "decorator",
+      "source": "apps_web_src_app_features_landing_game_showcase_page_gameshowcasepage",
+      "target": "apps_web_src_app_features_landing_game_showcase_page_ts_component",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page",
+      "target": "apps_web_src_app_features_landing_landing_page_feature",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L401",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page",
+      "target": "apps_web_src_app_features_landing_landing_page_landingpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page",
+      "target": "apps_web_src_app_shared_icon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page",
+      "target": "apps_web_src_app_shared_icon_icon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page",
+      "target": "apps_web_src_app_shared_icon_iconname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page_feature",
+      "target": "apps_web_src_app_shared_icon_iconname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L428",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page_landingpage",
+      "target": "apps_web_src_app_features_landing_landing_page_landingpage_cover",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L424",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page_landingpage",
+      "target": "apps_web_src_app_features_landing_landing_page_landingpage_rowbottom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L421",
+      "weight": 1.0,
+      "source": "apps_web_src_app_features_landing_landing_page_landingpage",
+      "target": "apps_web_src_app_features_landing_landing_page_landingpage_rowtop",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/web/src/app/features/landing/landing.page.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "context": "decorator",
+      "source": "apps_web_src_app_features_landing_landing_page_landingpage",
+      "target": "apps_web_src_app_features_landing_landing_page_ts_component",
       "confidence_score": 1.0
     },
     {
@@ -22961,7 +24354,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L26",
+      "source_location": "L28",
       "weight": 1.0,
       "source": "package",
       "target": "package_devdependencies",
@@ -23051,7 +24444,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L24",
+      "source_location": "L26",
       "weight": 1.0,
       "source": "package_scripts",
       "target": "package_scripts_audit",
@@ -23061,7 +24454,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L14",
+      "source_location": "L16",
       "weight": 1.0,
       "source": "package_scripts",
       "target": "package_scripts_build",
@@ -23071,7 +24464,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L19",
+      "source_location": "L21",
       "weight": 1.0,
       "source": "package_scripts",
       "target": "package_scripts_db_down",
@@ -23081,7 +24474,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L20",
+      "source_location": "L22",
       "weight": 1.0,
       "source": "package_scripts",
       "target": "package_scripts_db_generate",
@@ -23091,7 +24484,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L21",
+      "source_location": "L23",
       "weight": 1.0,
       "source": "package_scripts",
       "target": "package_scripts_db_migrate",
@@ -23101,7 +24494,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1.0,
       "source": "package_scripts",
       "target": "package_scripts_db_seed",
@@ -23111,7 +24504,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L23",
+      "source_location": "L25",
       "weight": 1.0,
       "source": "package_scripts",
       "target": "package_scripts_db_studio",
@@ -23121,7 +24514,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L18",
+      "source_location": "L20",
       "weight": 1.0,
       "source": "package_scripts",
       "target": "package_scripts_db_up",
@@ -23161,7 +24554,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L16",
+      "source_location": "L18",
       "weight": 1.0,
       "source": "package_scripts",
       "target": "package_scripts_lint",
@@ -23171,10 +24564,10 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L17",
+      "source_location": "L14",
       "weight": 1.0,
       "source": "package_scripts",
-      "target": "package_scripts_test",
+      "target": "package_scripts_start",
       "confidence_score": 1.0
     },
     {
@@ -23184,6 +24577,26 @@
       "source_location": "L15",
       "weight": 1.0,
       "source": "package_scripts",
+      "target": "package_scripts_start_migrate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "package_scripts",
+      "target": "package_scripts_test",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "package_scripts",
       "target": "package_scripts_typecheck",
       "confidence_score": 1.0
     },
@@ -23191,7 +24604,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L27",
+      "source_location": "L29",
       "weight": 1.0,
       "source": "package_devdependencies",
       "target": "package_devdependencies_typescript",
@@ -23201,7 +24614,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L27",
+      "source_location": "L29",
       "weight": 1.0,
       "context": "import",
       "source": "package_devdependencies_typescript",
@@ -25269,6 +26682,106 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "railway.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "railway",
+      "target": "railway_build",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "railway.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "railway",
+      "target": "railway_deploy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "railway.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "railway",
+      "target": "railway_schema",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "railway.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "railway_build",
+      "target": "railway_build_builder",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "railway.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "railway_deploy",
+      "target": "railway_deploy_healthcheckpath",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "railway.json",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "railway_deploy",
+      "target": "railway_deploy_healthchecktimeout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "railway.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "railway_deploy",
+      "target": "railway_deploy_numreplicas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "railway.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "railway_deploy",
+      "target": "railway_deploy_restartpolicymaxretries",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "railway.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "railway_deploy",
+      "target": "railway_deploy_restartpolicytype",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "railway.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "railway_deploy",
+      "target": "railway_deploy_startcommand",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "tsconfig.base.json",
       "source_location": "L2",
       "weight": 1.0,
@@ -25450,6 +26963,76 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "vercel.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "vercel",
+      "target": "vercel_buildcommand",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "vercel.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "vercel",
+      "target": "vercel_framework",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "vercel.json",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "vercel",
+      "target": "vercel_headers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "vercel.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "vercel",
+      "target": "vercel_installcommand",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "vercel.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "vercel",
+      "target": "vercel_outputdirectory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "vercel.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "vercel",
+      "target": "vercel_rewrites",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "vercel.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "vercel",
+      "target": "vercel_schema",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -25505,6 +27088,76 @@
       "weight": 1.0,
       "source": "claude_ludoteca_notas_para_o_agente",
       "target": "claude_login_de_exemplo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEPLOY.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "deploy",
+      "target": "deploy_deploy_web_na_vercel_api_no_railway",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L182",
+      "weight": 1.0,
+      "source": "readme",
+      "target": "deploy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEPLOY.md",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "deploy_deploy_web_na_vercel_api_no_railway",
+      "target": "deploy_1_railway_api_postgres",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEPLOY.md",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "deploy_deploy_web_na_vercel_api_no_railway",
+      "target": "deploy_2_vercel_web",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEPLOY.md",
+      "source_location": "L129",
+      "weight": 1.0,
+      "source": "deploy_deploy_web_na_vercel_api_no_railway",
+      "target": "deploy_alternativa_tudo_no_railway",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEPLOY.md",
+      "source_location": "L105",
+      "weight": 1.0,
+      "source": "deploy_deploy_web_na_vercel_api_no_railway",
+      "target": "deploy_checklist_p\u00f3s_deploy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DEPLOY.md",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "deploy_deploy_web_na_vercel_api_no_railway",
+      "target": "deploy_por_que_o_rewrite_leia_isto",
       "confidence_score": 1.0
     },
     {
@@ -25681,6 +27334,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
+      "source_location": "L180",
+      "weight": 1.0,
+      "source": "readme_ludoteca",
+      "target": "readme_deploy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
       "source_location": "L63",
       "weight": 1.0,
       "source": "readme_ludoteca",
@@ -25691,7 +27354,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L180",
+      "source_location": "L187",
       "weight": 1.0,
       "source": "readme_ludoteca",
       "target": "readme_grafo_do_c\u00f3digo",
@@ -26009,5 +27672,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "cce805c090f19ee330a9f987b74ba0cf95e43939"
+  "built_at_commit": "f50fc8ddd8e1bb0d8b6b24d9f41a72ecefff2891"
 }

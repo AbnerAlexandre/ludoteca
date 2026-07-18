@@ -18,8 +18,57 @@ export type PublicId = z.infer<typeof publicIdSchema>;
 export const privacySchema = z.enum(['friends', 'public', 'nobody']);
 export type Privacy = z.infer<typeof privacySchema>;
 
-export const gameTypeSchema = z.enum(['board', 'cards', 'expansion', 'rpg', 'other']);
+/**
+ * Our game classification. Ludopedia's `tp_jogo` only says base vs expansion;
+ * the finer types are inferred from its category taxonomy (see inferGameType
+ * on the API). `other` is the catch-all when nothing more specific matches.
+ */
+export const gameTypeSchema = z.enum([
+  'board',
+  'cards',
+  'expansion',
+  'rpg',
+  'party',
+  'dice',
+  'abstract',
+  'children',
+  'other',
+]);
 export type GameType = z.infer<typeof gameTypeSchema>;
+
+/** Labels + the type-filter option set, reused by lists and group shelves. */
+export const GAME_TYPE_LABELS: Record<GameType, string> = {
+  board: 'Tabuleiro',
+  cards: 'Cartas',
+  expansion: 'Expansão',
+  rpg: 'RPG',
+  party: 'Festa',
+  dice: 'Dados',
+  abstract: 'Abstrato',
+  children: 'Infantil',
+  other: 'Outro',
+};
+
+/** 'all' plus every game type — the shape of a type filter query param. */
+export const gameTypeFilterSchema = z.enum(['all', ...gameTypeSchema.options]);
+export type GameTypeFilter = z.infer<typeof gameTypeFilterSchema>;
+
+// --- Group roles & membership ----------------------------------------------
+
+/** Admins manage members and requests; the owner (creator) can also delete. */
+export const groupRoleSchema = z.enum(['admin', 'member']);
+export type GroupRole = z.infer<typeof groupRoleSchema>;
+
+/**
+ * A membership row's state. Only `active` members contribute their collection
+ * to the group shelf; `invited` awaits the invitee, `requested` awaits an admin.
+ */
+export const groupMemberStatusSchema = z.enum(['active', 'invited', 'requested']);
+export type GroupMemberStatus = z.infer<typeof groupMemberStatusSchema>;
+
+/** `open` groups appear in the directory and take join requests; `closed` are invite-only. */
+export const groupVisibilitySchema = z.enum(['open', 'closed']);
+export type GroupVisibility = z.infer<typeof groupVisibilitySchema>;
 
 export const listKindSchema = z.enum(['collection', 'wishlist', 'favorites', 'custom']);
 export type ListKind = z.infer<typeof listKindSchema>;

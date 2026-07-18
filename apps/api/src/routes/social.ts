@@ -7,8 +7,11 @@ import {
   friendGroupSchema,
   friendRequestSchema,
   friendsListSchema,
+  groupDirectoryQuerySchema,
+  groupDirectoryResultSchema,
   groupGamesQuerySchema,
   groupGamesResultSchema,
+  groupInviteSchema,
   groupMemberIdsSchema,
   loanSchema,
   loansQuerySchema,
@@ -18,7 +21,9 @@ import {
   paginationSchema,
   publicIdSchema,
   sendFriendRequestSchema,
+  setGroupRoleSchema,
   updateFriendGroupSchema,
+  userProfileSchema,
   userSearchQuerySchema,
   userSearchResultSchema,
 } from '@ludoteca/shared';
@@ -26,8 +31,10 @@ import { rateLimits } from '../plugins/20-rate-limit.js';
 import * as friendService from '../modules/social/friend.service.js';
 import * as groupService from '../modules/social/group.service.js';
 import * as loanService from '../modules/social/loan.service.js';
+import { userProfile } from '../modules/users/profile.service.js';
 
 const groupIdParam = z.object({ groupId: publicIdSchema });
+const groupMemberParams = z.object({ groupId: publicIdSchema, userId: publicIdSchema });
 
 const socialRoutes: FastifyPluginAsyncZod = async (app) => {
   // --- Users & friends ------------------------------------------------------
@@ -108,12 +115,41 @@ const socialRoutes: FastifyPluginAsyncZod = async (app) => {
     },
   );
 
+  // --- User profile ---------------------------------------------------------
+
+  app.get(
+    '/users/:userId/profile',
+    {
+      onRequest: app.authenticate,
+      schema: { params: z.object({ userId: publicIdSchema }), response: { 200: userProfileSchema } },
+    },
+    async (request) => userProfile(request.currentUser, request.params.userId),
+  );
+
   // --- Friend groups --------------------------------------------------------
 
   app.get(
     '/groups',
     { onRequest: app.authenticate, schema: { response: { 200: z.array(friendGroupSchema) } } },
     async (request) => groupService.groupsFor(request.currentUser!),
+  );
+
+  /** Open groups anyone can ask to join. */
+  app.get(
+    '/groups/directory',
+    {
+      onRequest: app.authenticate,
+      config: { rateLimit: rateLimits.search },
+      schema: { querystring: groupDirectoryQuerySchema, response: { 200: groupDirectoryResultSchema } },
+    },
+    async (request) => groupService.directory(request.currentUser!, request.query),
+  );
+
+  /** The caller's pending group invites. */
+  app.get(
+    '/groups/invites',
+    { onRequest: app.authenticate, schema: { response: { 200: z.array(groupInviteSchema) } } },
+    async (request) => groupService.invitesFor(request.currentUser!),
   );
 
   app.post(
@@ -123,7 +159,7 @@ const socialRoutes: FastifyPluginAsyncZod = async (app) => {
       schema: { body: createFriendGroupSchema, response: { 201: friendGroupDetailSchema } },
     },
     async (request, reply) => {
-      const group = await groupService.createGroup(request.currentUser!, request.body);
+      const group = await groupService.createGroup(request, request.currentUser!, request.body);
       return reply.code(201).send(group);
     },
   );
@@ -143,7 +179,7 @@ const socialRoutes: FastifyPluginAsyncZod = async (app) => {
       onRequest: [app.csrfProtection, app.authenticate],
       schema: { params: groupIdParam, body: updateFriendGroupSchema, response: { 200: friendGroupDetailSchema } },
     },
-    async (request) => groupService.renameGroup(request.currentUser!, request.params.groupId, request.body.name),
+    async (request) => groupService.updateGroup(request.currentUser!, request.params.groupId, request.body),
   );
 
   app.delete(
@@ -158,6 +194,7 @@ const socialRoutes: FastifyPluginAsyncZod = async (app) => {
     },
   );
 
+  /** Admin invites people to the group (they must accept). */
   app.post(
     '/groups/:groupId/members',
     {
@@ -165,17 +202,71 @@ const socialRoutes: FastifyPluginAsyncZod = async (app) => {
       schema: { params: groupIdParam, body: groupMemberIdsSchema, response: { 200: friendGroupDetailSchema } },
     },
     async (request) =>
-      groupService.addMembers(request.currentUser!, request.params.groupId, request.body.memberIds),
+      groupService.inviteMembers(request.currentUser!, request.params.groupId, request.body.memberIds),
   );
 
-  app.delete(
-    '/groups/:groupId/members',
+  /** The invitee accepts their invite. */
+  app.post(
+    '/groups/:groupId/accept',
     {
       onRequest: [app.csrfProtection, app.authenticate],
-      schema: { params: groupIdParam, body: groupMemberIdsSchema, response: { 200: friendGroupDetailSchema } },
+      schema: { params: groupIdParam, response: { 200: friendGroupDetailSchema } },
+    },
+    async (request) => groupService.acceptInvite(request, request.currentUser!, request.params.groupId),
+  );
+
+  /** Any user asks to join an open group. */
+  app.post(
+    '/groups/:groupId/join',
+    {
+      onRequest: [app.csrfProtection, app.authenticate],
+      config: { rateLimit: rateLimits.bulk },
+      schema: { params: groupIdParam, response: { 200: okSchema } },
+    },
+    async (request) => {
+      await groupService.requestToJoin(request, request.currentUser!, request.params.groupId);
+      return { ok: true as const };
+    },
+  );
+
+  /** Admin approves a pending join request. */
+  app.post(
+    '/groups/:groupId/members/:userId/approve',
+    {
+      onRequest: [app.csrfProtection, app.authenticate],
+      schema: { params: groupMemberParams, response: { 200: friendGroupDetailSchema } },
     },
     async (request) =>
-      groupService.removeMembers(request.currentUser!, request.params.groupId, request.body.memberIds),
+      groupService.approveRequest(request.currentUser!, request.params.groupId, request.params.userId),
+  );
+
+  /** Owner promotes/demotes a member (admin ↔ member). */
+  app.patch(
+    '/groups/:groupId/members/:userId',
+    {
+      onRequest: [app.csrfProtection, app.authenticate],
+      schema: { params: groupMemberParams, body: setGroupRoleSchema, response: { 200: friendGroupDetailSchema } },
+    },
+    async (request) =>
+      groupService.setMemberRole(
+        request.currentUser!,
+        request.params.groupId,
+        request.params.userId,
+        request.body.role,
+      ),
+  );
+
+  /** Remove a member / reject a request / revoke an invite; or leave yourself. */
+  app.delete(
+    '/groups/:groupId/members/:userId',
+    {
+      onRequest: [app.csrfProtection, app.authenticate],
+      schema: { params: groupMemberParams, response: { 200: okSchema } },
+    },
+    async (request) => {
+      await groupService.removeMember(request.currentUser!, request.params.groupId, request.params.userId);
+      return { ok: true as const };
+    },
   );
 
   /** The aggregated shelf: every game across the group, with owners attributed. */

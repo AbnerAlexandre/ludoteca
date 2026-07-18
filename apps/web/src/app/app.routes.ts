@@ -69,9 +69,19 @@ export const routes: Routes = [
         title: 'Grupos · Ludoteca',
       },
       {
+        path: 'grupos/explorar',
+        loadComponent: () => import('./features/social/group-directory.page').then((m) => m.GroupDirectoryPage),
+        title: 'Explorar grupos · Ludoteca',
+      },
+      {
         path: 'grupos/:groupId',
         loadComponent: () => import('./features/social/group-detail.page').then((m) => m.GroupDetailPage),
         title: 'Grupo · Ludoteca',
+      },
+      {
+        path: 'perfil/:userId',
+        loadComponent: () => import('./features/social/profile.page').then((m) => m.ProfilePage),
+        title: 'Perfil · Ludoteca',
       },
       {
         path: 'emprestimos',

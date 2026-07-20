@@ -27,15 +27,8 @@ import { ThemeService } from '../../core/theme.service';
           style="background: var(--color-brand-600)"
         ></div>
 
-        <div class="relative flex items-center gap-2.5">
-          <span class="grid h-9 w-9 place-items-center rounded-xl" style="background: var(--color-brand-600)">
-            <span class="grid grid-cols-2 gap-[3px]">
-              @for (pip of pips; track $index) {
-                <span class="h-[3px] w-[3px] rounded-full bg-white"></span>
-              }
-            </span>
-          </span>
-          <span class="font-display text-lg font-extrabold text-white">Ludoteca</span>
+        <div class="relative flex items-center">
+          <img src="/bdsmlogo.png" alt="Ludoteca" class="h-11 w-auto" />
         </div>
 
         <div class="relative">
@@ -84,7 +77,6 @@ export class AuthLayout {
   readonly title = input('');
   readonly subtitle = input('');
 
-  protected readonly pips = Array.from({ length: 6 });
   protected readonly seats = [1, 2, 3, 4, 5, 6];
 
   constructor() {

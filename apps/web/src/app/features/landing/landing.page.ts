@@ -35,15 +35,8 @@ interface Feature {
 
       <header class="relative z-10">
         <div class="container-app flex h-16 items-center gap-3">
-          <a routerLink="/" class="flex items-center gap-2.5" aria-label="Ludoteca">
-            <span class="grid h-9 w-9 place-items-center rounded-xl" style="background: var(--color-brand-600)" aria-hidden="true">
-              <span class="grid grid-cols-2 gap-[3px]">
-                @for (p of pips; track $index) {
-                  <span class="h-[3px] w-[3px] rounded-full bg-white"></span>
-                }
-              </span>
-            </span>
-            <span class="font-display text-lg font-extrabold tracking-tight text-strong">Ludoteca</span>
+          <a routerLink="/" class="flex items-center" aria-label="Ludoteca">
+            <img src="/bdsmlogo.png" alt="Ludoteca" class="h-9 w-auto" />
           </a>
           <div class="flex-1"></div>
           <button type="button" class="btn btn-quiet btn-icon" (click)="theme.toggle()" [attr.aria-label]="'Alternar tema'">
@@ -402,7 +395,6 @@ export class LandingPage {
   protected readonly theme = inject(ThemeService);
   private readonly auth = inject(AuthStore);
 
-  protected readonly pips = Array.from({ length: 6 });
   protected readonly isAuthed = this.auth.isAuthenticated;
 
   protected readonly themeIcon = computed<IconName>(

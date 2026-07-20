@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, type OnDestroy, computed, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   GAME_TYPE_LABELS,
   type BulkActionInput,
@@ -14,6 +14,7 @@ import {
 } from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
 import { ListsService } from '../../core/lists.service';
+import { PageStateService } from '../../core/page-state.service';
 import { Icon } from '../../shared/icon';
 import { EmptyState, Skeleton } from '../../shared/ui';
 
@@ -29,6 +30,23 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
   friends: 'Amigos',
   nobody: 'Só eu',
 };
+
+/** Kept so returning via Back rehydrates the list instead of re-streaming it. */
+interface ListSnapshot {
+  list: List | null;
+  allLists: List[];
+  items: ListItem[];
+  total: number;
+  view: ViewMode;
+  sort: ListItemSort;
+  dir: SortDirection;
+  loanFilter: 'all' | 'lent' | 'available';
+  typeFilter: GameType | 'all';
+  query: string;
+  page: number;
+  pageSize: number;
+  scrollY: number;
+}
 
 /**
  * The workbench: view toggle, page size, sorting, streaming load, multi-select
@@ -169,8 +187,8 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
       </div>
     }
 
-    <!-- Bulk bar. Appears only with a selection, so it never steals space. -->
-    @if (selectedCount() > 0) {
+    <!-- Bulk bar. Owner-only, and only with a selection, so it never steals space. -->
+    @if (isOwner() && selectedCount() > 0) {
       <div
         class="animate-rise sticky top-20 z-20 mb-4 flex flex-wrap items-center gap-2 rounded-xl p-2.5"
         style="background: var(--color-brand-600); color: white"
@@ -242,13 +260,15 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
       <ul class="grid gap-3">
         @for (item of paged(); track item.publicId; let i = $index) {
           <li class="card animate-rise flex items-center gap-3 p-3" [style.animation-delay.ms]="i * 25">
-            <input
-              type="checkbox"
-              class="h-5 w-5 shrink-0 accent-[var(--color-brand-600)]"
-              [checked]="isSelected(item.publicId)"
-              (change)="toggle(item.publicId)"
-              [attr.aria-label]="'Selecionar ' + item.game.name"
-            />
+            @if (isOwner()) {
+              <input
+                type="checkbox"
+                class="h-5 w-5 shrink-0 accent-[var(--color-brand-600)]"
+                [checked]="isSelected(item.publicId)"
+                (change)="toggle(item.publicId)"
+                [attr.aria-label]="'Selecionar ' + item.game.name"
+              />
+            }
             <!-- Cover and title open the game's full sheet. The checkbox and
                  the controls at the end stay outside the link. -->
             <a [routerLink]="['/jogos', item.game.publicId]" class="flex min-w-0 flex-1 items-center gap-3">
@@ -292,25 +312,27 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
                 </span>
               </span>
             </a>
-            <label class="sr-only" [attr.for]="'privacy-' + item.publicId">Privacidade de {{ item.game.name }}</label>
-            <select
-              [attr.id]="'privacy-' + item.publicId"
-              class="field w-auto shrink-0 text-xs"
-              [ngModel]="item.privacy"
-              (ngModelChange)="setPrivacy(item, $event)"
-            >
-              @for (p of privacies; track p) {
-                <option [value]="p">{{ privacyLabel(p) }}</option>
-              }
-            </select>
-            <button
-              type="button"
-              class="btn btn-quiet btn-sm btn-icon shrink-0"
-              (click)="removeItem(item)"
-              [attr.aria-label]="'Remover ' + item.game.name"
-            >
-              <lt-icon name="close" [size]="16" />
-            </button>
+            @if (isOwner()) {
+              <label class="sr-only" [attr.for]="'privacy-' + item.publicId">Privacidade de {{ item.game.name }}</label>
+              <select
+                [attr.id]="'privacy-' + item.publicId"
+                class="field w-auto shrink-0 text-xs"
+                [ngModel]="item.privacy"
+                (ngModelChange)="setPrivacy(item, $event)"
+              >
+                @for (p of privacies; track p) {
+                  <option [value]="p">{{ privacyLabel(p) }}</option>
+                }
+              </select>
+              <button
+                type="button"
+                class="btn btn-quiet btn-sm btn-icon shrink-0"
+                (click)="removeItem(item)"
+                [attr.aria-label]="'Remover ' + item.game.name"
+              >
+                <lt-icon name="close" [size]="16" />
+              </button>
+            }
           </li>
         }
       </ul>
@@ -318,13 +340,15 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
       <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         @for (item of paged(); track item.publicId; let i = $index) {
           <li class="card animate-rise relative overflow-hidden" [style.animation-delay.ms]="i * 25">
-            <input
-              type="checkbox"
-              class="absolute top-2 left-2 z-10 h-5 w-5 accent-[var(--color-brand-600)]"
-              [checked]="isSelected(item.publicId)"
-              (change)="toggle(item.publicId)"
-              [attr.aria-label]="'Selecionar ' + item.game.name"
-            />
+            @if (isOwner()) {
+              <input
+                type="checkbox"
+                class="absolute top-2 left-2 z-10 h-5 w-5 accent-[var(--color-brand-600)]"
+                [checked]="isSelected(item.publicId)"
+                (change)="toggle(item.publicId)"
+                [attr.aria-label]="'Selecionar ' + item.game.name"
+              />
+            }
             <a [routerLink]="['/jogos', item.game.publicId]" class="block">
               @if (item.game.coverUrl) {
                 <img [src]="item.game.coverUrl" alt="" class="aspect-square w-full object-cover" loading="lazy" style="background: var(--surface-sunken)" />
@@ -371,8 +395,10 @@ const PRIVACY_LABEL: Record<Privacy, string> = {
     `,
   ],
 })
-export class ListDetailPage {
+export class ListDetailPage implements OnDestroy {
   private readonly service = inject(ListsService);
+  private readonly pageState = inject(PageStateService);
+  private readonly router = inject(Router);
 
   /** Bound from the route by withComponentInputBinding(). */
   readonly listId = input.required<string>();
@@ -453,12 +479,73 @@ export class ListDetailPage {
    */
   protected readonly showLoanFilter = computed(() => this.list()?.kind === 'collection');
 
+  /**
+   * Ownership drives every mutation on this screen. `/lists` returns only the
+   * caller's own lists, so a list found there is one we own; a list opened by
+   * public id that isn't in that set resolves to null — someone else's. A
+   * non-owner gets a read-only view: no select, no bulk bar, no privacy, no
+   * remove.
+   */
+  protected readonly isOwner = computed(() => this.list() !== null);
+
   private abort: AbortController | null = null;
+
+  /** Capture the trigger synchronously — the navigation is live only now. */
+  private readonly arrivedByBack = this.router.getCurrentNavigation()?.trigger === 'popstate';
 
   constructor() {
     // input.required is not readable in a field initializer, so kick the first
     // load off a microtask later, once the router has bound it.
-    queueMicrotask(() => void this.load());
+    queueMicrotask(() => {
+      const snap = this.arrivedByBack ? this.pageState.take<ListSnapshot>(this.stateKey()) : undefined;
+      if (snap) this.restore(snap);
+      else void this.load();
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Stop any in-flight stream so it can't paint into a dead view…
+    this.abort?.abort();
+    // …then stash the screen so Back returns to exactly this state.
+    this.pageState.save(this.stateKey(), {
+      list: this.list(),
+      allLists: this.allLists(),
+      items: this.items(),
+      total: this.total(),
+      view: this.view(),
+      sort: this.sort(),
+      dir: this.dir(),
+      loanFilter: this.loanFilter(),
+      typeFilter: this.typeFilter(),
+      query: this.query(),
+      page: this.page(),
+      pageSize: this.pageSize(),
+      scrollY: window.scrollY,
+    } satisfies ListSnapshot);
+  }
+
+  private stateKey(): string {
+    return `lists/${this.listId()}`;
+  }
+
+  private restore(s: ListSnapshot): void {
+    this.list.set(s.list);
+    this.allLists.set(s.allLists);
+    this.items.set(s.items);
+    this.total.set(s.total);
+    this.view.set(s.view);
+    this.sort.set(s.sort);
+    this.dir.set(s.dir);
+    this.loanFilter.set(s.loanFilter);
+    this.typeFilter.set(s.typeFilter);
+    this.query.set(s.query);
+    this.pageSize.set(s.pageSize);
+    this.page.set(s.page);
+    this.loading.set(false);
+    this.streaming.set(false);
+    // Rows rehydrate synchronously, so the page regains its height immediately —
+    // jump back to where the user was reading.
+    setTimeout(() => window.scrollTo(0, s.scrollY), 0);
   }
 
   protected typeLabel(type: string): string {

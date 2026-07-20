@@ -34,15 +34,8 @@ const TYPE_LABEL = { board: 'Tabuleiro', cards: 'Cartas' } as const;
             <lt-icon name="arrow-left" [size]="16" /> Voltar
           </button>
           <div class="flex-1"></div>
-          <a routerLink="/" class="flex items-center gap-2.5" aria-label="Ludoteca">
-            <span class="grid h-8 w-8 place-items-center rounded-lg" style="background: var(--color-brand-600)" aria-hidden="true">
-              <span class="grid grid-cols-2 gap-[3px]">
-                @for (p of pips; track $index) {
-                  <span class="h-[2.5px] w-[2.5px] rounded-full bg-white"></span>
-                }
-              </span>
-            </span>
-            <span class="font-display font-extrabold tracking-tight text-strong">Ludoteca</span>
+          <a routerLink="/" class="flex items-center" aria-label="Ludoteca">
+            <img src="/bdsmlogo.png" alt="Ludoteca" class="h-8 w-auto" />
           </a>
         </div>
       </header>
@@ -146,7 +139,6 @@ export class GameShowcasePage {
   /** Bound from the route; a string on the wire. */
   readonly ludopediaId = input.required<string>();
 
-  protected readonly pips = Array.from({ length: 6 });
   protected readonly isAuthed = this.auth.isAuthenticated;
   protected readonly adding = signal(false);
   protected readonly notice = signal<string | null>(null);

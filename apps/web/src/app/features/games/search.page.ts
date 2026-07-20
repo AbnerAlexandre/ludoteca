@@ -1,12 +1,28 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, type OnDestroy, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import type { Game, List } from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
 import { ListsService } from '../../core/lists.service';
+import { PageStateService } from '../../core/page-state.service';
 import { GamesService } from '../../core/social.service';
 import { Icon } from '../../shared/icon';
 import { EmptyState, Skeleton } from '../../shared/ui';
+
+/** What we keep so a Back navigation lands on the same results, not a blank form. */
+interface SearchSnapshot {
+  query: string;
+  type: 'all' | 'base' | 'expansion';
+  results: Game[];
+  total: number;
+  totalPages: number;
+  page: number;
+  searched: boolean;
+  degraded: boolean;
+  scrollY: number;
+}
+
+const SEARCH_STATE_KEY = 'games/search';
 
 @Component({
   selector: 'lt-search',
@@ -123,9 +139,11 @@ import { EmptyState, Skeleton } from '../../shared/ui';
     }
   `,
 })
-export class SearchPage {
+export class SearchPage implements OnDestroy {
   private readonly games = inject(GamesService);
   private readonly listsService = inject(ListsService);
+  private readonly pageState = inject(PageStateService);
+  private readonly router = inject(Router);
 
   protected readonly query = signal('');
   protected readonly type = signal<'all' | 'base' | 'expansion'>('all');
@@ -143,7 +161,43 @@ export class SearchPage {
   protected readonly notice = signal<string | null>(null);
 
   constructor() {
+    // Restore only when we got here by Back/Forward, so a fresh visit from the
+    // menu still starts clean. The current navigation is readable here because
+    // the component is built during route activation.
+    const restoring = this.router.getCurrentNavigation()?.trigger === 'popstate';
     void this.loadLists();
+    if (restoring) {
+      const snap = this.pageState.take<SearchSnapshot>(SEARCH_STATE_KEY);
+      if (snap) this.restore(snap);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.pageState.save(SEARCH_STATE_KEY, {
+      query: this.query(),
+      type: this.type(),
+      results: this.results(),
+      total: this.total(),
+      totalPages: this.totalPages(),
+      page: this.page(),
+      searched: this.searched(),
+      degraded: this.degraded(),
+      scrollY: window.scrollY,
+    } satisfies SearchSnapshot);
+  }
+
+  private restore(s: SearchSnapshot): void {
+    this.query.set(s.query);
+    this.type.set(s.type);
+    this.results.set(s.results);
+    this.total.set(s.total);
+    this.totalPages.set(s.totalPages);
+    this.page.set(s.page);
+    this.searched.set(s.searched);
+    this.degraded.set(s.degraded);
+    // The rows rehydrate synchronously above, so the page is at its old height
+    // by the next frame — jump back to where the user was.
+    setTimeout(() => window.scrollTo(0, s.scrollY), 0);
   }
 
   private async loadLists(): Promise<void> {

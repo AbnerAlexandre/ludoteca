@@ -35,20 +35,8 @@ interface NavItem {
         style="background: color-mix(in srgb, var(--surface-page) 88%, transparent)"
       >
         <div class="container-app flex h-16 items-center gap-3">
-          <a routerLink="/colecao" class="flex items-center gap-2.5" aria-label="Ludoteca, início">
-            <!-- The mark is a die face: six pips, the six seats. -->
-            <span
-              class="grid h-9 w-9 shrink-0 place-items-center rounded-xl"
-              style="background: var(--color-brand-600)"
-              aria-hidden="true"
-            >
-              <span class="grid grid-cols-2 gap-[3px]">
-                @for (pip of pips; track $index) {
-                  <span class="h-[3px] w-[3px] rounded-full bg-white"></span>
-                }
-              </span>
-            </span>
-            <span class="font-display text-lg font-extrabold tracking-tight text-strong">Ludoteca</span>
+          <a routerLink="/colecao" class="flex items-center" aria-label="Ludoteca, início">
+            <img src="/bdsmlogo.png" alt="Ludoteca" class="h-9 w-auto shrink-0" />
           </a>
 
           <div class="flex-1"></div>
@@ -174,7 +162,6 @@ export class AppShell {
   private readonly auth = inject(AuthStore);
 
   protected readonly user = this.auth.user;
-  protected readonly pips = Array.from({ length: 6 });
 
   protected readonly nav: NavItem[] = [
     { path: '/colecao', label: 'Listas', icon: 'dice' },

@@ -17,7 +17,7 @@ import { AuthLayout } from './auth-layout';
       title="Monte sua ludoteca."
       subtitle="Catalogue seus jogos, empreste para amigos e nunca mais esqueça com quem ficou o Catan."
     >
-      <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="space-y-4">
+      <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="space-y-5">
         <div>
           <label class="label" for="login">Login</label>
           <input
@@ -56,10 +56,15 @@ import { AuthLayout } from './auth-layout';
         </div>
 
         <div>
-          <label class="label" for="password">Senha</label>
+          <div class="flex items-baseline justify-between">
+            <label class="label" for="password">Senha</label>
+            <button type="button" class="text-xs font-semibold text-ink-3 hover:text-ink" (click)="showPassword.set(!showPassword())" [attr.aria-pressed]="showPassword()">
+              {{ showPassword() ? 'Ocultar' : 'Mostrar' }}
+            </button>
+          </div>
           <input
             id="password"
-            type="password"
+            [type]="showPassword() ? 'text' : 'password'"
             class="field"
             formControlName="password"
             autocomplete="new-password"
@@ -74,23 +79,17 @@ import { AuthLayout } from './auth-layout';
         </div>
 
         @if (error(); as e) {
-          <p
-            role="alert"
-            class="rounded-xl px-3 py-2 text-sm"
-            style="background: color-mix(in srgb, var(--color-danger) 12%, transparent); color: var(--color-danger)"
-          >
-            {{ e }}
-          </p>
+          <p role="alert" class="notice notice-danger">{{ e }}</p>
         }
 
-        <button type="submit" class="btn btn-primary w-full" [disabled]="busy()">
+        <button type="submit" class="btn btn-primary btn-lg w-full" [disabled]="busy()">
           {{ busy() ? 'Criando…' : 'Criar conta' }}
         </button>
       </form>
 
-      <p class="mt-6 text-center text-sm text-muted">
+      <p class="mt-7 text-sm text-ink-3">
         Já tem conta?
-        <a routerLink="/entrar" class="font-semibold" style="color: var(--color-brand-500)">Entrar</a>
+        <a routerLink="/entrar" class="link">Entrar</a>
       </p>
     </lt-auth-layout>
   `,
@@ -102,6 +101,7 @@ export class RegisterPage {
 
   protected readonly limits = LIMITS;
   protected readonly busy = signal(false);
+  protected readonly showPassword = signal(false);
   protected readonly error = signal<string | null>(null);
 
   /**

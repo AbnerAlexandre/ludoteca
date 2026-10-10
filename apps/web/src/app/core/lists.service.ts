@@ -20,8 +20,15 @@ const EXTENSION: Record<ExportFormat, string> = { csv: 'csv', json: 'json', name
 export class ListsService {
   private readonly api = inject(ApiService);
 
-  lists(): Promise<List[]> {
-    return firstValueFrom(this.api.get<List[]>('/lists'));
+  /**
+   * The seeded lists first, in the order people reach for them (collection,
+   * wishlist, favourites), then custom lists oldest-first — so every list
+   * picker in the app reads the same way.
+   */
+  async lists(): Promise<List[]> {
+    const lists = await firstValueFrom(this.api.get<List[]>('/lists'));
+    const rank: Record<List['kind'], number> = { collection: 0, wishlist: 1, favorites: 2, custom: 3 };
+    return [...lists].sort((a, b) => rank[a.kind] - rank[b.kind] || a.createdAt.localeCompare(b.createdAt));
   }
 
   create(name: string): Promise<List> {

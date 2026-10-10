@@ -1,210 +1,264 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
 import { GAME_TYPE_LABELS, type GameDetail, type List } from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
+import { FeedbackService } from '../../core/feedback.service';
 import { ListsService } from '../../core/lists.service';
 import { GamesService } from '../../core/social.service';
 import { Icon } from '../../shared/icon';
-import { Skeleton } from '../../shared/ui';
+import { Cover, Skeleton } from '../../shared/ui';
 import { featuredById } from '../landing/featured-games';
 
 /**
  * The full sheet for one game, from the Ludopedia cache.
  *
  * On what's shown and what isn't: Ludopedia's API exposes no rating and no
- * image gallery. `/jogos/{id}/notas` and `/jogos/{id}/imagens` are documented
- * as "não implementado" and really do return placeholder strings. What it does
- * give is the cover plus community counters — how many people own, want,
- * favourite and have played it. Those are presented as popularity, never
- * dressed up as a score we don't have.
+ * image gallery (`/notas` and `/imagens` are documented as "não implementado").
+ * What it does give is the cover plus community counters — how many people
+ * own, want, favourite and have played it. Those are presented as popularity,
+ * never dressed up as a score we don't have.
+ *
+ * Layout: on a phone the cover sits beside the title instead of filling the
+ * screen above it, so the add-to-list row is reachable without scrolling.
  */
 @Component({
   selector: 'lt-game-detail',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, Icon, Skeleton],
+  imports: [Icon, Skeleton, Cover],
   template: `
-    <button type="button" class="mb-4 inline-flex items-center gap-1.5 text-sm text-muted hover:text-strong" (click)="back()">
-      <lt-icon name="arrow-left" [size]="16" /> Voltar
-    </button>
+    <button type="button" class="back-link" (click)="back()"><lt-icon name="arrow-left" [size]="16" /> Voltar</button>
 
     @if (error(); as e) {
-      <p role="alert" class="mb-4 text-sm" style="color: var(--color-danger)">{{ e }}</p>
+      <p role="alert" class="notice notice-danger mb-4">{{ e }}</p>
     }
 
     @if (loading()) {
-      <div class="grid gap-6 lg:grid-cols-[18rem_1fr]">
-        <lt-skeleton height="18rem" />
-        <div class="space-y-3">
-          <lt-skeleton height="2rem" width="55%" />
-          <lt-skeleton height="1rem" width="35%" />
-          <lt-skeleton height="6rem" />
+      <div class="game-grid">
+        <div class="area-cover"><lt-skeleton height="100%" /></div>
+        <div class="area-head space-y-3">
+          <lt-skeleton height="0.75rem" width="30%" />
+          <lt-skeleton height="2.4rem" width="70%" />
         </div>
+        <div class="area-body space-y-3"><lt-skeleton height="5rem" /><lt-skeleton height="7rem" /></div>
       </div>
     } @else if (game(); as g) {
-      <article class="grid gap-6 lg:grid-cols-[18rem_1fr]">
-        <!-- Cover column -->
-        <div>
-          @if (g.coverUrl || g.thumbnail) {
-            <img
-              [src]="g.coverUrl ?? g.thumbnail"
-              [alt]="'Capa de ' + g.name"
-              class="w-full rounded-2xl object-cover"
-              style="background: var(--surface-sunken)"
-            />
-          } @else {
-            <div class="grid aspect-square w-full place-items-center rounded-2xl text-muted" style="background: var(--surface-sunken)">
-              <lt-icon name="dice" [size]="48" />
-            </div>
+      <article class="game-grid">
+        <div class="area-cover">
+          <lt-cover class="cover-hero pop-in aspect-square w-full" [src]="g.coverUrl ?? g.thumbnail" [alt]="'Capa de ' + g.name" [eager]="true" [iconSize]="40" />
+          @if (g.link) {
+            <!-- The API exposes no purchase URL; Ludopedia's own page carries
+                 the store listings, so that's the honest link. -->
+            <a [href]="g.link" target="_blank" rel="noopener noreferrer" class="btn btn-ghost mt-4 hidden w-full lg:inline-flex">
+              <lt-icon name="cart" [size]="17" /> Comprar na Ludopedia <lt-icon name="external-link" [size]="14" />
+            </a>
           }
-
-          <div class="mt-3 grid gap-2">
-            <!-- Buy: Ludopedia's own game page carries the store listings. The
-                 API exposes no direct purchase URL, so this is the honest link.
-                 rel=noopener because target=_blank without it hands the new tab
-                 a window.opener handle back to us. -->
-            @if (g.link) {
-              <a [href]="g.link" target="_blank" rel="noopener noreferrer" class="btn btn-primary w-full">
-                <lt-icon name="cart" [size]="18" />
-                Comprar na Ludopedia
-                <lt-icon name="external-link" [size]="14" />
-              </a>
-            }
-
-            <form class="flex gap-2" (ngSubmit)="add()">
-              <label class="sr-only" for="target">Lista de destino</label>
-              <select id="target" class="field flex-1 text-sm" [(ngModel)]="targetList" name="target">
-                @for (list of lists(); track list.publicId) {
-                  <option [value]="list.publicId">{{ list.name }}</option>
-                }
-              </select>
-              <button type="submit" class="btn btn-ghost" [disabled]="adding() || !targetList()">
-                <lt-icon name="plus" [size]="17" />
-                {{ adding() ? '…' : 'Adicionar' }}
-              </button>
-            </form>
-
-            @if (notice(); as n) {
-              <p role="status" class="rounded-xl px-3 py-2 text-xs" style="background: color-mix(in srgb, var(--color-success) 14%, transparent); color: var(--color-success)">
-                {{ n }}
-              </p>
-            }
-          </div>
         </div>
 
-        <!-- Detail column -->
-        <div class="min-w-0">
-          <h1 class="text-4xl">{{ g.name }}</h1>
+        <header class="area-head rise min-w-0 self-center lg:self-auto">
+          <p class="eyebrow">{{ typeLabel(g.type) }}{{ g.year ? ' · ' + g.year : '' }}</p>
+          <h1 class="display mt-2 text-[1.7rem] sm:text-[2.6rem] lg:text-[3.2rem]">{{ g.name }}</h1>
           @if (g.originalName && g.originalName !== g.name) {
-            <p class="mt-1 text-sm text-muted">{{ g.originalName }}</p>
+            <p class="mt-1.5 text-sm text-ink-3">{{ g.originalName }}</p>
+          }
+        </header>
+
+        <div class="area-body min-w-0">
+          <!-- The numbers you check before putting it on the table. -->
+          @if (facts().length) {
+            <dl class="rise grid grid-cols-2 border-y border-line sm:grid-cols-4" style="--i: 1">
+              @for (fact of facts(); track fact.label) {
+                <div class="spec">
+                  <dt class="eyebrow">{{ fact.label }}</dt>
+                  <dd class="num mt-1.5 text-[1.6rem] text-ink">{{ fact.value }}</dd>
+                </div>
+              }
+            </dl>
           }
 
-          <div class="mt-3 flex flex-wrap gap-1.5">
-            <span class="chip chip-active">{{ typeLabel(g.type) }}</span>
-            @for (category of g.categories; track category) {
-              <span class="chip">{{ category }}</span>
+          <!-- One tap per list; each confirms in place. Adding twice is a no-op
+               on the API, so a ✓ is always the truth. -->
+          <section class="rise mt-6" style="--i: 2" aria-labelledby="add-heading">
+            <p id="add-heading" class="eyebrow mb-2.5">Adicionar a uma lista</p>
+            <div class="flex flex-wrap gap-2">
+              @for (list of lists(); track list.publicId) {
+                <button
+                  type="button"
+                  class="chip"
+                  [class.is-done]="added().has(list.publicId)"
+                  (click)="add(list)"
+                  [disabled]="adding() === list.publicId"
+                  [attr.aria-label]="(added().has(list.publicId) ? 'Já está em ' : 'Adicionar a ') + list.name"
+                >
+                  <lt-icon [name]="added().has(list.publicId) ? 'check' : 'plus'" [size]="15" [strokeWidth]="2.4" />
+                  {{ list.name }}
+                </button>
+              }
+            </div>
+            @if (g.link) {
+              <a [href]="g.link" target="_blank" rel="noopener noreferrer" class="link mt-4 inline-flex items-center gap-1.5 text-sm lg:hidden">
+                Comprar na Ludopedia <lt-icon name="external-link" [size]="14" />
+              </a>
             }
-          </div>
+          </section>
 
-          <!-- Synopsis, when we have one for this game. Ludopedia's API exposes
-               no description, so it comes from our featured-games data. -->
+          <!-- Synopsis, when we have one: the API has no description field, so
+               it comes from our featured-games data. -->
           @if (description(); as text) {
-            <p class="mt-4 max-w-2xl leading-relaxed text-body">{{ text }}</p>
+            <section class="rise mt-9" style="--i: 3">
+              <h2 class="section-label eyebrow">Sobre o jogo</h2>
+              <p class="max-w-2xl text-[1.02rem] leading-relaxed text-ink-2">{{ text }}</p>
+            </section>
           }
-
-          <!-- Vital stats: the numbers you check before putting it on the table. -->
-          <dl class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            @for (fact of facts(); track fact.label) {
-              <div class="panel p-3">
-                <dt class="flex items-center gap-1.5 text-xs text-muted">
-                  <lt-icon [name]="fact.icon" [size]="14" />
-                  {{ fact.label }}
-                </dt>
-                <dd class="stat mt-1 text-lg font-bold text-strong">{{ fact.value }}</dd>
-              </div>
-            }
-          </dl>
 
           <!-- Popularity, labelled as what it is. Ludopedia has no rating. -->
-          @if (hasCommunityStats()) {
-            <section class="mt-6" aria-labelledby="pop-heading">
-              <h2 id="pop-heading" class="mb-1 text-lg">Na comunidade</h2>
-              <p class="mb-3 text-xs text-muted">Quantas pessoas na Ludopedia marcaram este jogo.</p>
-              <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          @if (communityStats().length) {
+            <section class="rise mt-9" style="--i: 4" aria-labelledby="pop-heading">
+              <h2 id="pop-heading" class="section-label eyebrow">Na comunidade Ludopedia</h2>
+              <div class="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
                 @for (stat of communityStats(); track stat.label) {
-                  <div class="panel p-3">
-                    <p class="stat text-xl font-bold" [style.color]="stat.color">{{ stat.value }}</p>
-                    <p class="text-xs text-muted">{{ stat.label }}</p>
+                  <div>
+                    <p class="num text-[1.6rem] text-ink">{{ stat.value }}</p>
+                    <p class="mt-1 flex items-center gap-1.5 text-xs text-ink-3">
+                      <span class="h-2 w-2 rounded-full" [style.background]="stat.color"></span>{{ stat.label }}
+                    </p>
                   </div>
                 }
               </div>
             </section>
           }
 
-          @if (g.mechanics.length) {
-            <section class="mt-6" aria-labelledby="mech-heading">
-              <h2 id="mech-heading" class="mb-2 text-lg">Mecânicas</h2>
-              <div class="flex flex-wrap gap-1.5">
-                @for (mechanic of g.mechanics; track mechanic) {
-                  <span class="chip">{{ mechanic }}</span>
+          @if (g.categories.length || g.mechanics.length || g.themes.length) {
+            <section class="rise mt-9 grid gap-6" style="--i: 5">
+              @for (group of tagGroups(g); track group.label) {
+                @if (group.items.length) {
+                  <div>
+                    <h2 class="section-label eyebrow">{{ group.label }}</h2>
+                    <div class="flex flex-wrap gap-1.5">
+                      @for (item of group.items; track item) {
+                        <span class="tag text-[0.7rem]">{{ item }}</span>
+                      }
+                    </div>
+                  </div>
                 }
-              </div>
+              }
             </section>
           }
 
-          @if (g.themes.length) {
-            <section class="mt-6" aria-labelledby="theme-heading">
-              <h2 id="theme-heading" class="mb-2 text-lg">Temas</h2>
-              <div class="flex flex-wrap gap-1.5">
-                @for (theme of g.themes; track theme) {
-                  <span class="chip">{{ theme }}</span>
-                }
-              </div>
+          @if (g.designers.length || g.artists.length) {
+            <section class="rise mt-9 grid gap-6 sm:grid-cols-2" style="--i: 6">
+              @if (g.designers.length) {
+                <div>
+                  <h2 class="section-label eyebrow">Design</h2>
+                  <ul class="space-y-1 text-sm text-ink-2">
+                    @for (person of g.designers; track person) {
+                      <li>{{ person }}</li>
+                    }
+                  </ul>
+                </div>
+              }
+              @if (g.artists.length) {
+                <div>
+                  <h2 class="section-label eyebrow">Arte</h2>
+                  <ul class="space-y-1 text-sm text-ink-2">
+                    @for (person of g.artists; track person) {
+                      <li>{{ person }}</li>
+                    }
+                  </ul>
+                </div>
+              }
             </section>
           }
-
-          <div class="mt-6 grid gap-6 sm:grid-cols-2">
-            @if (g.designers.length) {
-              <section aria-labelledby="designer-heading">
-                <h2 id="designer-heading" class="mb-2 text-lg">Designers</h2>
-                <ul class="text-sm text-body">
-                  @for (person of g.designers; track person) {
-                    <li>{{ person }}</li>
-                  }
-                </ul>
-              </section>
-            }
-            @if (g.artists.length) {
-              <section aria-labelledby="artist-heading">
-                <h2 id="artist-heading" class="mb-2 text-lg">Artistas</h2>
-                <ul class="text-sm text-body">
-                  @for (person of g.artists; track person) {
-                    <li>{{ person }}</li>
-                  }
-                </ul>
-              </section>
-            }
-          </div>
         </div>
       </article>
     }
   `,
+  styles: [
+    `
+      /* Phone: cover beside the title, details below.
+         Desktop: cover column (sticky) beside everything. */
+      .game-grid {
+        display: grid;
+        grid-template-columns: 7.5rem minmax(0, 1fr);
+        grid-template-areas:
+          'cover head'
+          'body body';
+        gap: 1.5rem 1.1rem;
+      }
+      @media (min-width: 640px) {
+        .game-grid {
+          grid-template-columns: 11rem minmax(0, 1fr);
+          gap: 2rem 1.75rem;
+        }
+      }
+      @media (min-width: 1024px) {
+        .game-grid {
+          grid-template-columns: 19rem minmax(0, 1fr);
+          grid-template-rows: auto 1fr;
+          grid-template-areas:
+            'cover head'
+            'cover body';
+          gap: 1.75rem 3rem;
+        }
+        .area-cover {
+          position: sticky;
+          top: calc(var(--header-h) + 1.5rem);
+          align-self: start;
+        }
+      }
+      .area-cover {
+        grid-area: cover;
+      }
+      .area-head {
+        grid-area: head;
+      }
+      .area-body {
+        grid-area: body;
+      }
+      .cover-hero {
+        border-radius: var(--r);
+        --tilt: -1.5deg;
+      }
+
+      .spec {
+        padding: 0.95rem 0.25rem;
+      }
+      .spec + .spec {
+        border-left: 1px solid var(--line);
+        padding-left: 1rem;
+      }
+      @media (max-width: 639px) {
+        .spec + .spec:nth-child(3) {
+          border-left: 0;
+          padding-left: 0.25rem;
+        }
+        .spec:nth-child(n + 3) {
+          border-top: 1px solid var(--line);
+        }
+      }
+
+      .chip.is-done {
+        background: var(--mint-soft);
+        border-color: transparent;
+        color: var(--mint);
+      }
+    `,
+  ],
 })
 export class GameDetailPage {
   private readonly games = inject(GamesService);
   private readonly listsService = inject(ListsService);
   private readonly location = inject(Location);
+  private readonly feedback = inject(FeedbackService);
 
   readonly gameId = input.required<string>();
 
   protected readonly game = signal<GameDetail | null>(null);
   protected readonly lists = signal<List[]>([]);
-  protected readonly targetList = signal('');
+  protected readonly added = signal<ReadonlySet<string>>(new Set());
   protected readonly loading = signal(true);
-  protected readonly adding = signal(false);
+  protected readonly adding = signal<string | null>(null);
   protected readonly error = signal<string | null>(null);
-  protected readonly notice = signal<string | null>(null);
 
   /** Synopsis for the featured games — Ludopedia's API provides none. */
   protected readonly description = computed(() => {
@@ -216,16 +270,15 @@ export class GameDetailPage {
   protected readonly facts = computed(() => {
     const g = this.game();
     if (!g) return [];
-    const rows: Array<{ icon: 'calendar' | 'users' | 'clock' | 'star'; label: string; value: string }> = [];
-    if (g.year) rows.push({ icon: 'calendar', label: 'Ano', value: String(g.year) });
+    const rows: Array<{ label: string; value: string }> = [];
     if (g.minPlayers)
       rows.push({
-        icon: 'users',
         label: 'Jogadores',
         value: g.maxPlayers && g.maxPlayers !== g.minPlayers ? `${g.minPlayers}–${g.maxPlayers}` : String(g.minPlayers),
       });
-    if (g.playTimeMinutes) rows.push({ icon: 'clock', label: 'Duração', value: `${g.playTimeMinutes} min` });
-    if (g.minAge) rows.push({ icon: 'star', label: 'Idade', value: `${g.minAge}+` });
+    if (g.playTimeMinutes) rows.push({ label: 'Duração', value: `${g.playTimeMinutes}′` });
+    if (g.minAge) rows.push({ label: 'Idade', value: `${g.minAge}+` });
+    if (g.year) rows.push({ label: 'Lançamento', value: String(g.year) });
     return rows;
   });
 
@@ -233,16 +286,14 @@ export class GameDetailPage {
     const g = this.game();
     if (!g) return [];
     return [
-      { label: 'têm', value: g.ownedCount, color: 'var(--color-brand-500)' },
-      { label: 'querem', value: g.wantedCount, color: 'var(--color-warning)' },
-      { label: 'favoritaram', value: g.favoriteCount, color: 'var(--color-danger)' },
-      { label: 'já jogaram', value: g.playedCount, color: 'var(--color-success)' },
+      { label: 'têm', value: g.ownedCount, color: 'var(--brand)' },
+      { label: 'querem', value: g.wantedCount, color: 'var(--amber)' },
+      { label: 'favoritaram', value: g.favoriteCount, color: 'var(--rose)' },
+      { label: 'já jogaram', value: g.playedCount, color: 'var(--mint)' },
     ]
       .filter((s): s is { label: string; value: number; color: string } => s.value !== null)
       .map((s) => ({ ...s, value: s.value.toLocaleString('pt-BR') }));
   });
-
-  protected readonly hasCommunityStats = computed(() => this.communityStats().length > 0);
 
   constructor() {
     queueMicrotask(() => void this.load());
@@ -250,6 +301,14 @@ export class GameDetailPage {
 
   protected typeLabel(type: string): string {
     return GAME_TYPE_LABELS[type as keyof typeof GAME_TYPE_LABELS] ?? type;
+  }
+
+  protected tagGroups(g: GameDetail) {
+    return [
+      { label: 'Categorias', items: g.categories },
+      { label: 'Mecânicas', items: g.mechanics },
+      { label: 'Temas', items: g.themes },
+    ];
   }
 
   protected back(): void {
@@ -263,7 +322,6 @@ export class GameDetailPage {
       const [game, lists] = await Promise.all([this.games.detail(this.gameId()), this.listsService.lists()]);
       this.game.set(game);
       this.lists.set(lists);
-      this.targetList.set(lists.find((l) => l.kind === 'collection')?.publicId ?? lists[0]?.publicId ?? '');
     } catch (err) {
       this.error.set(err instanceof ApiFailure ? err.message : 'Não foi possível carregar o jogo.');
     } finally {
@@ -271,21 +329,19 @@ export class GameDetailPage {
     }
   }
 
-  protected async add(): Promise<void> {
+  protected async add(list: List): Promise<void> {
     const g = this.game();
-    const listId = this.targetList();
-    if (!g || !listId) return;
+    if (!g || this.added().has(list.publicId)) return;
 
-    this.adding.set(true);
-    this.error.set(null);
+    this.adding.set(list.publicId);
     try {
-      await this.listsService.addItem(listId, { ludopediaId: g.ludopediaId });
-      const name = this.lists().find((l) => l.publicId === listId)?.name ?? 'sua lista';
-      this.notice.set(`Adicionado a ${name}.`);
+      await this.listsService.addItem(list.publicId, { ludopediaId: g.ludopediaId });
+      this.added.update((s) => new Set(s).add(list.publicId));
+      this.feedback.success(`${g.name} está em ${list.name}.`);
     } catch (err) {
-      this.error.set(err instanceof ApiFailure ? err.message : 'Não foi possível adicionar.');
+      this.feedback.error(err instanceof ApiFailure ? err.message : 'Não foi possível adicionar.');
     } finally {
-      this.adding.set(false);
+      this.adding.set(null);
     }
   }
 }

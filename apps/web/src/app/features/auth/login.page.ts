@@ -17,7 +17,7 @@ import { AuthLayout } from './auth-layout';
       title="Sua estante, em qualquer mesa."
       subtitle="Entre para ver sua coleção, seus grupos e o que está emprestado."
     >
-      <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="space-y-4">
+      <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="space-y-5">
         <div>
           <label class="label" for="identifier">Login ou e-mail</label>
           <input
@@ -36,10 +36,15 @@ import { AuthLayout } from './auth-layout';
         </div>
 
         <div>
-          <label class="label" for="password">Senha</label>
+          <div class="flex items-baseline justify-between">
+            <label class="label" for="password">Senha</label>
+            <button type="button" class="text-xs font-semibold text-ink-3 hover:text-ink" (click)="showPassword.set(!showPassword())" [attr.aria-pressed]="showPassword()">
+              {{ showPassword() ? 'Ocultar' : 'Mostrar' }}
+            </button>
+          </div>
           <input
             id="password"
-            type="password"
+            [type]="showPassword() ? 'text' : 'password'"
             class="field"
             formControlName="password"
             autocomplete="current-password"
@@ -53,27 +58,21 @@ import { AuthLayout } from './auth-layout';
 
         <!-- role=alert so a screen reader announces the failure without a focus jump. -->
         @if (error(); as e) {
-          <p
-            role="alert"
-            class="rounded-xl px-3 py-2 text-sm"
-            style="background: color-mix(in srgb, var(--color-danger) 12%, transparent); color: var(--color-danger)"
-          >
-            {{ e }}
-          </p>
+          <p role="alert" class="notice notice-danger">{{ e }}</p>
         }
 
-        <button type="submit" class="btn btn-primary w-full" [disabled]="busy()">
+        <button type="submit" class="btn btn-primary btn-lg w-full" [disabled]="busy()">
           {{ busy() ? 'Entrando…' : 'Entrar' }}
         </button>
 
         @if (auth.googleEnabled()) {
-          <a href="/api/auth/google" class="btn btn-ghost w-full">Entrar com Google</a>
+          <a href="/api/auth/google" class="btn btn-ghost btn-lg w-full">Entrar com Google</a>
         }
       </form>
 
-      <p class="mt-6 text-center text-sm text-muted">
+      <p class="mt-7 text-sm text-ink-3">
         Ainda não tem conta?
-        <a routerLink="/criar-conta" class="font-semibold" style="color: var(--color-brand-500)">Criar conta</a>
+        <a routerLink="/criar-conta" class="link">Criar conta</a>
       </p>
     </lt-auth-layout>
   `,
@@ -84,6 +83,7 @@ export class LoginPage {
   protected readonly auth = inject(AuthStore);
 
   protected readonly busy = signal(false);
+  protected readonly showPassword = signal(false);
   protected readonly error = signal<string | null>(null);
 
   protected readonly form = this.fb.nonNullable.group({

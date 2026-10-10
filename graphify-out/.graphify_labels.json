@@ -58,5 +58,7 @@
   "56": "@angular/compiler-cli",
   "57": "@fontsource-variable/jetbrains-mono",
   "58": "@fontsource-variable/plus-jakarta-sans",
-  "59": "postcss"
+  "59": "postcss",
+  "60": "feedback.service.ts",
+  "61": "@fontsource-variable/gabarito"
 }

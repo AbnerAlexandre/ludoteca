@@ -3,9 +3,10 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import type { GroupDirectoryEntry } from '@ludoteca/shared';
 import { ApiFailure } from '../../core/api.service';
+import { FeedbackService } from '../../core/feedback.service';
 import { SocialService } from '../../core/social.service';
 import { Icon } from '../../shared/icon';
-import { EmptyState, SeatToken, Skeleton } from '../../shared/ui';
+import { EmptyState, PageHead, SeatToken, Skeleton } from '../../shared/ui';
 
 /**
  * The public directory of open groups. Anyone can browse and ask to join; an
@@ -16,63 +17,53 @@ import { EmptyState, SeatToken, Skeleton } from '../../shared/ui';
   selector: 'lt-group-directory',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, RouterLink, Icon, SeatToken, Skeleton, EmptyState],
+  imports: [FormsModule, RouterLink, Icon, SeatToken, Skeleton, EmptyState, PageHead],
   template: `
-    <a routerLink="/grupos" class="mb-4 inline-flex items-center gap-1.5 text-sm text-muted hover:text-strong">
-      <lt-icon name="arrow-left" [size]="16" /> Meus grupos
-    </a>
+    <a routerLink="/grupos" class="back-link"><lt-icon name="arrow-left" [size]="16" /> Meus grupos</a>
 
-    <header class="mb-5">
-      <h1 class="text-3xl">Explorar grupos</h1>
-      <p class="mt-1 text-sm text-muted">Grupos abertos que você pode pedir para entrar.</p>
-    </header>
+    <lt-page-head eyebrow="Grupos abertos" title="Explorar grupos" subtitle="Encontre uma mesa e peça para entrar. Um admin do grupo aprova." />
 
-    <form class="panel mb-4 flex gap-2 p-2.5" (ngSubmit)="search()">
+    <form class="search-box rise mb-7" style="--i: 2" (ngSubmit)="search()" role="search">
+      <lt-icon name="search" [size]="18" />
       <label class="sr-only" for="gq">Buscar grupo</label>
-      <input id="gq" class="field flex-1" [(ngModel)]="query" name="q" placeholder="Buscar por nome…" maxlength="80" />
-      <button type="submit" class="btn btn-primary">Buscar</button>
+      <input id="gq" class="field" [(ngModel)]="query" name="q" placeholder="Buscar por nome…" maxlength="80" autocomplete="off" enterkeyhint="search" />
     </form>
 
     @if (error(); as e) {
-      <p role="alert" class="mb-4 text-sm" style="color: var(--color-danger)">{{ e }}</p>
+      <p role="alert" class="notice notice-danger mb-5">{{ e }}</p>
     }
 
     @if (loading()) {
-      <div class="grid gap-3 sm:grid-cols-2">
-        @for (i of [1, 2]; track i) {
-          <div class="card p-5"><lt-skeleton height="1.25rem" width="50%" /></div>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        @for (i of [1, 2, 3]; track i) {
+          <div class="card p-5"><lt-skeleton height="1.4rem" width="55%" /><div class="mt-4"><lt-skeleton height="0.8rem" width="70%" /></div></div>
         }
       </div>
     } @else if (groups().length === 0) {
-      <lt-empty icon="globe" title="Nenhum grupo aberto" message="Quando alguém criar um grupo aberto, ele aparece aqui." />
+      <lt-empty title="Nenhum grupo aberto" [message]="query().trim() ? 'Nenhum grupo aberto com esse nome.' : 'Quando alguém criar um grupo aberto, ele aparece aqui.'" />
     } @else {
-      <ul class="grid gap-3 sm:grid-cols-2">
+      <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         @for (group of groups(); track group.publicId; let i = $index) {
-          <li class="card animate-rise flex flex-col p-5" [style.animation-delay.ms]="i * 40">
-            <div class="mb-2 flex items-start justify-between gap-2">
-              <a [routerLink]="['/grupos', group.publicId]" class="text-lg font-semibold text-strong hover:underline">{{ group.name }}</a>
-              <span class="chip"><lt-icon name="globe" [size]="12" /> Aberto</span>
-            </div>
-            <div class="mb-4 flex items-center gap-2 text-xs text-muted">
-              <lt-seat [user]="group.owner" />
-              <span>por {{ group.owner.displayName || group.owner.login }}</span>
-              <span>·</span>
-              <span class="stat">{{ group.memberCount }}</span>
-              <span>{{ group.memberCount === 1 ? 'membro' : 'membros' }}</span>
-            </div>
-            <div class="mt-auto">
+          <li class="card rise flex flex-col p-5" [style.--i]="i">
+            <a [routerLink]="['/grupos', group.publicId]" class="font-display text-[1.35rem] font-bold leading-tight tracking-tight text-ink hover:underline">{{ group.name }}</a>
+            <p class="mt-3 flex items-center gap-2 text-sm text-ink-3">
+              <lt-seat [user]="group.owner" size="sm" />
+              <span class="min-w-0 truncate">por {{ group.owner.displayName || group.owner.login }}</span>
+            </p>
+            <div class="mt-5 flex items-center justify-between gap-3 border-t border-line pt-4">
+              <span class="text-sm text-ink-3"><span class="num text-xl text-ink">{{ group.memberCount }}</span> {{ group.memberCount === 1 ? 'membro' : 'membros' }}</span>
               @switch (group.relation) {
                 @case ('member') {
-                  <a [routerLink]="['/grupos', group.publicId]" class="btn btn-ghost btn-sm w-full">Abrir grupo</a>
+                  <a [routerLink]="['/grupos', group.publicId]" class="btn btn-ghost btn-sm">Abrir</a>
                 }
                 @case ('requested') {
-                  <span class="chip">Pedido enviado</span>
+                  <span class="tag tag-brand">Pedido enviado</span>
                 }
                 @case ('invited') {
-                  <a routerLink="/grupos" class="btn btn-ghost btn-sm w-full">Convite pendente</a>
+                  <a routerLink="/grupos" class="btn btn-soft btn-sm">Ver convite</a>
                 }
                 @default {
-                  <button type="button" class="btn btn-primary btn-sm w-full" (click)="join(group)" [disabled]="busy() === group.publicId">
+                  <button type="button" class="btn btn-primary btn-sm" (click)="join(group)" [disabled]="busy() === group.publicId">
                     {{ busy() === group.publicId ? 'Enviando…' : 'Pedir para entrar' }}
                   </button>
                 }
@@ -86,6 +77,7 @@ import { EmptyState, SeatToken, Skeleton } from '../../shared/ui';
 })
 export class GroupDirectoryPage {
   private readonly social = inject(SocialService);
+  private readonly feedback = inject(FeedbackService);
 
   protected readonly groups = signal<GroupDirectoryEntry[]>([]);
   protected readonly query = signal('');
@@ -116,15 +108,13 @@ export class GroupDirectoryPage {
 
   protected async join(group: GroupDirectoryEntry): Promise<void> {
     this.busy.set(group.publicId);
-    this.error.set(null);
     try {
       await this.social.requestToJoin(group.publicId);
       // Reflect the new state without a full reload.
-      this.groups.update((gs) =>
-        gs.map((g) => (g.publicId === group.publicId ? { ...g, relation: 'requested' as const } : g)),
-      );
+      this.groups.update((gs) => gs.map((g) => (g.publicId === group.publicId ? { ...g, relation: 'requested' as const } : g)));
+      this.feedback.success(`Pedido enviado para ${group.name}.`);
     } catch (err) {
-      this.error.set(err instanceof ApiFailure ? err.message : 'Não foi possível enviar o pedido.');
+      this.feedback.error(err instanceof ApiFailure ? err.message : 'Não foi possível enviar o pedido.');
     } finally {
       this.busy.set(null);
     }

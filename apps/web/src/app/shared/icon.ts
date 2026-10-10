@@ -35,7 +35,18 @@ export type IconName =
   | 'crown'
   | 'user'
   | 'globe'
-  | 'lock';
+  | 'lock'
+  // Interface
+  | 'more'
+  | 'logout'
+  | 'settings'
+  | 'copy'
+  | 'chevron-down'
+  | 'chevron-right'
+  | 'arrow-right'
+  | 'select'
+  | 'sliders'
+  | 'inbox';
 
 /**
  * Inline SVG icon set.
@@ -214,6 +225,48 @@ export type IconName =
         @case ('lock') {
           <rect x="4.5" y="10.5" width="15" height="10" rx="2.2" />
           <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" />
+        }
+        @case ('more') {
+          <circle cx="5" cy="12" r="1.4" [attr.fill]="color() ?? 'currentColor'" stroke="none" />
+          <circle cx="12" cy="12" r="1.4" [attr.fill]="color() ?? 'currentColor'" stroke="none" />
+          <circle cx="19" cy="12" r="1.4" [attr.fill]="color() ?? 'currentColor'" stroke="none" />
+        }
+        @case ('logout') {
+          <path d="M14 4h3.5A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5H14" />
+          <path d="M10 16.5 5.5 12 10 7.5" />
+          <path d="M5.5 12H15" />
+        }
+        @case ('settings') {
+          <path d="M4 7h9M17 7h3M4 17h3M11 17h9" />
+          <circle cx="15" cy="7" r="2.2" />
+          <circle cx="9" cy="17" r="2.2" />
+        }
+        @case ('copy') {
+          <rect x="8.5" y="8.5" width="12" height="12" rx="2.2" />
+          <path d="M15.5 8.5v-2A2.5 2.5 0 0 0 13 4H6.5A2.5 2.5 0 0 0 4 6.5V13a2.5 2.5 0 0 0 2.5 2.5h2" />
+        }
+        @case ('chevron-down') {
+          <path d="m6 9 6 6 6-6" />
+        }
+        @case ('chevron-right') {
+          <path d="m9 6 6 6-6 6" />
+        }
+        @case ('arrow-right') {
+          <path d="M4 12h16" />
+          <path d="m14 6 6 6-6 6" />
+        }
+        <!-- Caixa marcada: o modo de seleção. -->
+        @case ('select') {
+          <rect x="3.5" y="3.5" width="17" height="17" rx="3.5" />
+          <path d="m8 12.2 2.8 2.8L16.2 9.5" />
+        }
+        @case ('sliders') {
+          <path d="M5 4v6M5 14v6M12 4v3M12 11v9M19 4v9M19 17v3" />
+          <path d="M3 10h4M10 7h4M17 13h4" />
+        }
+        @case ('inbox') {
+          <path d="M3.5 13.5 6 5.5A2 2 0 0 1 7.9 4h8.2A2 2 0 0 1 18 5.5l2.5 8" />
+          <path d="M3.5 13.5V18a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-4.5h-5l-1.5 2.5h-4L8.5 13.5z" />
         }
       }
     </svg>
